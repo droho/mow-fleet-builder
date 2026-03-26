@@ -1069,6 +1069,16 @@ height: 12px;
 <select aria-label="Fleet" id="fleetSelect">
 <option value="Dwarfs">Dwarfs Fleet</option>
 </select>
+<div id="chaosVariantWrap" style="display:none; margin-top:10px;">
+<div class="muteline" data-i18n="chaos_fleet_type_label">Typ floty Chaosu</div>
+<select aria-label="Typ floty Chaosu" data-i18n="chaos_fleet_type_label" data-i18n-attr="aria-label" id="chaosVariantSelect">
+<option data-i18n="chaos_variant_plaguefleet" value="plaguefleet">Plaguefleet</option>
+<option data-i18n="chaos_variant_khorne" value="khorne">Khorne</option>
+<option data-i18n="chaos_variant_slaanesh" value="slaanesh">Slaanesh</option>
+<option data-i18n="chaos_variant_tzeentch" value="tzeentch">Tzeentch</option>
+<option data-i18n="chaos_variant_nurgle" value="nurgle">Nurgle</option>
+</select>
+</div>
 </div>
 </div>
 <div class="section"></div>
@@ -2591,6 +2601,13 @@ hulk: {
       source: "Source",
       fleet_label: "Fleet",
       fleet_pl_label: "Fleet",
+
+      chaos_fleet_type_label: "Chaos fleet type",
+      chaos_variant_plaguefleet: "Plaguefleet",
+      chaos_variant_khorne: "Khorne",
+      chaos_variant_slaanesh: "Slaanesh",
+      chaos_variant_tzeentch: "Tzeentch",
+      chaos_variant_nurgle: "Nurgle",
 
       // Left card
       base_units_title: "Fleet setup & roster",
@@ -4601,83 +4618,122 @@ c.push([
 
     checks(state){
       const c = [];
-      const { planned, base, combined } = state;
+      const { planned, base } = state;
 
-      // --- quantities (base only)
-      const bloodship    = base.qty.bloodship || 0;
-      const hellship     = base.qty.hellship || 0;
-      const wingedterror = base.qty.wingedterror || 0;
-      const plagueship   = base.qty.plagueship || 0;
+      const q = (id) => base.qty[id] || 0;
+      const bloodship      = q("bloodship");
+      const hellship       = q("hellship");
+      const wingedterror   = q("wingedterror");
+      const plagueship     = q("plagueship");
+      const deathGalleys   = q("death_galleys");
+      const ironsharks     = q("ironsharks");
+      const plaguecrushers = q("plaguecrushers");
+      const hellrammers    = q("hellrammers");
+      const hellslicers    = q("hellslicers");
+      const lordKhorne     = q("pf_lord_khorne");
+      const lordSlaanesh   = q("pf_lord_slaanesh");
+      const lordTzeentch   = q("pf_lord_tzeentch");
+      const lordNurgle     = q("pf_lord_nurgle");
+      const sorcerer       = q("pf_sorcerer");
+      const rewardCards    = q("pf_reward_cards");
+      const lordOfChange   = q("lord_of_change");
 
-      const deathGalleys   = base.qty.death_galleys || 0;
-      const ironsharks     = base.qty.ironsharks || 0;
-      const plaguecrushers = base.qty.plaguecrushers || 0;
-      const hellrammers    = base.qty.hellrammers || 0;
-      const hellslicers    = base.qty.hellslicers || 0;
-
-      const lordKhorne   = base.qty.pf_lord_khorne || 0;
-      const lordSlaanesh = base.qty.pf_lord_slaanesh || 0;
-      const lordTzeentch = base.qty.pf_lord_tzeentch || 0;
-      const lordNurgle   = base.qty.pf_lord_nurgle || 0;
-      const lordsTotal   = lordKhorne + lordSlaanesh + lordTzeentch + lordNurgle;
-
-      const sorcerer    = base.qty.pf_sorcerer || 0;
-      const rewardCards = base.qty.pf_reward_cards || 0;
-      const lordOfChange = base.qty.lord_of_change || 0;
-
+      const lordsTotal = lordKhorne + lordSlaanesh + lordTzeentch + lordNurgle;
       const mowBase = bloodship + hellship + wingedterror + plagueship;
       const solBase = deathGalleys + ironsharks + plaguecrushers + hellrammers + hellslicers;
-
-      // --- Base-only minimum requirements (parent fleet only; allies ignored)
-      c.push([`Chaos Lord: wybierz dokładnie 1 (free)`, lordsTotal === 1 ? "OK":"FAIL", lordsTotal === 1 ? "ok":"fail"]);
-      c.push([`Chaos Sorcerer: 0–1 (incl. Bane Tower)`, sorcerer <= 1 ? "OK":"FAIL", sorcerer <= 1 ? "ok":"fail"]);
-
-      c.push([`Men O’ War: 1+ (łącznie)`, mowBase >= 1 ? "OK":"FAIL", mowBase >= 1 ? "ok":"fail"]);
-      c.push([`Ship of the Line Squadrons: 1+ (łącznie)`, solBase >= 1 ? "OK":"FAIL", solBase >= 1 ? "ok":"fail"]);
-      c.push([`Ship of the Line: ≥1 Deathgalleys squadron`, deathGalleys >= 1 ? "OK":"FAIL", deathGalleys >= 1 ? "ok":"fail"]);
-
-      // --- Chaos Lord must be aboard a Man O' War of his own Power (base-only)
-      const lordReqsOk = (
-        (lordKhorne   ? bloodship    >= 1 : true) &&
-        (lordSlaanesh ? hellship     >= 1 : true) &&
-        (lordTzeentch ? wingedterror >= 1 : true) &&
-        (lordNurgle   ? plagueship   >= 1 : true)
-      );
-      c.push([`Chaos Lord flagship: wybrana Potęga → wymagany odpowiadający MOW`, lordReqsOk ? "OK":"FAIL", lordReqsOk ? "ok":"fail"]);
-
-      // --- Special Plaguefleet MOW rule (base-only)
-		const hasAllFour = (bloodship >= 1 && hellship >= 1 && wingedterror >= 1 && plagueship >= 1);
-
-		// Jedna walidacja zamiast 4 osobnych
-		const dupesOk = hasAllFour || (bloodship <= 1 && hellship <= 1 && wingedterror <= 1 && plagueship <= 1);
-
-const capText = hasAllFour
-  ? "Masz po 1 okręcie każdej Potęgi – możesz teraz dublować wybrane MOW."
-  : "Dopóki nie masz po 1 okręcie każdej Potęgi, możesz mieć maks. 1 MOW na Potęgę.";
-
-c.push([
-  `Man O' War Chaos: Khorne (${bloodship}), Slaanesh (${hellship}), Tzeentch (${wingedterror}), Nurgle (${plagueship}) — ${capText}`,
-  dupesOk ? "OK" : "FAIL",
-  dupesOk ? "ok" : "fail"
-]);
-
-      // --- Chaos Reward Cards purchase limit (base-only; allies do not increase this)
-      // Deathgalleys are a squadron of 3 ships; you may buy 1 extra card per Deathgalley (ship) + 1 per Chaos MOW.
-      const freeRewardCards = 3 * deathGalleys; // 1 per Deathgalley ship; included in squadron points
-      const maxRewardCards = (3 * deathGalleys) + mowBase; // max EXTRA cards you may BUY: +1 per Deathgalley ship, +1 per Chaos MOW
-      const rewardsOk = rewardCards <= maxRewardCards;
-      c.push([`Extra Chaos Reward Cards limit: ${rewardCards} ≤ (3×Deathgalleys + Chaos MOW) = ${maxRewardCards}`, rewardsOk ? "OK":"FAIL", rewardsOk ? "ok":"fail"]);
-
-      // --- Flyers (Airpower): per 1000 points (planned)
       const p = planned || 0;
       const maxLoC = Math.floor(p / 1000);
-      const locOk = lordOfChange <= maxLoC;
-      c.push([`Lord of Change limit: ${lordOfChange} ≤ ${maxLoC} (per full 1000 pts; planned: ${p})`, locOk ? "OK":"FAIL", locOk ? "ok":"fail"]);
+      const maxRewardCards = (3 * deathGalleys) + mowBase;
 
-      // --- Allies ratio rule (generic): must conform to parent fleet ratios (combined counts)
-      // Plaguefleet does not impose extra SOL↔MOW ratio beyond the special MOW-per-Power rule.
-      // We still expose combined totals as a sanity/info line.
-      // --- Explicit: Men O' War Cards are NOT available
+      const chaosVariant = (() => {
+        try {
+          if (typeof document === "undefined") return "plaguefleet";
+          const el = document.getElementById("chaosVariantSelect");
+          const raw = String(el && el.value ? el.value : "plaguefleet").trim().toLowerCase();
+          return raw || "plaguefleet";
+        } catch(_) {
+          return "plaguefleet";
+        }
+      })();
+
+      const push = (label, ok) => c.push([label, ok ? "OK" : "FAIL", ok ? "ok" : "fail"]);
+
+      if (chaosVariant === "plaguefleet") {
+        push("Plaguefleet: pick exactly 1 Chaos Lord (free)", lordsTotal === 1);
+        push("Plaguefleet: Chaos Sorcerer 0–1 (incl. Bane Tower)", sorcerer <= 1);
+        push("Plaguefleet: Men O' War 1+ (total)", mowBase >= 1);
+        push("Plaguefleet: Ship of the Line Squadrons 1+ (total)", solBase >= 1);
+        push("Plaguefleet: at least 1 Deathgalleys squadron", deathGalleys >= 1);
+
+        const lordReqsOk = (
+          (lordKhorne   ? bloodship    >= 1 : true) &&
+          (lordSlaanesh ? hellship     >= 1 : true) &&
+          (lordTzeentch ? wingedterror >= 1 : true) &&
+          (lordNurgle   ? plagueship   >= 1 : true)
+        );
+        push("Plaguefleet: selected Chaos Lord requires matching Men O' War", lordReqsOk);
+
+        const hasAllFour = (bloodship >= 1 && hellship >= 1 && wingedterror >= 1 && plagueship >= 1);
+        const dupesOk = hasAllFour || (bloodship <= 1 && hellship <= 1 && wingedterror <= 1 && plagueship <= 1);
+        const capText = hasAllFour
+          ? "Plaguefleet Men O' War: you have all 4 Powers represented, duplicates now allowed"
+          : "Plaguefleet Men O' War: no duplicates before all 4 Powers are represented";
+        push(capText, dupesOk);
+
+        push(`Plaguefleet: Extra Chaos Reward Cards ${rewardCards} ≤ ${maxRewardCards} (3×Deathgalleys + Chaos MOW)`, rewardCards <= maxRewardCards);
+        push(`Plaguefleet: Lord of Change ${lordOfChange} ≤ ${maxLoC} (per full 1000 pts; planned ${p})`, lordOfChange <= maxLoC);
+      }
+
+      if (chaosVariant === "khorne") {
+        push("Khorne Fleet: pick exactly 1 Chaos Lord of Khorne (free)", lordKhorne === 1 && lordsTotal === 1);
+        push("Khorne Fleet: at least 1 Khorne Bloodship", bloodship >= 1);
+        push("Khorne Fleet: Ship of the Line Squadrons 2+ (Deathgalleys + Ironsharks)", (deathGalleys + ironsharks) >= 2);
+        push("Khorne Fleet: at least 1 Ironsharks squadron", ironsharks >= 1);
+        push("Khorne Fleet: at least 1 Deathgalleys squadron", deathGalleys >= 1);
+        push("Khorne Fleet: allied Men O' War of other Powers ≤ Khorne Bloodships", (hellship + wingedterror + plagueship) <= bloodship);
+        push("Khorne Fleet: Chaos Sorcerer is not allowed", sorcerer === 0);
+        push("Khorne Fleet: Lord of Change is not allowed", lordOfChange === 0);
+        push("Khorne Fleet: only Ironsharks and Deathgalleys squadrons are available", plaguecrushers === 0 && hellrammers === 0 && hellslicers === 0);
+        push(`Khorne Fleet: Extra Chaos Reward Cards ${rewardCards} ≤ ${maxRewardCards} (3×Deathgalleys + Chaos MOW)`, rewardCards <= maxRewardCards);
+      }
+
+      if (chaosVariant === "slaanesh") {
+        push("Slaanesh Fleet: pick exactly 1 Chaos Lord of Slaanesh (free)", lordSlaanesh === 1 && lordsTotal === 1);
+        push("Slaanesh Fleet: at least 1 Slaanesh Hellship", hellship >= 1);
+        push("Slaanesh Fleet: Ship of the Line Squadrons 3+ (Deathgalleys + Hellrammers + Hellslicers)", (deathGalleys + hellrammers + hellslicers) >= 3);
+        push("Slaanesh Fleet: at least 1 Hellrammers squadron", hellrammers >= 1);
+        push("Slaanesh Fleet: at least 1 Hellslicers squadron", hellslicers >= 1);
+        push("Slaanesh Fleet: at least 1 Deathgalleys squadron", deathGalleys >= 1);
+        push("Slaanesh Fleet: allied Men O' War of other Powers ≤ Slaanesh Hellships", (bloodship + wingedterror + plagueship) <= hellship);
+        push("Slaanesh Fleet: Chaos Sorcerer 0–1 (incl. Bane Tower)", sorcerer <= 1);
+        push("Slaanesh Fleet: Lord of Change is not allowed", lordOfChange === 0);
+        push("Slaanesh Fleet: only Deathgalleys, Hellrammers and Hellslicers squadrons are available", ironsharks === 0 && plaguecrushers === 0);
+        push(`Slaanesh Fleet: Extra Chaos Reward Cards ${rewardCards} ≤ ${maxRewardCards} (3×Deathgalleys + Chaos MOW)`, rewardCards <= maxRewardCards);
+      }
+
+      if (chaosVariant === "tzeentch") {
+        push("Tzeentch Fleet: pick exactly 1 Chaos Lord of Tzeentch (free)", lordTzeentch === 1 && lordsTotal === 1);
+        push("Tzeentch Fleet: at least 1 Tzeentch Great Winged Terror", wingedterror >= 1);
+        push("Tzeentch Fleet: at least 1 Deathgalleys squadron", deathGalleys >= 1);
+        push("Tzeentch Fleet: allied Men O' War of other Powers ≤ Tzeentch Great Winged Terrors", (bloodship + hellship + plagueship) <= wingedterror);
+        push("Tzeentch Fleet: exactly 1 Chaos Sorcerer required", sorcerer === 1);
+        push(`Tzeentch Fleet: Lord of Change ${lordOfChange} ≤ ${maxLoC} (per full 1000 pts; planned ${p})`, lordOfChange <= maxLoC);
+        push("Tzeentch Fleet: only Deathgalleys squadrons are available", ironsharks === 0 && plaguecrushers === 0 && hellrammers === 0 && hellslicers === 0);
+        push(`Tzeentch Fleet: Extra Chaos Reward Cards ${rewardCards} ≤ ${maxRewardCards} (3×Deathgalleys + Chaos MOW)`, rewardCards <= maxRewardCards);
+      }
+
+      if (chaosVariant === "nurgle") {
+        push("Nurgle Fleet: pick exactly 1 Chaos Lord of Nurgle (free)", lordNurgle === 1 && lordsTotal === 1);
+        push("Nurgle Fleet: at least 1 Nurgle Plagueship", plagueship >= 1);
+        push("Nurgle Fleet: Ship of the Line Squadrons 2+ (Deathgalleys + Plaguecrushers)", (deathGalleys + plaguecrushers) >= 2);
+        push("Nurgle Fleet: at least 1 Plaguecrushers squadron", plaguecrushers >= 1);
+        push("Nurgle Fleet: at least 1 Deathgalleys squadron", deathGalleys >= 1);
+        push("Nurgle Fleet: allied Men O' War of other Powers ≤ Nurgle Plagueships", (bloodship + hellship + wingedterror) <= plagueship);
+        push("Nurgle Fleet: Chaos Sorcerer 0–1 (incl. Bane Tower)", sorcerer <= 1);
+        push("Nurgle Fleet: Lord of Change is not allowed", lordOfChange === 0);
+        push("Nurgle Fleet: only Deathgalleys and Plaguecrushers squadrons are available", ironsharks === 0 && hellrammers === 0 && hellslicers === 0);
+        push(`Nurgle Fleet: Extra Chaos Reward Cards ${rewardCards} ≤ ${maxRewardCards} (3×Deathgalleys + Chaos MOW)`, rewardCards <= maxRewardCards);
+      }
 
       return c;
     }
@@ -5390,6 +5446,22 @@ function computeBase(fleet){
     const sea = computeSeaMonsters();
 
     const total = base.total + allies.points + sea.points;
+    const chaosVariantEl = $("chaosVariantSelect");
+    const chaosVariant = fleetKey === "Chaos" && chaosVariantEl
+      ? String(chaosVariantEl.value || "plaguefleet").trim().toLowerCase()
+      : null;
+    const langCode = window.MOW_I18N?.getLang?.() || "pl";
+    const chaosVariantLabelMap = {
+      plaguefleet: { pl: "Plaguefleet", en: "Plaguefleet" },
+      khorne: { pl: "Khorne", en: "Khorne" },
+      slaanesh: { pl: "Slaanesh", en: "Slaanesh" },
+      tzeentch: { pl: "Tzeentch", en: "Tzeentch" },
+      nurgle: { pl: "Nurgle", en: "Nurgle" }
+    };
+    const chaosVariantLabel = chaosVariant
+      ? ((chaosVariantLabelMap[chaosVariant] && (chaosVariantLabelMap[chaosVariant][langCode] || chaosVariantLabelMap[chaosVariant].en)) || chaosVariant)
+      : null;
+    const chaosVariantExportLabel = langCode === "en" ? "Chaos Fleet Type" : "Typ floty Chaosu";
 
     const combinedCounts = {
       SOL: base.counts.SOL + (allies.countsKnown ? allies.counts.SOL : 0),
@@ -5480,6 +5552,7 @@ setText("pts_allyRemain", Math.max(0, allyCap - allies.points));
     if(out){
       const lines = [];
       lines.push(`${fleetKey} Fleet — Community Rulebook v0.1`);
+      if(chaosVariantLabel) lines.push(`${chaosVariantExportLabel}: ${chaosVariantLabel}`);
       lines.push(`Planned: ${planned} pts`);
       lines.push(`Total: ${total} pts`);
       lines.push("");
@@ -9334,6 +9407,8 @@ ${weaponNotesHtml}
   (function(){
     const sel = document.getElementById("fleetSelect");
     const root = document.getElementById("unitsRoot");
+    const chaosVariantSelect = document.getElementById("chaosVariantSelect");
+    const UNIT_CACHE = (window.MOW_UNIT_VALUE_CACHE = window.MOW_UNIT_VALUE_CACHE || Object.create(null));
     if(!sel || !root) return;
 
     function esc(s){
@@ -9414,6 +9489,74 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
             </div>`;
     }
 
+    function getCurrentChaosVariant(){
+      if(!chaosVariantSelect) return "plaguefleet";
+      const raw = String(chaosVariantSelect.value || "plaguefleet").trim().toLowerCase();
+      return raw || "plaguefleet";
+    }
+
+    function getVisibleChaosUnitIds(variant){
+      const v = String(variant || "plaguefleet").trim().toLowerCase();
+      const all = [
+        "bloodship","hellship","wingedterror","plagueship",
+        "death_galleys","ironsharks","plaguecrushers","hellrammers","hellslicers",
+        "pf_lord_khorne","pf_lord_slaanesh","pf_lord_tzeentch","pf_lord_nurgle",
+        "pf_sorcerer","pf_reward_cards","lord_of_change"
+      ];
+      const byVariant = {
+        plaguefleet: all,
+        khorne: [
+          "bloodship","hellship","wingedterror","plagueship",
+          "death_galleys","ironsharks",
+          "pf_lord_khorne","pf_reward_cards"
+        ],
+        slaanesh: [
+          "bloodship","hellship","wingedterror","plagueship",
+          "death_galleys","hellrammers","hellslicers",
+          "pf_lord_slaanesh","pf_sorcerer","pf_reward_cards"
+        ],
+        tzeentch: [
+          "bloodship","hellship","wingedterror","plagueship",
+          "death_galleys",
+          "pf_lord_tzeentch","pf_sorcerer","pf_reward_cards","lord_of_change"
+        ],
+        nurgle: [
+          "bloodship","hellship","wingedterror","plagueship",
+          "death_galleys","plaguecrushers",
+          "pf_lord_nurgle","pf_sorcerer","pf_reward_cards"
+        ]
+      };
+      return new Set(byVariant[v] || byVariant.plaguefleet);
+    }
+
+    function getRenderableBaseUnits(fleetKey, baseUnits){
+      if(fleetKey !== "Chaos") return Array.isArray(baseUnits) ? baseUnits : [];
+      const allowed = getVisibleChaosUnitIds(getCurrentChaosVariant());
+      return (Array.isArray(baseUnits) ? baseUnits : []).filter(u => allowed.has(String(u && u.id || "")));
+    }
+
+    function snapshotFleetUnitValues(fleetKey){
+      const fleet = (window.MOW_FLEETS || {})[fleetKey];
+      if(!fleet || !Array.isArray(fleet.baseUnits)) return;
+      fleet.baseUnits.forEach(u=>{
+        const el = document.getElementById(u.id);
+        if(!el) return;
+        UNIT_CACHE[u.id] = String(el.value ?? "");
+      });
+    }
+
+    function restoreFleetUnitValues(fleetKey){
+      const fleet = (window.MOW_FLEETS || {})[fleetKey];
+      if(!fleet || !Array.isArray(fleet.baseUnits)) return;
+      fleet.baseUnits.forEach(u=>{
+        const el = document.getElementById(u.id);
+        if(!el) return;
+        if(Object.prototype.hasOwnProperty.call(UNIT_CACHE, u.id)){
+          el.value = UNIT_CACHE[u.id];
+        }
+      });
+    }
+
     function renderUnits(fleetKey){
       const fleet = (window.MOW_FLEETS || {})[fleetKey];
       if(!fleet || !Array.isArray(fleet.baseUnits)){
@@ -9421,6 +9564,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
         return;
       }
 
+      const renderableUnits = getRenderableBaseUnits(fleetKey, fleet.baseUnits);
       const groups = {
         MOW: { title: "Men O’ War", items: [] },
         SOL: { title: "Ship of the Line", items: [] },
@@ -9429,7 +9573,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
         FLY: { title: "Flyers", items: [] }
       };
 
-      fleet.baseUnits.forEach(u=>{
+      renderableUnits.forEach(u=>{
         const t = (u && u.type) ? u.type : "OTHER";
         if(!groups[t]) groups[t] = { title: t, items: [] };
         groups[t].items.push(u);
@@ -9487,12 +9631,14 @@ sel.innerHTML = ordered.map(k => {
     if(ordered.includes(current)) sel.value = current;
 
     function bootTo(k){
+      snapshotFleetUnitValues(window.MOW_BOOT_FLEET || sel.value || k);
       window.MOW_BOOT_FLEET = k;
       
 
       // THEME PATCH (per fleet)
       if(window.MOW_applyTheme) window.MOW_applyTheme(k); // sets data-fleet + CSS vars
 renderUnits(k);
+      restoreFleetUnitValues(k);
       if(typeof window.MOW_core_boot === "function"){
         window.MOW_core_boot(k);
       }
@@ -9510,6 +9656,14 @@ renderUnits(k);
     sel.addEventListener("change", function(){
       bootTo(sel.value);
     });
+
+    if(chaosVariantSelect){
+      chaosVariantSelect.addEventListener("change", function(){
+        if((sel.value || "") === "Chaos"){
+          bootTo("Chaos");
+        }
+      });
+    }
 
 // Initial boot
 bootTo(sel.value);
@@ -9723,8 +9877,26 @@ function bindRealtimeNavStats(){
 
   // Po zmianie floty sekcje jednostek się przebudowują, więc odśwież listę.
   const fleetSel = document.getElementById("fleetSelect");
+  const chaosVariantWrap = document.getElementById("chaosVariantWrap");
+  const chaosVariantSelect = document.getElementById("chaosVariantSelect");
+
+  // Custom patch by OpenAI - 2026-03-26
+  // Step 1 for Chaos god-specific fleets: add a secondary selector shown only for Chaos.
+  function syncChaosVariantVisibility(){
+    if(!chaosVariantWrap) return;
+    const isChaos = !!(fleetSel && fleetSel.value === "Chaos");
+    chaosVariantWrap.style.display = isChaos ? "block" : "none";
+    if(chaosVariantSelect && !chaosVariantSelect.value){
+      chaosVariantSelect.value = "plaguefleet";
+    }
+  }
+
+  syncChaosVariantVisibility();
   if(fleetSel){
-    fleetSel.addEventListener("change", ()=> setTimeout(rebuild, 50));
+    fleetSel.addEventListener("change", ()=>{
+      syncChaosVariantVisibility();
+      setTimeout(rebuild, 50);
+    });
   }
 
   bindRealtimeNavStats();
@@ -10005,11 +10177,12 @@ function bindRealtimeNavStats(){
   function buildMachineExport(){
     const fleetKey=getCurrentFleetKey(); const fleet=(window.MOW_FLEETS&&window.MOW_FLEETS[fleetKey])?window.MOW_FLEETS[fleetKey]:null; if(!fleet) throw new Error('Fleet not found: '+fleetKey);
     const plannedId=fleet.plannedId||'plannedPts'; const planned=$(plannedId)?clampInt($(plannedId).value,0,999999):0;
+    const chaosVariant = fleetKey === 'Chaos' ? getCurrentChaosVariant() : null;
     const units=buildBaseUnitsExport(fleet); const seaMonsters=buildSeaMonstersExport(); const allies=buildAlliesExport();
     const shipCardsCount=units.filter(u => /men o'? war cards/i.test(String(u.label||'')) || String(u.id)==='cards').reduce((s,u)=>s+Number(u.qty||0),0);
     const rewardCardsCount=units.filter(u => /reward cards/i.test(String(u.label||'')) || /reward_cards/i.test(String(u.id||''))).reduce((s,u)=>s+Number(u.qty||0),0);
     const totalBase=units.reduce((s,u)=>s+Number(u.points||0),0); const total=totalBase+Number(allies.points||0)+Number(seaMonsters.points||0);
-    return { format:'mow-fleet-export', version:1, source:'mow_builder_advanced', fleetKey, title:fleet.title||fleetKey, planned, total, wizardLevel:inferWizardLevel(units), shipCardsCount, rewardCardsCount, units, allies, seaMonsters };
+    return { format:'mow-fleet-export', version:2, source:'mow_builder_advanced', fleetKey, chaosVariant, title:fleet.title||fleetKey, planned, total, wizardLevel:inferWizardLevel(units), shipCardsCount, rewardCardsCount, units, allies, seaMonsters };
   }
   function encodeExport(obj){ const json=JSON.stringify(obj); const bytes=new TextEncoder().encode(json); let binary=''; bytes.forEach(b=>binary+=String.fromCharCode(b)); return 'MOWFLEET1:'+btoa(binary); }
   async function copyTextSmart(text){ try{ await navigator.clipboard.writeText(text); return true; }catch(e){} try{ const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.left='-9999px'; ta.style.top='-9999px'; document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); document.body.removeChild(ta); return !!ok; }catch(e){} return false; }
