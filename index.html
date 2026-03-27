@@ -10289,5 +10289,55 @@ function bindRealtimeNavStats(){
 })();
 </script>
 
+
+<script>
+/* Custom patch: keep mobile nav button/panel above on-screen keyboard on mobile */
+(function(){
+  const btn = document.getElementById('mobNavBtn');
+  const panel = document.getElementById('mobNavPanel');
+  if (!btn) return;
+
+  const BASE_BTN_BOTTOM = 14;
+  const PANEL_GAP = 64; // panel sits above the button
+
+  function setOffsets(px){
+    btn.style.bottom = px + 'px';
+    if (panel) panel.style.bottom = (px + PANEL_GAP) + 'px';
+  }
+
+  function updateMobileNavKeyboardOffset(){
+    // Only relevant for the mobile layout that actually shows the floating button
+    if (window.matchMedia && !window.matchMedia('(max-width: 600px)').matches){
+      btn.style.bottom = '';
+      if (panel) panel.style.bottom = '';
+      return;
+    }
+
+    if (!window.visualViewport){
+      setOffsets(BASE_BTN_BOTTOM);
+      return;
+    }
+
+    const vv = window.visualViewport;
+    const keyboardHeight = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+    setOffsets(BASE_BTN_BOTTOM + keyboardHeight);
+  }
+
+  if (window.visualViewport){
+    window.visualViewport.addEventListener('resize', updateMobileNavKeyboardOffset);
+    window.visualViewport.addEventListener('scroll', updateMobileNavKeyboardOffset);
+  }
+  window.addEventListener('resize', updateMobileNavKeyboardOffset);
+  window.addEventListener('orientationchange', updateMobileNavKeyboardOffset);
+  window.addEventListener('focusin', updateMobileNavKeyboardOffset);
+  window.addEventListener('focusout', function(){
+    setTimeout(updateMobileNavKeyboardOffset, 50);
+  });
+  window.addEventListener('load', updateMobileNavKeyboardOffset);
+
+  updateMobileNavKeyboardOffset();
+})();
+</script>
+
 </body>
 </html>
