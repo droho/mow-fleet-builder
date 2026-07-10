@@ -1097,8 +1097,8 @@ height: 12px;
 <h3 data-i18n="allies_section_title">Allies (jedna frakcja)</h3>
 <div class="row">
 <div>
-<div class="title">Allies faction</div>
-<div class="desc"><span data-i18n="allies_desc">Wybierz jedną frakcję sojuszniczą. Dla <b>Maybe</b> obowiązują dodatkowe zasady (zgoda przeciwnika / rzut na lojalność).</span></div>
+<div class="title" data-i18n="allied_faction_title">Frakcja sojusznicza</div>
+<div class="desc"><span data-i18n="allies_desc" data-i18n-html>Wybierz jedną frakcję sojuszniczą. Dla <b>Maybe</b> obowiązują dodatkowe zasady (zgoda przeciwnika / rzut na lojalność).</span></div>
 </div>
 <div class="qty" style="justify-content:flex-end;">
 <select id="allyFaction">
@@ -1124,7 +1124,7 @@ height: 12px;
 </div>
 <div id="allyMiniBuilder" style="display:none; margin-top:8px;"></div>
 <div class="muteline" id="allyMaybeNote" style="display:none; margin-top:8px;">
-<span class="pill"><b>Maybe:</b> wymagany rzut na lojalność / zgoda przeciwnika.</span>
+<span class="pill" data-i18n="allies_maybe_note" data-i18n-html><b>Maybe:</b> wymagany rzut na lojalność / zgoda przeciwnika.</span>
 </div>
 </div>
 <div class="section" id="sec_sea">
@@ -1217,7 +1217,7 @@ height: 12px;
     window.MOW_BOOT_FLEET = "Dwarfs";
   </script>
 <script>
-/* ===== Inlined from mow_profiles_nofirepowerRaw.js ===== */
+/* embedded: mow_profiles_nofirepowerRaw.js */
 /* =========================================
    Man O' War – Unit Profiles (mow_profiles.js)
    Source of truth (standard):
@@ -2573,10 +2573,9 @@ hulk: {
     }
   }
 })();
-/* ===== End mow_profiles_nofirepowerRaw.js ===== */
 </script>
 <script>
-/* ===== Inlined from mow_lang_plbase.js ===== */
+/* embedded: mow_lang_plbase.js */
 /* mow_lang.js (PL/EN) — minimal i18n layer for Man O' War builder
  * IMPORTANT DESIGN:
  * - We DO NOT translate any existing English text into Polish.
@@ -2626,7 +2625,11 @@ hulk: {
 
       // Allies
       allies_section_title: "Allies & Mercenaries (one faction)",
+      allied_faction_title: "Allied faction",
       allies_desc: "Choose a single allied faction. For <b>Maybe</b>, extra rules apply (opponent consent / loyalty roll).",
+      allies_maybe_note: "<b>Maybe:</b> a loyalty roll or the opponent’s consent is required.",
+      allies_choose_faction_prompt: "Choose an allied faction to view its units.",
+      allies_no_data: "No allied unit data is available for this faction.",
       none_option: "— none —",
       allies_budget_title: "Allies/Mercenaries budget",
       allies_budget_desc: "Limit is 1/3 of the plan. Shows how much is spent and how much remains.",
@@ -2687,19 +2690,20 @@ hulk: {
       // (Optional) token replacements used in dynamic text
       _tokens: {
         "pkt": "pts",
-        "szt.": "pcs",
+        "szt.": "units",
         "Koszt:": "Cost:",
-        "pkt / szt.": "pts / pcs",
+        "pkt / szt.": "pts / unit",
         "pkt / karta": "pts / card",
         "pkt / rune": "pts / rune",
         "na admiralskim flagshipu": "on the Admiral’s flagship",
         "tylko Admiral's flagship": "Admiral’s flagship only",
         "Opcjonalne zasady Dwarfs z Citadel Journal": "Optional Dwarf rules from Citadel Journal",
-        "Źródło w tej wersji:": "Source in this version:",
+        "Źródło w tej wersji:": "Source:",
+        "Źródło:": "Source:",
         "Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.": "Validation is aggregate only; assign upgrades to exact ships/turrets manually.",
         "— wybierz —": "— choose —",
         "Wybierz poziom (punkty). Koszt: wg wyboru.": "Choose level (points). Cost: per selection.",
-        "1. szt. gratis, kolejne po": "1st pcs free, next at",
+        "1. szt. gratis, kolejne po": "1st card free; additional cards cost",
         "wybierz dokładnie 1": "choose exactly 1",
         "wybrana Potęga": "selected Power",
         "wymagany odpowiadający": "required matching",
@@ -2806,6 +2810,9 @@ hulk: {
         "Kopiuj do schowka": "Copy to clipboard",
         "OK/FAIL na bieżąco": "OK/FAIL live",
         "Allies: brak": "Allies: none",
+        "— brak —": "— none —",
+        "Wybierz frakcję allies aby zobaczyć listę jednostek.": "Choose an allied faction to view its units.",
+        "Brak danych allies dla tej frakcji.": "No allied unit data is available for this faction.",
         "Caster: wybierz dokładnie 1 (Wizard albo Chaos Sorcerer)": "Caster: choose exactly 1 (Wizard or Chaos Sorcerer)",
         "Chaos Sorcerer zamiast Wizard — wymaga zgody obu graczy": "Chaos Sorcerer instead of Wizard — requires both players’ consent",
         "Wybierz poziom Grey Seera. (Skaven: niestandardowy czarodziej).": "Choose Grey Seer level. (Skaven: non-standard wizard).",
@@ -2834,10 +2841,10 @@ hulk: {
         "Allies status: No (niedozwolone)": "Allies status: No (not allowed)",
         "Citadel Journal — zasady opcjonalne": "Citadel Journal — optional rules",
         "Citadel Journal — dowodzenie i załoga": "Citadel Journal — command & crew",
-        "Koszt: 0 pkt. Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.": "Cost: 0 pts. Optional Dwarf rules from Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards, and Master Engineer cards. Source in this version: MOW Community Annual v0.1. Validation is aggregate only; assign upgrades to exact ships/turrets manually.",
+        "Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.": "Optional Dwarf rules from Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards, and Master Engineer cards. Source: MOW Community Annual v0.1. Validation is aggregate only; assign upgrades to exact ships/turrets manually.",
         "Koszt: 50 pkt. 0–1, na admiralskim flagshipu. Dispels incoming spells on 5+ instead of 6; +1 to Sea Monster summoning; enables Rune cards. Worth +2 Battle Honours if lost.": "Cost: 50 pts. 0–1, on the Admiral’s flagship. Dispels incoming spells on 5+ instead of 6; +1 to Sea Monster summoning; enables Rune cards. Worth +2 Battle Honours if lost.",
-        "Koszt: 25 pkt / szt. Max 1 per Dwarf Men O' War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.": "Cost: 25 pts / model. Max 1 per Dwarf Men O’ War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.",
-        "Koszt: 50 pkt. 0–1, tylko Admiral's flagship. Adds 1D3 to boarding combat total; does not count against crew limit; has special casualty rules.": "Cost: 50 pts. 0–1, Admiral’s flagship only. Adds 1D3 to boarding combat total; does not count against crew limit; has special casualty rules.",
+        "Koszt: 25 pkt / szt. Max 1 per Dwarf Man O' War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.": "Cost: 25 pts / model. Max 1 per Dwarf Man O’ War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.",
+        "Koszt: 50 pkt. 0–1, tylko Admiral's flagship. Adds 1D3 to boarding combat total; does not count against crew limit; has special casualty rules.": "Cost: 50 pts. 0–1, Admiral’s flagship only. Adds 1D3 to boarding combat total; does not count toward the crew limit; has special casualty rules.",
         "Koszt: 25 pkt / karta. Requires Runesmith. Weapon Rune / Runic Shot. Once and discard. May modify the hit-location roll by ±2; natural 1 still misses. +0 Battle Honours.": "Cost: 25 pts / card. Requires Runesmith. Weapon Rune / Runic Shot. One use; discard after use. May modify the hit-location roll by ±2; natural 1 still misses. +0 Battle Honours.",
         "Koszt: 25 pkt / karta. Requires Runesmith. Weapon Rune / Runic Shot. Once and discard. If a location fails its save, resolve extra critical damage effects as per card text. +0 Battle Honours.": "Cost: 25 pts / card. Requires Runesmith. Weapon Rune / Runic Shot. One use; discard after use. If a location fails its save, resolve extra critical damage effects as per card text. +0 Battle Honours.",
         "Koszt: 25 pkt / rune. Requires Runesmith. Cannon Rune. Shots from this cannon/turret have additional -1 save modifier. Cumulative. +1 Battle Honour.": "Cost: 25 pts / rune. Requires Runesmith. Cannon Rune. Shots from this cannon/turret have an additional -1 save modifier. Cumulative. +1 Battle Honour.",
@@ -2856,9 +2863,9 @@ hulk: {
         "Citadel Journal — Beast-Lords i Coven": "Citadel Journal — Beast-Lords & Coven",
         "Citadel Journal — Tainted Stones: Beast-Lord only": "Citadel Journal — Tainted Stones: Beast-Lord only",
         "Citadel Journal — Tainted Stones: Black Ark only": "Citadel Journal — Tainted Stones: Black Ark only",
-        "Koszt: 0 pkt. Opcjonalne zasady Dark Elves z Citadel Journal: Beast-Lords, Tainted Stones i Witch Elf Coven. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.": "Cost: 0 pts. Optional Dark Elf rules from Citadel Journal: Beast-Lords, Tainted Stones, and Witch Elf Coven. Source in this version: MOW Community Annual v0.1. Validation is aggregate only; assign Stones to the exact Black Ark / Beast-Lord manually.",
-        "Koszt: 75 pkt / szt. Max 1 za każdą Black Ark i Death Fortress. +1 do summoning rolls; po czarach może próbować przywołać losowego Sea Monstera na 6. +2 Battle Honours.": "Cost: 75 pts / model. Max 1 for each Black Ark and Death Fortress. +1 to summoning rolls; after spells, may try to summon a random Sea Monster on a 6. +2 Battle Honours.",
-        "Koszt: 50 pkt. 0–1, tylko Admiral's Black Ark. +1 w boarding actions; gdy Black Ark atakuje abordażem i wygra, na 5–6 usuwa 2 enemy crew zamiast 1. Nie liczy się do crew limit. +1 Battle Honour.": "Cost: 50 pts. 0–1, Admiral’s Black Ark only. +1 in boarding actions; when the Black Ark attacks by boarding and wins, on 5–6 remove 2 enemy crew instead of 1. Does not count against crew limit. +1 Battle Honour.",
+        "Opcjonalne zasady Dark Elves z Citadel Journal: Beast-Lords, Tainted Stones i Witch Elf Coven. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.": "Optional Dark Elf rules from Citadel Journal: Beast-Lords, Tainted Stones, and Witch Elf Coven. Source: MOW Community Annual v0.1. Validation is aggregate only; assign Stones to the exact Black Ark / Beast-Lord manually.",
+        "Koszt: 75 pkt / szt. Max 1 na Black Ark lub Death Fortress. +1 do summoning rolls; po czarach może próbować przywołać losowego Sea Monstera na 6. +2 Battle Honours.": "Cost: 75 pts / model. Max 1 per Black Ark or Death Fortress. +1 to summoning rolls; after casting spells, may try to summon a random Sea Monster on a 6. +2 Battle Honours.",
+        "Koszt: 50 pkt. 0–1, tylko Admiral's Black Ark. +1 w boarding actions; gdy Black Ark rozpoczyna i wygrywa boarding action, na 5–6 usuwa 2 enemy crew zamiast 1. Nie liczy się do crew limit. +1 Battle Honour.": "Cost: 50 pts. 0–1, Admiral’s Black Ark only. +1 in boarding actions; when the Black Ark initiates and wins a boarding action, on 5–6 remove 2 enemy crew instead of 1. Does not count toward the crew limit. +1 Battle Honour.",
         "Koszt: 75 pkt. Beast-Lord only. Kontroluje 1 Dark Elf Sea Monster po zniszczeniu jego crew; potwór nie nurkuje i walczy dalej jak z crew. +2 Battle Honours.": "Cost: 75 pts. Beast-Lord only. Controls 1 Dark Elf Sea Monster after its crew is destroyed; the monster does not dive and keeps fighting as if crewed. +2 Battle Honours.",
         "Koszt: 50 pkt. Beast-Lord only. Raz na turę: re-roll na Doomsome Prey table, albo +1 do jednego Monster Reaction roll, albo próba powstrzymania Triton's Banish na 4+. +1 Battle Honour.": "Cost: 50 pts. Beast-Lord only. Once per turn: re-roll on the Doomsome Prey table, or +1 to one Monster Reaction roll, or try to prevent Triton’s Banish on 4+. +1 Battle Honour.",
         "Koszt: 100 pkt. Black Ark only. Leczy 1 wound Sea Monstera w kontakcie z Arką, maks. 3 razy na bitwę; albo +1 do jednego healing roll dla potwora w Black Ark. +2 Battle Honours.": "Cost: 100 pts. Black Ark only. Heals 1 wound on a Sea Monster in contact with the Ark, max 3 times per battle; or +1 to one healing roll for a monster in the Black Ark. +2 Battle Honours.",
@@ -2867,7 +2874,7 @@ hulk: {
         "Koszt: 75 pkt. Black Ark only. Przed ruchem Arki rzuć D6: 4+ daje atak 3 dice, range 9\", save -1 w dowolnym kierunku; 2–3 nic; 1 poświęć 1 crew albo D3 Low hits. +2 Battle Honours.": "Cost: 75 pts. Black Ark only. Before moving the Ark, roll D6: 4+ gives a 3-dice attack, range 9\", save -1 in any direction; 2–3 no effect; 1 sacrifice 1 crew or suffer D3 Low hits. +2 Battle Honours.",
         "Citadel Journal — Elven Mage i High Magic": "Citadel Journal — Elven Mage & High Magic",
         "Citadel Journal — Crystals of Power": "Citadel Journal — Crystals of Power",
-        "Koszt: 0 pkt. Opcjonalne zasady High Elves z Citadel Journal: Elven Mage, High Magic i Crystals of Power. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.": "Cost: 0 pts. Optional High Elf rules from Citadel Journal: Elven Mage, High Magic, and Crystals of Power. Source in this version: MOW Community Annual v0.1. Crystal validation is aggregate only; assign each Crystal to the exact Elven Man O’ War manually.",
+        "Opcjonalne zasady High Elves z Citadel Journal: Elven Mage, High Magic i Crystals of Power. Źródło: MOW Community Annual v0.1. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.": "Optional High Elf rules from Citadel Journal: Elven Mage, High Magic, and Crystals of Power. Source: MOW Community Annual v0.1. Crystal validation is aggregate only; assign each Crystal to the exact Elven Man O’ War manually.",
         "0–1, na admiralskim flagshipu, zamiast zwykłego Wizarda. Używa Power points oraz osobnej talii High Magic. Koszt i Battle Honours zależą od wybranego poziomu.": "0–1, on the Admiral’s flagship, instead of the standard Wizard. Uses Power points and a separate High Magic deck. Cost and Battle Honours depend on the selected level.",
         "Koszt: 50 pkt. Raz podczas deploymentu przestaw wyposażony statek do 12″, zachowując normalne zasady deploymentu. Statek ignoruje czary wymuszające jego ruch. +2 Battle Honours.": "Cost: 50 pts. Once during deployment, reposition the equipped ship by up to 12″ while following the normal deployment rules. The ship ignores spells that force it to move. +2 Battle Honours.",
         "Koszt: 50 pkt. Statek może zawsze strzelać z każdego nieuszkodzonego uzbrojenia; czary i inne efekty nie mogą zablokować ostrzału. Nie działa, gdy statek jest abandoned. +2 Battle Honours.": "Cost: 50 pts. The ship may always fire every undamaged weapon; spells and other effects cannot prevent it from firing. It has no effect while the ship is abandoned. +2 Battle Honours.",
@@ -2880,15 +2887,15 @@ hulk: {
         "Citadel Journal — Shamans i Waaagh Magic": "Citadel Journal — Shamans & Waaagh Magic",
         "Citadel Journal — Kustom Kroozers: modyfikacje statku": "Citadel Journal — Kustom Kroozers: ship modifications",
         "Citadel Journal — Kustom Kroozers: załoga i abordaż": "Citadel Journal — Kustom Kroozers: crew & boarding",
-        "Koszt: 0 pkt. Opcjonalne zasady Orcs z Citadel Journal: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Źródło w tej wersji: MOW Community Annual v0.1. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).": "Cost: 0 pts. Optional Orc rules from Citadel Journal: multiple Shamans, Waaagh Magic, and Kustom Kroozers. Source in this version: MOW Community Annual v0.1. Kustom Kards are unique; validation is aggregate only, so assign them to specific Hulks manually (max. 2 cards per Hulk).",
+        "Opcjonalne zasady Orcs z Citadel Journal: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Źródło: MOW Community Annual v0.1. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).": "Optional Orc rules from Citadel Journal: multiple Shamans, Waaagh Magic, and Kustom Kroozers. Source: MOW Community Annual v0.1. Kustom Kards are unique; validation is aggregate only, so assign them to specific Hulks manually (max. 2 cards per Hulk).",
         "Na admiralskim Hulk, zamiast zwykłego Wizarda. Korzysta z Waaagh Magic; koszt, poziom, dispel range i Battle Honours zależą od wyboru.": "On the Admiral’s Hulk, instead of the standard Wizard. Uses Waaagh Magic; cost, level, dispel range, and Battle Honours depend on the selection.",
         "Koszt: 25 pkt / szt. Tylko na Hulk innym niż flagship; level 1, dispel range 6″, +1 Battle Honour.": "Cost: 25 pts / model. Only on a Hulk other than the flagship; level 1, dispel range 6″, +1 Battle Honour.",
         "Koszt: 50 pkt / szt. Tylko na Hulk innym niż flagship; level 2, dispel range 6″, +2 Battle Honours.": "Cost: 50 pts / model. Only on a Hulk other than the flagship; level 2, dispel range 6″, +2 Battle Honours.",
-        "Koszt: 75 pkt / szt. Tylko na Hulk innym niż flagship; maksymalny dozwolony poziom na innym Man O’ War: level 3, dispel range 9″, +3 Battle Honours.": "Cost: 75 pts / model. Only on a Hulk other than the flagship; maximum level allowed on another Man O’ War: level 3, dispel range 9″, +3 Battle Honours.",
+        "Koszt: 75 pkt / szt. Tylko na Hulk innym niż flagship; maksymalny poziom dozwolony na Man O’ War innym niż flagship: level 3, dispel range 9″, +3 Battle Honours.": "Cost: 75 pts / model. Only on a Hulk other than the flagship; maximum level allowed on a non-flagship Man O’ War: level 3, dispel range 9″, +3 Battle Honours.",
         "Koszt: 25 pkt / szt. Tylko na squadron flagship; wyłącznie level 1, dispel range 6″, +1 Battle Honour.": "Cost: 25 pts / model. Squadron flagship only; level 1 only, dispel range 6″, +1 Battle Honour.",
         "Koszt: 50 pkt. Statek otrzymuje ram. Jeśli Iron Claws wykonają grab attack z co najmniej 3″, cel otrzymuje także normalne trafienie ramem. +2 Battle Honours.": "Cost: 50 pts. The ship gains a ram. If Iron Claws make a grab attack from at least 3″ away, the target also suffers a normal ram hit. +2 Battle Honours.",
         "Koszt: 25 pkt. Przy każdym ruchu napędzanym treadwheelem dodaj D3″ do movement rate statku. +1 Battle Honour.": "Cost: 25 pts. Each time the ship moves under treadwheel power, add D3″ to its movement rate. +1 Battle Honour.",
-        "Koszt: 50 pkt. Podwodny pocisk używany jak torpeda Nautilusa; kierunek można zmienić o ±1. Dublet przy ustalaniu dystansu łamie sprężynę i od następnej tury wyrzutnia jest bezużyteczna. +2 Battle Honours.": "Cost: 50 pts. An underwater projectile used like a Nautilus torpedo; its direction may be adjusted by ±1. A double when determining distance breaks the spring, making the launcher useless from the next turn onward. +2 Battle Honours.",
+        "Koszt: 50 pkt. Podwodny pocisk używany jak torpeda Nautilusa; kierunek można zmienić o ±1. Dublet przy ustalaniu dystansu łamie sprężynę i od następnej tury wyrzutnia jest bezużyteczna. +2 Battle Honours.": "Cost: 50 pts. An underwater projectile used like a Nautilus torpedo; its direction may be adjusted by ±1. Rolling a double when determining distance breaks the spring, making the launcher useless from the next turn onward. +2 Battle Honours.",
         "Koszt: 0 pkt. Przed ruchem rzuć D6: na 1 statek nie może wykonać żadnych akcji. W boarding dodaj D6−2 do combat total; wynik ujemny obniża rezultat. +0 Battle Honours.": "Cost: 0 pts. Before moving, roll D6: on a 1 the ship may take no actions. In boarding, add D6−2 to the combat total; a negative result reduces the total. +0 Battle Honours.",
         "Koszt: 25 pkt. Na początku boarding action rzuć D6: na 5+ usuń 1 enemy crew counter; na 1 wyrzutnia psuje się do końca bitwy. +1 Battle Honour.": "Cost: 25 pts. At the start of a boarding action, roll D6: on 5+ remove 1 enemy crew counter; on a 1 the launcher breaks for the rest of the battle. +1 Battle Honour.",
         "Koszt: 50 pkt. Na początku boarding zadaje D3+1 trafień w losowe Low locations z save −2; może powodować criticals. Wyniki lokacji 1 mogą uderzyć we własny statek, a po ataku boarding kończy się na tę turę. +2 Battle Honours.": "Cost: 50 pts. At the start of boarding, inflict D3+1 hits on random Low locations with save −2; these may cause criticals. Location rolls of 1 may hit the Orc ship, and boarding ends for the turn after the attack. +2 Battle Honours.",
@@ -2906,7 +2913,7 @@ hulk: {
         "Koszt: 250 pkt / szt. 5 lokacji, trafianych na 2–6; 5 batteries, 5 crew, 5 Structural Damage, save 3+, 10 Battle Honours. Nieruchomy; działa jak osobny squadron przy wystawianiu. Źródło: MOW Community Annual v0.1.": "Cost: 250 pts / fort. 5 locations, hit on 2–6; 5 batteries, 5 crew, 5 Structural Damage, save 3+, 10 Battle Honours. Immobile; deployed as a separate squadron. Source: MOW Community Annual v0.1.",
         "Koszt: 500 pkt / szt. 10 lokacji podzielonych na HIGH i LOW; w każdej części 5 lokacji trafianych na 2–6. 10 batteries, 10 crew, 10 Structural Damage, save 3+, 20 Battle Honours. Nieruchomy; działa jak osobny squadron przy wystawianiu. Źródło: MOW Community Annual v0.1.": "Cost: 500 pts / fort. 10 locations split into HIGH and LOW; each section has 5 locations hit on 2–6. 10 batteries, 10 crew, 10 Structural Damage, save 3+, 20 Battle Honours. Immobile; deployed as a separate squadron. Source: MOW Community Annual v0.1.",
         "Koszt: 25 pkt / szt.": "Cost: 25 pts / boat.",
-        "Każda łódź kosztuje 25 pkt. Łodzie woduje się po ruchu statku, ale przed jego ostrzałem, maksymalnie 2″ od statku; nie poruszają się w turze wodowania. Każdy statek może przewozić łącznie tyle łodzi, ile wynosi jego liczba trafień Below the Waterline potrzebnych do zatopienia. Typy można mieszać. Walidacja jest agregatowa; przypisz łodzie do konkretnych statków ręcznie. Źródło: MOW Community Annual v0.1.": "Each boat costs 25 pts. Boats are launched after the ship moves but before it fires, within 2″ of the ship; they cannot move in the turn they are launched. Each ship may carry a total number of boats equal to its Below Waterline hits required to sink. Boat types may be mixed. Validation is aggregate only; assign boats to specific ships manually. Source: MOW Community Annual v0.1.",
+        "Każda łódź kosztuje 25 pkt. Łodzie woduje się po ruchu statku, ale przed jego ostrzałem, maksymalnie 2″ od statku; nie poruszają się w turze wodowania. Każdy statek może przewozić łącznie tyle łodzi, ile wynosi jego liczba trafień Below the Waterline potrzebnych do zatopienia. Typy można mieszać. Walidacja jest agregatowa; przypisz łodzie do konkretnych statków ręcznie. Źródło: MOW Community Annual v0.1.": "Each boat costs 25 pts. Boats are launched after the ship moves but before it fires, within 2″ of the ship; they cannot move in the turn they are launched. Each ship may carry a number of boats equal to the number of Below the Waterline hits required to sink it. Boat types may be mixed. Validation is aggregate only; assign boats to specific ships manually. Source: MOW Community Annual v0.1.",
 
         "Łodzie okrętowe: ": "Ships’ Boats: ",
         "pojemność Below the Waterline statków": "ships’ Below Waterline capacity",
@@ -2918,7 +2925,8 @@ hulk: {
   };
 
 // --- STATE ---
-let currentLang = localStorage.getItem("mow_lang");
+let currentLang = null;
+  try{ currentLang = localStorage.getItem("mow_lang"); }catch(e){ currentLang = null; }
 
 if(currentLang !== "pl" && currentLang !== "en"){
   const browserLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
@@ -3080,7 +3088,7 @@ if(currentLang !== "pl" && currentLang !== "en"){
     { id: "sec_sea", selectors: [".desc", ".pts"] },
     { id: "mobNavList", selectors: [".mobNavItem span", ".mobNavItem small"] },
     { id: "allyFaction", selectors: ["option"] },
-    { id: "allyMiniBuilder", selectors: ["option"] }
+    { id: "allyMiniBuilder", selectors: [".title", ".desc", ".pts", ".pill", "option"] }
   ];
 
   function refresh(root){
@@ -3099,7 +3107,8 @@ if(currentLang !== "pl" && currentLang !== "en"){
     if(lang !== "pl" && lang !== "en") return;
     if(lang === currentLang) return;
     currentLang = lang;
-    localStorage.setItem("mow_lang", currentLang);
+    try{ localStorage.setItem("mow_lang", currentLang); }catch(e){}
+    if(typeof window.computeCurrent === "function") window.computeCurrent();
     refresh(document);
   }
 
@@ -3165,10 +3174,9 @@ const obs = new MutationObserver((muts)=>{
     init();
   }
 })();
-/* ===== End mow_lang_plbase.js ===== */
 </script>
 <script>
-/* ===== Inlined from mow_data_bundle_fixed_merged.js ===== */
+/* embedded: mow_data_bundle_fixed_merged.js */
 /* Auto-generated Allies Catalog (Man O' War Builder) — CLEAN */
 const ALLIES_CATALOG = {
   "Bretonnia": {
@@ -4078,10 +4086,10 @@ const NORMALIZE = {
     }
   };
 })();
-/* ===== End mow_data_bundle_fixed_merged.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_fleets.js ===== */
+/* embedded: mow_fleets.js */
 /* mow_fleets.js
  * Fleet definitions used by mow_core_fixed.js
  * Add new fleets by appending a new entry to window.MOW_FLEETS.
@@ -5001,10 +5009,10 @@ c.push([
 
   window.MOW_FLEETS = F;
 })();
-/* ===== End mow_fleets.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_fleet_patches.js ===== */
+/* embedded: mow_fleet_patches.js */
 /* mow_fleet_patches.js
  * Combined fleet patches for Man O' War Builder
  * Generated: 2026-02-23 16:20:13
@@ -5124,17 +5132,17 @@ c.push([
 
   // A short per-weapon hint shown in UI (kept lightweight; full rules are in the book)
   const AFW_HINT_BY_NAME = {
-    "Archer Regiment": "Bretonnian AA: 4 dice / range 3\".",
+    "Archer Regiment": "Bretonnian AA: 4 dice; range 3\".",
     "Rocket Battery": "Special rules (misfire + auto-hit by rolled range).",
     "Icon of Power": "Used by Chaos Sorcerer (charges with Power Cards).",
-    "Sky Reaper": "Special rules (variable bolts) / range 9\".",
-    "Gatling Cannon": "2 dice / range 9\".",
-    "Bolt Thrower": "1 dice / range 12\".",
-    "Hellblaster": "3 dice / range 6\".",
-    "Goblin Doomdivers": "Special rules (variable number + variable range).",
+    "Sky Reaper": "Special rules: variable number of bolts; range 9\".",
+    "Gatling Cannon": "2 dice; range 9\".",
+    "Bolt Thrower": "1 die; range 12\".",
+    "Hellblaster": "3 dice; range 6\".",
+    "Goblin Doomdivers": "Special rules: variable number of attacks and variable range.",
     "Firethrower": "Special rules (doubles table)."
     ,
-    "Skeleton Archers": "Undead AA: 4 dice / range 3\"."
+    "Skeleton Archers": "Undead AA: 4 dice; range 3\"."
   };
 
   function addAntiFlyerUnitToFleet(fleet){
@@ -5155,7 +5163,7 @@ c.push([
       label: `Anti-Flyer Weapons — ${weaponName} (25 pts each)`,
       cost: 25,
       type: "OTHER",
-      desc: `Max 1 per Man O' War (including allies). ${hint}`.trim()
+      desc: `Max 1 per Man O’ War (including allies). ${hint}`.trim()
     });
   }
 
@@ -5208,7 +5216,7 @@ c.push([
   const cjOptions = [
     {
       id:'cj_blood_iron_note', label:'Citadel Journal — Blood and Iron', cost:0, type:'CJ_NOTE', mode:'info',
-      desc:'Koszt: 0 pkt. Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.'
+      desc:'Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.'
     },
 
     // Command / crew options
@@ -5218,7 +5226,7 @@ c.push([
     },
     {
       id:'master_engineer', label:'Master Engineer', cost:25, type:'CJ_COMMAND',
-      desc:'Koszt: 25 pkt / szt. Max 1 per Dwarf Men O\' War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.'
+      desc:'Koszt: 25 pkt / szt. Max 1 per Dwarf Man O\' War. Allows repair re-rolls; may attempt Below Waterline repair on 6, not re-rollable; enables up to 2 Master Engineer cards for that ship.'
     },
     {
       id:'slayers', label:'Slayers contingent (0–1)', cost:50, type:'CJ_COMMAND',
@@ -5289,7 +5297,7 @@ c.push([
     c.push([`Citadel Journal Slayers: ${slayers} ≤ 1`, slayers <= 1 ? 'OK':'FAIL', slayers <= 1 ? 'ok':'fail']);
 
     const runesNeedRunesmithOk = (allRunes === 0) || (runesmith >= 1);
-    c.push([`Rune cards require Runesmith: ${allRunes} rune options`, runesNeedRunesmithOk ? 'OK':'FAIL', runesNeedRunesmithOk ? 'ok':'fail']);
+    c.push([`Rune options require Runesmith: ${allRunes} selected`, runesNeedRunesmithOk ? 'OK':'FAIL', runesNeedRunesmithOk ? 'ok':'fail']);
 
     const runeCap = 2 * menOWar;
     c.push([`Runic Shot cap: ${runicShots} ≤ 2×Dwarf Men O’ War (${runeCap})`, runicShots <= runeCap ? 'OK':'FAIL', runicShots <= runeCap ? 'ok':'fail']);
@@ -5297,7 +5305,7 @@ c.push([
     c.push([`Hull Rune cap: ${hullRunes} ≤ 2×Dwarf Men O’ War (${runeCap})`, hullRunes <= runeCap ? 'OK':'FAIL', hullRunes <= runeCap ? 'ok':'fail']);
 
     const engineerNeedOk = (engineerCards === 0) || (masterEngineer >= 1);
-    c.push([`Master Engineer cards require Master Engineer: ${engineerCards} cards`, engineerNeedOk ? 'OK':'FAIL', engineerNeedOk ? 'ok':'fail']);
+    c.push([`Master Engineer cards require Master Engineer: ${engineerCards} selected`, engineerNeedOk ? 'OK':'FAIL', engineerNeedOk ? 'ok':'fail']);
     const engineerCardCap = 2 * masterEngineer;
     c.push([`Master Engineer card cap: ${engineerCards} ≤ 2×Master Engineers (${engineerCardCap})`, engineerCards <= engineerCardCap ? 'OK':'FAIL', engineerCards <= engineerCardCap ? 'ok':'fail']);
 
@@ -5325,17 +5333,17 @@ c.push([
   const cjOptions = [
     {
       id:'cj_de_cursed_naggaroth_note', label:'Citadel Journal — Cursed of Naggaroth', cost:0, type:'CJ_DE_NOTE', mode:'info',
-      desc:'Koszt: 0 pkt. Opcjonalne zasady Dark Elves z Citadel Journal: Beast-Lords, Tainted Stones i Witch Elf Coven. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.'
+      desc:'Opcjonalne zasady Dark Elves z Citadel Journal: Beast-Lords, Tainted Stones i Witch Elf Coven. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.'
     },
 
     // Beast-Lords and Witch Elf Coven
     {
       id:'de_beast_lord', label:'Beast-Lord', cost:75, type:'CJ_DE_COMMAND',
-      desc:'Koszt: 75 pkt / szt. Max 1 za każdą Black Ark i Death Fortress. +1 do summoning rolls; po czarach może próbować przywołać losowego Sea Monstera na 6. +2 Battle Honours.'
+      desc:'Koszt: 75 pkt / szt. Max 1 na Black Ark lub Death Fortress. +1 do summoning rolls; po czarach może próbować przywołać losowego Sea Monstera na 6. +2 Battle Honours.'
     },
     {
       id:'de_witch_elf_coven', label:'Witch Elf Coven (0–1)', cost:50, type:'CJ_DE_COMMAND',
-      desc:'Koszt: 50 pkt. 0–1, tylko Admiral\'s Black Ark. +1 w boarding actions; gdy Black Ark atakuje abordażem i wygra, na 5–6 usuwa 2 enemy crew zamiast 1. Nie liczy się do crew limit. +1 Battle Honour.'
+      desc:'Koszt: 50 pkt. 0–1, tylko Admiral\'s Black Ark. +1 w boarding actions; gdy Black Ark rozpoczyna i wygrywa boarding action, na 5–6 usuwa 2 enemy crew zamiast 1. Nie liczy się do crew limit. +1 Battle Honour.'
     },
 
     // Tainted Stones — Beast-Lord only
@@ -5438,7 +5446,7 @@ c.push([
   const cjOptions = [
     {
       id:'cj_he_wind_wave_note', label:'Citadel Journal — Wind and Wave', cost:0, type:'CJ_HE_NOTE', mode:'info',
-      desc:'Koszt: 0 pkt. Opcjonalne zasady High Elves z Citadel Journal: Elven Mage, High Magic i Crystals of Power. Źródło w tej wersji: MOW Community Annual v0.1. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.'
+      desc:'Opcjonalne zasady High Elves z Citadel Journal: Elven Mage, High Magic i Crystals of Power. Źródło: MOW Community Annual v0.1. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.'
     },
     {
       id:'elf_mage', label:'Elven Mage', mode:'select_points', type:'CJ_HE_MAGIC',
@@ -5547,7 +5555,7 @@ c.push([
   const cjOptions = [
     {
       id:'cj_orc_we_are_sailin_note', label:'Citadel Journal — We Are Sailin’!', cost:0, type:'CJ_ORC_NOTE', mode:'info',
-      desc:'Koszt: 0 pkt. Opcjonalne zasady Orcs z Citadel Journal: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Źródło w tej wersji: MOW Community Annual v0.1. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).'
+      desc:'Opcjonalne zasady Orcs z Citadel Journal: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Źródło: MOW Community Annual v0.1. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).'
     },
 
     // Waaagh Magic — the flagship Shaman replaces the standard Wizard.
@@ -5572,7 +5580,7 @@ c.push([
     },
     {
       id:'orc_other_goblin_boss_shaman', label:'Goblin Boss Shaman — other Hulk', cost:75, type:'CJ_ORC_MAGIC',
-      desc:'Koszt: 75 pkt / szt. Tylko na Hulk innym niż flagship; maksymalny dozwolony poziom na innym Man O’ War: level 3, dispel range 9″, +3 Battle Honours.'
+      desc:'Koszt: 75 pkt / szt. Tylko na Hulk innym niż flagship; maksymalny poziom dozwolony na Man O’ War innym niż flagship: level 3, dispel range 9″, +3 Battle Honours.'
     },
     {
       id:'orc_squadron_goblin_shaman', label:'Goblin Shaman — squadron flagship', cost:25, type:'CJ_ORC_MAGIC',
@@ -5909,10 +5917,10 @@ c.push([
 
   console.log("[Ships' Boats patch] global optional boats added to all fleets");
 })();
-/* ===== End mow_fleet_patches.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_core_fixed.js ===== */
+/* embedded: mow_core_fixed.js */
 /* mow_core.js
  * Core engine shared by all fleet builders (UI stays per-fleet HTML).
  * Requires:
@@ -5936,6 +5944,18 @@ c.push([
     if(el) el.textContent = String(val);
   }
 
+  function isEnglish(){
+    return (window.MOW_I18N?.getLang?.() || "pl") === "en";
+  }
+
+  function tr(pl, en){
+    return isEnglish() ? en : pl;
+  }
+
+  function formatPoints(value){
+    return `${value} ${isEnglish() ? "pts" : "pkt"}`;
+  }
+
   function renderChecks(items){
     const host = $("checks");
     if(!host) return;
@@ -5951,7 +5971,7 @@ c.push([
 function buildAlliesDropdown(baseFleetKey){
   const sel = $("allyFaction");
   if(!sel) return;
-  sel.innerHTML = '<option value="" selected>— brak —</option>';
+  sel.innerHTML = '<option data-i18n="none_option" value="" selected>— brak —</option>';
 
   const cat = window.MOW_ALLIES?.catalog || {};
   const keys = Object.keys(cat).sort((a,b)=>a.localeCompare(b,'en',{sensitivity:'base'}));
@@ -5975,6 +5995,12 @@ function buildAlliesDropdown(baseFleetKey){
     opt.textContent = (String(status).toLowerCase()==="yes") ? `${k}` : `${k} (${status})`;
     sel.appendChild(opt);
   });
+
+  // Dynamic options are built after the initial language pass. Refresh immediately
+  // so the placeholder and labels always match the active language.
+  if(window.MOW_I18N && typeof window.MOW_I18N.refresh === "function"){
+    window.MOW_I18N.refresh();
+  }
 }
 
 function classifyKind(typeStr){
@@ -6064,7 +6090,8 @@ function _resolveProfileUnitKey(profileFactionKey, u){
 
     if(!race){
       host.style.display = "none";
-      host.innerHTML = '<div class="muteline"><span class="pill">Wybierz frakcję allies aby zobaczyć listę jednostek.</span></div>';
+      host.innerHTML = '<div class="muteline"><span class="pill" data-i18n="allies_choose_faction_prompt">Wybierz frakcję allies aby zobaczyć listę jednostek.</span></div>';
+      if(window.MOW_I18N && typeof window.MOW_I18N.refresh === "function") window.MOW_I18N.refresh();
       return;
     }
 
@@ -6073,7 +6100,8 @@ function _resolveProfileUnitKey(profileFactionKey, u){
     const cat = window.MOW_ALLIES?.catalog || {};
     const data = cat[race];
     if(!data || !Array.isArray(data.units)){
-      host.innerHTML = '<div class="muteline"><span class="pill">Brak danych allies dla tej frakcji.</span></div>';
+      host.innerHTML = '<div class="muteline"><span class="pill" data-i18n="allies_no_data">Brak danych allies dla tej frakcji.</span></div>';
+      if(window.MOW_I18N && typeof window.MOW_I18N.refresh === "function") window.MOW_I18N.refresh();
       return;
     }
 
@@ -6107,6 +6135,8 @@ function _resolveProfileUnitKey(profileFactionKey, u){
       const inp = row.querySelector("input");
       inp.addEventListener("input", ()=>{ computeCurrent(); });
     });
+
+    if(window.MOW_I18N && typeof window.MOW_I18N.refresh === "function") window.MOW_I18N.refresh();
   }
 
   function computeAllies(baseFleetKey){
@@ -6151,7 +6181,7 @@ function _resolveProfileUnitKey(profileFactionKey, u){
       const kind = r.dataset.kind || "OTHER";
       const inp = uid ? $(uid) : null;
       const qty = inp ? clampInt(inp.value,0,9999) : 0;
-      if(uid) setText("pts_"+uid, qty*per + " pkt");
+      if(uid) setText("pts_"+uid, formatPoints(qty*per));
       pts += qty*per;
       if(kind==="SOL") res.counts.SOL += qty;
       else if(kind==="MOW") res.counts.MOW += qty;
@@ -6211,7 +6241,7 @@ function _resolveProfileUnitKey(profileFactionKey, u){
       const per = parseInt(r.dataset.points||"0",10) || 0;
       const inp = uid ? $(uid) : null;
       const qty = inp ? clampInt(inp.value,0,9999) : 0;
-      if(uid) setText("pts_"+uid, qty*per + " pkt");
+      if(uid) setText("pts_"+uid, formatPoints(qty*per));
       res.points += qty*per;
       res.count += qty;
       if(r.dataset.isET==="1") res.etCount += qty;
@@ -6261,11 +6291,11 @@ function computeBase(fleet){
     // Fallback: find the row containing this input and update its .pts element (handles any id mismatches).
     const ptsCell = $("pts_"+u.id);
     if(ptsCell){
-      ptsCell.textContent = p + " pkt";
+      ptsCell.textContent = formatPoints(p);
     } else if(el && typeof el.closest === "function"){
       const row = el.closest(".row");
       const ptsEl = row ? row.querySelector(".pts") : null;
-      if(ptsEl) ptsEl.textContent = p + " pkt";
+      if(ptsEl) ptsEl.textContent = formatPoints(p);
     }
   });
 
@@ -6288,7 +6318,7 @@ function computeBase(fleet){
       return sum + (Number(base.pts[u.id]) || 0);
     }, 0);
 
-    setText("pts_" + noteUnit.id, subtotal + " pkt");
+    setText("pts_" + noteUnit.id, formatPoints(subtotal));
   }
 
   function computeCurrent(){
@@ -6302,6 +6332,10 @@ function computeBase(fleet){
     const base = computeBase(fleet);
     updateCitadelJournalSubtotal(fleet, base);
     const allies = computeAllies(fleetKey);
+    const allyMaybeNote = $("allyMaybeNote");
+    if(allyMaybeNote){
+      allyMaybeNote.style.display = String(allies.status || "").toLowerCase() === "maybe" ? "block" : "none";
+    }
     const sea = computeSeaMonsters();
 
     const total = base.total + allies.points + sea.points;
@@ -6380,25 +6414,32 @@ setText("pts_allyRemain", Math.max(0, allyCap - allies.points));
     // Allies cap + status (matrix)
     if(allies.race || allies.points>0){
       const within = allies.points <= allyCap;
-      checks.push({text:`Sojusznicy: ${allies.points} / ${allyCap} pkt (limit 1/3 planu)`, statusText: within ? "OK":"FAIL", klass: within ? "ok":"fail"});
+      checks.push({
+        text: tr(
+          `Sojusznicy: ${allies.points} / ${allyCap} pkt (limit 1/3 planu)`,
+          `Allies: ${allies.points} / ${allyCap} pts (1/3 planned limit)`
+        ),
+        statusText: within ? "OK":"FAIL",
+        klass: within ? "ok":"fail"
+      });
 
       const stl = String(allies.status||"").toLowerCase();
       if(!allies.race && allies.points>0){
-        checks.push({text:"Sojusznicy: są punkty, ale nie wybrano frakcji", statusText:"WARN", klass:"warn"});
+        checks.push({text:tr("Sojusznicy: są punkty, ale nie wybrano frakcji", "Allies: points entered, but no faction selected"), statusText:"WARN", klass:"warn"});
       } else if(stl==="no"){
-        checks.push({text:"Allies status: No (niedozwolone)", statusText:"FAIL", klass:"fail"});
+        checks.push({text:tr("Status sojuszników: No (niedozwolone)", "Allies status: No (not allowed)"), statusText:"FAIL", klass:"fail"});
       } else if(stl==="maybe"){
-        checks.push({text:"Allies status: Maybe (zgoda przeciwnika / rzut na lojalność)", statusText:"WARN", klass:"warn"});
+        checks.push({text:tr("Status sojuszników: Maybe (zgoda przeciwnika / rzut na lojalność)", "Allies status: Maybe (opponent consent / loyalty roll)"), statusText:"WARN", klass:"warn"});
       } else if(allies.race){
-        checks.push({text:"Allies status: Yes", statusText:"OK", klass:"ok"});
+        checks.push({text:tr("Status sojuszników: Yes", "Allies status: Yes"), statusText:"OK", klass:"ok"});
       }
 
       // Ratio-typed rules with manual allies are unknown
       if(allies.manual){
-        checks.push({text:"Allies (manual pts): nie można sprawdzić ratio typów statków", statusText:"WARN", klass:"warn"});
+        checks.push({text:tr("Sojusznicy (punkty ręczne): nie można sprawdzić proporcji typów statków", "Allies (manual points): ship-type ratios cannot be validated"), statusText:"WARN", klass:"warn"});
       }
     } else {
-      checks.push({text:"Sojusznicy: brak", statusText:"OK", klass:"ok"});
+      checks.push({text:tr("Sojusznicy: brak", "Allies: none"), statusText:"OK", klass:"ok"});
     }
 
     // Total vs planned
@@ -6454,7 +6495,7 @@ fleet.baseUnits.forEach(u=>{
 });
 if(allies.race || allies.points>0){
   lines.push("");
-  lines.push(`Sojusznicy: ${allies.race || "(manual)"} = ${allies.points} pts`);
+  lines.push(`${tr("Sojusznicy", "Allies")}: ${allies.race || tr("(ręcznie)", "(manual)")} = ${allies.points} pts`);
 
   // jeśli allies są z mini-buildera (auto), wypisz jednostki
   if(allies.race && !allies.manual){
@@ -6473,7 +6514,7 @@ if(allies.race || allies.points>0){
       });
       if(allyLines.length){
         lines.push("");
-        lines.push("Allies units:");
+        lines.push(tr("Jednostki sojusznicze:", "Allied units:"));
         allyLines.forEach(x=>lines.push(x));
       }
     }
@@ -6481,7 +6522,7 @@ if(allies.race || allies.points>0){
 
   // manual pts – nie znamy składu
   if(allies.manual){
-    lines.push("  (manual pts: bez rozpiski jednostek)");
+    lines.push(tr("  (punkty ręczne: bez rozpiski jednostek)", "  (manual points: no unit breakdown)"));
   }
 }
 
@@ -6594,10 +6635,10 @@ if(fleetKey !== "Chaos"){
   window.MOW_core_boot = boot;
   window.computeCurrent = computeCurrent;
 })();
-/* ===== End mow_core_fixed.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_fleet_analysis.js ===== */
+/* embedded: mow_fleet_analysis.js */
 /* mow_fleet_analysis.js
  * Lightweight fleet analysis panel.
  * - Does NOT change core logic.
@@ -7968,10 +8009,10 @@ function render(){
 })();
   
 })();
-/* ===== End mow_fleet_analysis.js ===== */
+
 </script>
   <script>
-/* ===== Inlined from mow_fleet_conclusions_rules.js ===== */
+/* embedded: mow_fleet_conclusions_rules.js */
 (function(){
   // Fleet conclusions rules (authoritative)
   // Each rule: {id, category, tone, text, when(ctx)->bool}
@@ -8103,10 +8144,9 @@ function render(){
     }
   ];
 })();
-/* ===== End mow_fleet_conclusions_rules.js ===== */
-  </script>
+</script>
 <script>
-/* ===== Inlined from mow_theme.js ===== */
+/* embedded: mow_theme.js */
 // mow_theme.js (STRONGER THEMES + DISTINCT BACKGROUNDS)
 
 (function(){
@@ -8238,10 +8278,10 @@ HighElves: {
     if(k) applyTheme(k);
   } catch(e) {}
 })();
-/* ===== End mow_theme.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_scenarios.js ===== */
+/* embedded: mow_scenarios.js */
 /* mow_scenarios.js
    Addon-only Scenario Generator for Man O' War builder
    - no dependencies on mow_core_fixed.js
@@ -9031,10 +9071,9 @@ HighElves: {
   window.rerollScenario = rerollScenario;
 
 })();
-/* ===== End mow_scenarios.js ===== */
 </script>
 <script>
-/* ===== Inlined from mow_firepower2_patch_from_csv.js ===== */
+/* embedded: mow_firepower2_patch_from_csv.js */
 /* Auto-generated firepower2 patch from mow_firepower2_global.csv */
 /* Adds per-mount notes: mount.notes (CSV 'notes'/'mount_note') */
 (function(){
@@ -9292,10 +9331,9 @@ function addRam(u, text){
     ]);
   console.log('[firepower2 patch] mounted mounts for', 49, 'units');
 })();
-/* ===== End mow_firepower2_patch_from_csv.js ===== */
 </script>
 <script>
-/* ===== Inlined from mow_unit_preview.js ===== */
+/* embedded: mow_unit_preview.js */
 /* =========================================
    MoW Unit Preview (MVP tooltip) — patch module
    - No deps, no core refactor
@@ -10118,10 +10156,9 @@ ${weaponNotesHtml}
     init();
   }
 })();
-/* ===== End mow_unit_preview.js ===== */
 </script>
 <script>
-/* ===== Inlined from mow_tools_toggles.js ===== */
+/* embedded: mow_tools_toggles.js */
 /* =========================================
    MoW Tools Toggles — UI module (minimal risk)
    - Builds a vertical toggle column next to Unit Preview
@@ -10289,10 +10326,10 @@ ${weaponNotesHtml}
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
-/* ===== End mow_tools_toggles.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_citadel_journal_toggles.js ===== */
+/* embedded: mow_citadel_journal_toggles.js */
 /* =========================================
    Citadel Journal optional-rules toggles
    - Context-sensitive fleet module:
@@ -10635,10 +10672,10 @@ ${weaponNotesHtml}
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
-/* ===== End mow_citadel_journal_toggles.js ===== */
+
 </script>
 <script>
-/* ===== Inlined from mow_high_elves_citadel_journal.js ===== */
+/* embedded: mow_high_elves_citadel_journal.js */
 /* =========================================
    High Elves Citadel Journal behaviour
    - Elven Mage replaces the standard Wizard.
@@ -10680,7 +10717,7 @@ ${weaponNotesHtml}
     }
   }, false);
 })();
-/* ===== End mow_high_elves_citadel_journal.js ===== */
+
 </script>
 <script>
   (function(){
