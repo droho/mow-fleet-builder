@@ -4078,7 +4078,6 @@ const NORMALIZE = {
     }
   };
 })();
-
 /* ===== End mow_data_bundle_fixed_merged.js ===== */
 </script>
 <script>
@@ -4121,7 +4120,7 @@ const NORMALIZE = {
       const solEmpire = (base.qty.wolf||0) + (base.qty.wargalley||0) + (base.qty.ironfist||0) + (base.qty.hellhammer||0);
 
       c.push(["Admiral: 1 (gratis)", (base.qty.admiral||0) >= 1 ? "OK":"FAIL", (base.qty.admiral||0) >= 1 ? "ok":"fail"]);
-      c.push(["Wizard: 1 (wybrany poziom)", wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
+      c.push([(window.MOW_I18N?.getLang?.() === "en" ? "Wizard: 1 (selected level)" : "Wizard: 1 (wybrany poziom)"), wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
       c.push([`Men O’ War Cards: 1+ (1. karta gratis)`, cards >= 1 ? "OK":"FAIL", cards>=1?"ok":"fail"]);
 
       c.push([`Men O’ War: ≥1 Greatship (flagship)`, greatship >= 1 ? "OK":"FAIL", greatship>=1?"ok":"fail"]);
@@ -4173,7 +4172,7 @@ const NORMALIZE = {
       const solBretonnia = corsair + buccaneers;
 
       c.push(["Admiral: 1 (gratis)", (base.qty.admiral||0) >= 1 ? "OK":"FAIL", (base.qty.admiral||0) >= 1 ? "ok":"fail"]);
-      c.push(["Wizard: 1 (wybrany poziom)", wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
+      c.push([(window.MOW_I18N?.getLang?.() === "en" ? "Wizard: 1 (selected level)" : "Wizard: 1 (wybrany poziom)"), wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
       c.push([`Men O’ War Cards: 1+ (1. karta gratis)`, cards >= 1 ? "OK":"FAIL", cards >= 1 ? "ok":"fail"]);
 
       c.push([`Men O’ War: ≥1 Galleon (flagship)`, galleon >= 1 ? "OK":"FAIL", galleon >= 1 ? "ok":"fail"]);
@@ -4243,7 +4242,7 @@ c.push([
 
       // --- Base-only minimum requirements (parent fleet only)
       c.push(["Admiral: 1 (gratis)", (base.qty.admiral||0) >= 1 ? "OK":"FAIL", (base.qty.admiral||0) >= 1 ? "ok":"fail"]);
-      c.push(["Wizard: 1 (wybrany poziom)", wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
+      c.push([(window.MOW_I18N?.getLang?.() === "en" ? "Wizard: 1 (selected level)" : "Wizard: 1 (wybrany poziom)"), wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
       c.push([`Men O’ War Cards: 1+ (1. karta gratis)`, cards >= 1 ? "OK":"FAIL", cards>=1?"ok":"fail"]);
 
       c.push([`Men O’ War: ≥1 Dragonship (flagship)`, dragonship >= 1 ? "OK":"FAIL", dragonship>=1?"ok":"fail"]);
@@ -4310,7 +4309,7 @@ F.Orcs = {
 
     // --- Base-only minimum requirements (parent fleet only)
     c.push(["Admiral: 1 (gratis)", (base.qty.admiral||0) >= 1 ? "OK":"FAIL", (base.qty.admiral||0) >= 1 ? "ok":"fail"]);
-    c.push(["Wizard: 1 (wybrany poziom)", wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
+    c.push([(window.MOW_I18N?.getLang?.() === "en" ? "Wizard: 1 (selected level)" : "Wizard: 1 (wybrany poziom)"), wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
     c.push([`Men O’ War Cards: 1+ (1. karta gratis)`, cards >= 1 ? "OK":"FAIL", cards>=1 ? "ok":"fail"]);
 
     c.push([`Men O’ War: ≥1 Hulk`, hulk >= 1 ? "OK":"FAIL", hulk>=1 ? "ok":"fail"]);
@@ -4893,7 +4892,7 @@ c.push([
 
       // --- Base-only minimum requirements (parent fleet only; allies ignored)
       c.push(["Admiral: 1 (gratis)", admiral >= 1 ? "OK":"FAIL", admiral >= 1 ? "ok":"fail"]);
-      c.push(["Wizard: 1 (wybrany poziom)", wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
+      c.push([(window.MOW_I18N?.getLang?.() === "en" ? "Wizard: 1 (selected level)" : "Wizard: 1 (wybrany poziom)"), wizardPts > 0 ? "OK":"FAIL", wizardPts > 0 ? "ok":"fail"]);
       c.push([`Men O’ War Cards: 1+ (1. karta gratis)`, cards >= 1 ? "OK":"FAIL", cards >= 1 ? "ok":"fail"]);
 
       c.push([`Admiral's Flagship: ≥1 Kingship`, kingship >= 1 ? "OK":"FAIL", kingship >= 1 ? "ok":"fail"]);
@@ -5002,7 +5001,6 @@ c.push([
 
   window.MOW_FLEETS = F;
 })();
-
 /* ===== End mow_fleets.js ===== */
 </script>
 <script>
@@ -5157,7 +5155,7 @@ c.push([
       label: `Anti-Flyer Weapons — ${weaponName} (25 pts each)`,
       cost: 25,
       type: "OTHER",
-      desc: `Max 1 per Men O' War (łącznie z sojusznikami). ${hint}`.trim()
+      desc: `Max 1 per Man O' War (including allies). ${hint}`.trim()
     });
   }
 
@@ -5500,7 +5498,7 @@ c.push([
       const exactlyOne = (wizardChosen ? 1 : 0) + (mageChosen ? 1 : 0) === 1;
       c.push(['Użytkownik magii: wybierz dokładnie 1 (Wizard albo Elven Mage)', exactlyOne ? 'OK':'FAIL', exactlyOne ? 'ok':'fail']);
     }else{
-      c.push(['Wizard: 1 (wybrany poziom)', wizardChosen ? 'OK':'FAIL', wizardChosen ? 'ok':'fail']);
+      c.push([(window.MOW_I18N?.getLang?.() === 'en' ? 'Wizard: 1 (selected level)' : 'Wizard: 1 (wybrany poziom)'), wizardChosen ? 'OK':'FAIL', wizardChosen ? 'ok':'fail']);
     }
 
     const crystalIds = [
@@ -5631,7 +5629,7 @@ c.push([
     // Waaagh Magic replaces the standard Wizard requirement.
     if(enabled){
       c = c.filter(row => !String(row && row[0] || '').startsWith('Wizard: 1'));
-      c.push(['Flagship Shaman: 1 (wybrany poziom)', flagshipShamanChosen ? 'OK':'FAIL', flagshipShamanChosen ? 'ok':'fail']);
+      c.push([(window.MOW_I18N?.getLang?.() === 'en' ? 'Flagship Shaman: 1 (selected level)' : 'Flagship Shaman: 1 (wybrany poziom)'), flagshipShamanChosen ? 'OK':'FAIL', flagshipShamanChosen ? 'ok':'fail']);
       c.push(['Standard Wizard przy Waaagh Magic: 0', !wizardChosen ? 'OK':'FAIL', !wizardChosen ? 'ok':'fail']);
     }
 
@@ -5911,7 +5909,6 @@ c.push([
 
   console.log("[Ships' Boats patch] global optional boats added to all fleets");
 })();
-
 /* ===== End mow_fleet_patches.js ===== */
 </script>
 <script>
@@ -6597,7 +6594,6 @@ if(fleetKey !== "Chaos"){
   window.MOW_core_boot = boot;
   window.computeCurrent = computeCurrent;
 })();
-
 /* ===== End mow_core_fixed.js ===== */
 </script>
 <script>
@@ -7972,7 +7968,6 @@ function render(){
 })();
   
 })();
-
 /* ===== End mow_fleet_analysis.js ===== */
 </script>
   <script>
@@ -8109,7 +8104,7 @@ function render(){
   ];
 })();
 /* ===== End mow_fleet_conclusions_rules.js ===== */
-</script>
+  </script>
 <script>
 /* ===== Inlined from mow_theme.js ===== */
 // mow_theme.js (STRONGER THEMES + DISTINCT BACKGROUNDS)
@@ -8243,7 +8238,6 @@ HighElves: {
     if(k) applyTheme(k);
   } catch(e) {}
 })();
-
 /* ===== End mow_theme.js ===== */
 </script>
 <script>
@@ -10295,7 +10289,6 @@ ${weaponNotesHtml}
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
-
 /* ===== End mow_tools_toggles.js ===== */
 </script>
 <script>
@@ -10642,7 +10635,6 @@ ${weaponNotesHtml}
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
-
 /* ===== End mow_citadel_journal_toggles.js ===== */
 </script>
 <script>
@@ -10688,7 +10680,6 @@ ${weaponNotesHtml}
     }
   }, false);
 })();
-
 /* ===== End mow_high_elves_citadel_journal.js ===== */
 </script>
 <script>
@@ -10968,12 +10959,11 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
       });
 
       const order = [
-        "MOW","SOL","INDEP","OTHER","SHOREFORT","CJ_SHOREFORTS","CJ_BOATS",
+        "MOW","SOL","INDEP","FLY","OTHER","SHOREFORT","CJ_SHOREFORTS","CJ_BOATS",
         "CJ_NOTE","CJ_COMMAND","CJ_RUNIC_SHOT","CJ_CANNON_RUNES","CJ_HULL_RUNES","CJ_ENGINEER_CARDS",
         "CJ_DE_NOTE","CJ_DE_COMMAND","CJ_DE_STONES_BEASTLORD","CJ_DE_STONES_BLACKARK",
         "CJ_HE_NOTE","CJ_HE_MAGIC","CJ_HE_CRYSTALS",
-        "CJ_ORC_NOTE","CJ_ORC_MAGIC","CJ_ORC_KUSTOM_SHIP","CJ_ORC_KUSTOM_BOARDING",
-        "FLY"
+        "CJ_ORC_NOTE","CJ_ORC_MAGIC","CJ_ORC_KUSTOM_SHIP","CJ_ORC_KUSTOM_BOARDING"
       ];
       const html = order
         .filter(k => groups[k] && groups[k].items.length)
