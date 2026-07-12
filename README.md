@@ -21,7 +21,7 @@ https://droho.github.io/mow-fleet-builder/
 - Local autosave and named fleet library
 - Native mobile sharing in the published HTTPS version, with a clear desktop/local copy-link fallback and no account required
 - Full fleet-library backup export/import between devices
-- Optional custom names for individual Men O' War ships
+- Optional custom names for individual Men O' War, Ship of the Line and Independent vessels
 - Lore-based random ship-name generator with faction, admiral, patron and unit-specific profiles
 - One-click deletion of the complete named-fleet library, with confirmation
 - Standalone single-file `index.html` for GitHub Pages
@@ -56,28 +56,6 @@ The builder is based on:
 - MOW Community Annual v0.1
 - MOW Ship Cards v3.7
 - Citadel Journal optional rules compiled in the Community Annual
-
-## Current release
-
-**Fleet Builder 1.6 — build step70 — 2026-07-11**
-
-Version 1.6 is the first public release after **1.5 / step51** and consolidates the completed development work from steps 52–69.
-
-## What's new in version 1.6
-
-- Local autosave and a named fleet library with Save, Save As, load, rename, duplicate and delete actions
-- Full `.mowfleets` library backup and import between devices
-- Shareable fleet links with native mobile sharing and a clear desktop/local fallback
-- Optional individual names for Men O' War ships
-- A lore-based ship-name generator with faction, admiral, Chaos patron and unit-specific profiles
-- Major mobile usability improvements, including quantity steppers, reorganised setup controls and a mobile-friendly ship-name editor
-- A visible version/build identifier in the footer
-- Built-in bilingual Getting Started help
-- The unfinished Card Tool fleet export remains available in the code, but its public button is hidden to avoid confusion
-
-## Development history
-
-The full cumulative development history is available in [CHANGELOG.md](CHANGELOG.md).
 
 ## Disclaimer
 

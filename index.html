@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="1.6" name="application-version"/>
-<meta content="step70-2026-07-11" name="build-id"/>
+<meta content="1.7" name="application-version"/>
+<meta content="step72-2026-07-12" name="build-id"/>
 <title>Man O' War — Fleet Builder</title>
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='10.5' r='6.5' fill='none' stroke='%235aa8ff' stroke-width='4'/%3E%3Crect x='29.5' y='16' width='5' height='30' rx='2.5' fill='%235aa8ff'/%3E%3Crect x='18' y='22' width='28' height='5' rx='2.5' fill='%235aa8ff'/%3E%3Crect x='24' y='38' width='16' height='5' rx='2.5' fill='%235aa8ff'/%3E%3Cpath fill='%235aa8ff' d='M 32 42 C 32 52, 24 56.5, 18 54 C 13.5 52, 12.5 46.5, 15.5 44.5 C 17.5 43.2, 20 44.2, 21.2 46.2 C 22.4 48.2, 21.4 50.5, 19.6 51.4 C 23.3 52.6, 27.5 49.8, 27.5 42 Z M 32 42 C 32 52, 40 56.5, 46 54 C 50.5 52, 51.5 46.5, 48.5 44.5 C 46.5 43.2, 44 44.2, 42.8 46.2 C 41.6 48.2, 42.6 50.5, 44.4 51.4 C 40.7 52.6, 36.5 49.8, 36.5 42 Z'/%3E%3Crect x='26' y='48' width='12' height='5' rx='2.5' fill='%235aa8ff'/%3E%3C/svg%3E#v3" rel="icon" type="image/svg+xml"/>
 <style>
@@ -452,20 +452,20 @@
 }
 .mowUpToggle input{ transform: translateY(1px); }
 
-#mowUnitPreviewTip .mowUpNotesList{
+.mowUnitPreviewPanel .mowUpNotesList{
   margin: .25rem 0 0 0;
   padding-left: 1rem;
   list-style: disc;
   list-style-position: outside;
 }
 
-#mowUnitPreviewTip .mowUpNotesList > li{
+.mowUnitPreviewPanel .mowUpNotesList > li{
   display: list-item;
   margin: .15rem 0;
   line-height: 1.25;
 }
 
-#mowUnitPreviewTip{
+.mowUnitPreviewPanel{
   position: fixed;
   z-index: 9999;
   min-width: 440px;
@@ -480,23 +480,23 @@
 }
 
 
-#mowUnitPreviewTip[data-open="1"]{ display:block; }
+.mowUnitPreviewPanel[data-open="1"]{ display:block; }
 
-#mowUnitPreviewTip .mowUpHd{
+.mowUnitPreviewPanel .mowUpHd{
   display:flex; justify-content:space-between; gap:.75rem; align-items:flex-start;
   margin-bottom:.5rem;
 }
-#mowUnitPreviewTip .mowUpTitle{
+.mowUnitPreviewPanel .mowUpTitle{
   font-weight: 700;
   line-height: 1.15;
 }
-#mowUnitPreviewTip .mowUpSub{
+.mowUnitPreviewPanel .mowUpSub{
   font-size:.85rem; color: var(--muted, #94a6bd);
   margin-top:.15rem;
   word-break: break-word;
 }
 
-#mowUnitPreviewTip .mowUpGrid{
+.mowUnitPreviewPanel .mowUpGrid{
   display:flex;
   flex-direction:column;
   gap:.35rem;
@@ -504,30 +504,30 @@
   margin:.5rem 0 .65rem;
 }
 
-#mowUnitPreviewTip .mowUpRow{
+.mowUnitPreviewPanel .mowUpRow{
   display:flex;
   align-items:baseline;
   gap:.75rem;
 }
 
 
-#mowUnitPreviewTip .mowUpLbl{
+.mowUnitPreviewPanel .mowUpLbl{
   color: var(--muted, #94a6bd);
   min-width: 140px;     /* kontroluje pozycję kolumny */
 }
 
-#mowUnitPreviewTip .mowUpVal{
+.mowUnitPreviewPanel .mowUpVal{
   min-width: 3ch;               /* kontrolowana szerokość liczby */
   text-align:right;
   font-variant-numeric: tabular-nums;
 }
 
-#mowUnitPreviewTip .mowUpMove{
+.mowUnitPreviewPanel .mowUpMove{
   margin:.25rem 0 .65rem;
   font-size:.9rem;
   color: var(--text, #d8e2ef);
 }
-#mowUnitPreviewTip .mowUpMove code{
+.mowUnitPreviewPanel .mowUpMove code{
   font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
   background: rgba(255,255,255,.04);
   padding: .1rem .35rem;
@@ -537,47 +537,47 @@
   display:inline-block;
 }
 
-#mowUnitPreviewTip table{
+.mowUnitPreviewPanel table{
   width:100%;
   border-collapse: collapse;
   font-size:.85rem;
   margin:.35rem 0 .35rem;
 }
-#mowUnitPreviewTip th, #mowUnitPreviewTip td{
+.mowUnitPreviewPanel th, .mowUnitPreviewPanel td{
   border-top: 1px solid rgba(255,255,255,.06);
   padding: .35rem .25rem;
   vertical-align: top;
 }
-#mowUnitPreviewTip th{
+.mowUnitPreviewPanel th{
   color: var(--muted, #94a6bd);
   font-weight: 600;
   text-align:left;
 }
-#mowUnitPreviewTip .mowUpNotes{
+.mowUnitPreviewPanel .mowUpNotes{
   font-size:.85rem;
   color: var(--muted, #94a6bd);
   margin-top:.35rem;
   white-space: pre-wrap;
 }
 
-#mowUnitPreviewTip table th.col-center,
-#mowUnitPreviewTip table td.col-center{
+.mowUnitPreviewPanel table th.col-center,
+.mowUnitPreviewPanel table td.col-center{
   text-align: center !important;
 }
 
 /* --- MoW Unit Preview: fleet-colored separators (safe for dark accents) --- */
-#mowUnitPreviewTip{
+.mowUnitPreviewPanel{
   border: 1px solid var(--accent);
 }
 
 /* cienki pasek pod nagłówkiem */
-#mowUnitPreviewTip .mowUpHd{
+.mowUnitPreviewPanel .mowUpHd{
   position: relative;
   padding-bottom: .5rem;
   margin-bottom: .5rem;
 }
 
-#mowUnitPreviewTip .mowUpHd::after{
+.mowUnitPreviewPanel .mowUpHd::after{
   content:"";
   position:absolute;
   left:0;
@@ -589,7 +589,7 @@
 }
 
 /* “sekcyjne” separatory – użyjemy ich przez klasę */
-#mowUnitPreviewTip .mowUpSep{
+.mowUnitPreviewPanel .mowUpSep{
   height: 1px;
   margin: .55rem 0 .45rem 0;
   background: color-mix(in srgb, var(--accent) 35%, transparent);
@@ -599,18 +599,18 @@
 
 
 /* Better vertical alignment for inline Move */
-#mowUnitPreviewTip .mowUpInline{
+.mowUnitPreviewPanel .mowUpInline{
   display:flex;
   align-items:baseline;   /* zamiast center */
   gap:.6rem;
   flex-wrap:wrap;
 }
 
-#mowUnitPreviewTip .mowUpInline .mowUpLbl{
+.mowUnitPreviewPanel .mowUpInline .mowUpLbl{
   margin:0;
 }
 
-#mowUnitPreviewTip .mowUpMove code{
+.mowUnitPreviewPanel .mowUpMove code{
   position:relative;
   top:1px;   /* mikro-korekta optyczna */
 }
@@ -879,12 +879,12 @@ select:focus, input:focus{
 
 /* === Weapon Notes – match Ranged table typography === */
 
-#mowUnitPreviewTip .mowUpSectionLbl{
+.mowUnitPreviewPanel .mowUpSectionLbl{
   margin-top: .5rem;
   margin-bottom: .25rem;
 }
 
-#mowUnitPreviewTip .mowUpNotesBlock{
+.mowUnitPreviewPanel .mowUpNotesBlock{
   display:flex;
   flex-direction:column;
   gap:.25rem;
@@ -892,28 +892,28 @@ select:focus, input:focus{
   color: var(--text, #d8e2ef);      /* nie muted */
 }
 
-#mowUnitPreviewTip .mowUpNoteRow{
+.mowUnitPreviewPanel .mowUpNoteRow{
   display:flex;
   gap:.4rem;
   line-height:1.25;
 }
 
-#mowUnitPreviewTip .mowUpNoteRow b{
+.mowUnitPreviewPanel .mowUpNoteRow b{
   font-weight:600;                  /* jak th */
 }
 
 
-#mowUnitPreviewTip table.mowUpNotesTable td{
+.mowUnitPreviewPanel table.mowUpNotesTable td{
   border-top: 1px solid rgba(255,255,255,.06);  /* to samo co tabela */
   padding: .35rem .25rem;                       /* to samo co tabela */
   vertical-align: top;
 }
 
-#mowUnitPreviewTip table.mowUpNotesTable{
+.mowUnitPreviewPanel table.mowUpNotesTable{
   font-size: .85rem;
 }
 
-#mowUnitPreviewTip table.mowUpNotesTable td.wn-text{
+.mowUnitPreviewPanel table.mowUpNotesTable td.wn-text{
   color: var(--muted, #94a6bd);  /* albo var(--text) jeśli chcesz 1:1 “jak tabela” */
 }
 
@@ -1177,7 +1177,7 @@ height: 12px;
 #sec_setup .muteline{ margin-bottom:3px; }/* było 6-8px w Twoich patchach */
 
 @media (max-width: 600px){
-  #mowUnitPreviewTip{
+  .mowUnitPreviewPanel{
     min-width: auto;                 /* zdejmij 440px */
     width: calc(100vw - 24px);       /* pełna szerokość z marginesem */
     max-width: calc(100vw - 24px);
@@ -1206,7 +1206,7 @@ height: 12px;
 .dur-veryhigh{ color:#4fa3ff; font-weight:800; }
 
 
-/* === Custom Men O' War ship names === */
+/* === Custom ship names === */
 .mow-section-heading-tools{
   display:flex;
   align-items:center;
@@ -1256,6 +1256,18 @@ height: 12px;
   background:rgba(255,255,255,.018);
 }
 .mow-ship-name-group h3{ margin:0 0 10px; font-size:14px; }
+.mow-ship-name-squadron{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid color-mix(in srgb, var(--stroke) 82%, transparent);
+}
+.mow-ship-name-squadron-title{
+  margin-bottom:8px;
+  color:var(--text);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.15px;
+}
 .mow-ship-name-field{ display:block; margin-top:9px; }
 .mow-ship-name-field:first-of-type{ margin-top:0; }
 .mow-ship-name-field > label{
@@ -1787,6 +1799,108 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
   .mowSetupGroupRows[hidden]{ display:none !important; }
   .mowSetupGroupRows .mowUpToggle{ max-width:100%; }
 }
+
+
+/* === Step 72: Unit Preview inline comparison panels === */
+.mowUnitPreviewPanel{
+  position:relative !important;
+  inset:auto !important;
+  left:auto !important;
+  top:auto !important;
+  z-index:auto !important;
+  box-sizing:border-box;
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  margin:2px 0 12px;
+  padding:.8rem .9rem;
+  border:1px solid var(--accent);
+  border-radius:12px;
+  background:var(--bg2, #0f1722);
+  box-shadow:0 8px 24px rgba(0,0,0,.22);
+  color:var(--text, #d8e2ef);
+  overflow-x:auto;
+}
+
+.mowUnitPreviewTrigger{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  max-width:100%;
+  border-radius:7px;
+  cursor:pointer;
+  touch-action:manipulation;
+  transition:color .15s ease, background-color .15s ease;
+}
+
+.mowUnitPreviewTrigger:hover{
+  color:color-mix(in srgb, var(--accent) 68%, white);
+}
+
+.mowUnitPreviewTrigger:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.mowUnitPreviewTrigger::after{
+  content:"";
+  flex:0 0 auto;
+  width:.48rem;
+  height:.48rem;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);
+  opacity:.68;
+  transition:transform .16s ease;
+}
+
+.mowUnitPreviewTrigger[aria-expanded="true"]::after{
+  transform:rotate(45deg) translateY(-1px);
+}
+
+.mowUnitPreviewPanel .mowUpActions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:.8rem;
+  padding-top:.7rem;
+  border-top:1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.mowUnitPreviewPanel .mowUnitPreviewClose{
+  min-height:38px;
+  padding:.45rem .85rem;
+  border:1px solid var(--stroke, #223044);
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+  color:var(--text, #d8e2ef);
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.mowUnitPreviewPanel .mowUnitPreviewClose:hover{
+  background:rgba(255,255,255,.08);
+  border-color:color-mix(in srgb, var(--accent) 45%, var(--stroke));
+}
+
+.mowUnitPreviewPanel .mowUnitPreviewClose:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+@media (max-width:700px){
+  .mowUnitPreviewPanel{
+    width:100% !important;
+    max-width:100% !important;
+    margin:2px 0 10px;
+    padding:.7rem .72rem;
+  }
+  .mowUnitPreviewPanel .mowUpLbl{
+    min-width:118px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1991,7 +2105,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 </div>
 </div>
 <footer class="mowAppFooter" role="contentinfo">
-<div aria-label="Fleet Builder version 1.6, build step70, 2026-07-11" class="mowBuildStamp" data-build-date="2026-07-11" data-build-step="70" data-version="1.6" id="mowBuildStamp" role="note">Fleet Builder 1.6 — build step70 — 2026-07-11</div>
+<div aria-label="Fleet Builder version 1.7, build step72, 2026-07-12" class="mowBuildStamp" data-build-date="2026-07-12" data-build-step="72" data-version="1.7" id="mowBuildStamp" role="note">Fleet Builder 1.7 — build step72 — 2026-07-12</div>
 <div class="mowFooterSource"><span data-i18n="source">Źródło</span>: <b data-i18n="source_body" data-i18n-html>Man’O’War Community Rulebook v0.1; opcjonalne moduły Citadel Journal (MOW Community Annual v0.1)</b>.</div>
 </footer>
 <script>
@@ -1999,7 +2113,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
     window.MOW_BOOT_FLEET = "Dwarfs";
   </script>
 <script>
-/* === Embedded from mow_profiles_nofirepowerRaw.js === */
+/* === Inlined from mow_profiles_nofirepowerRaw.js === */
 /* =========================================
    Man O' War – Unit Profiles (mow_profiles.js)
    Source of truth (standard):
@@ -3357,7 +3471,7 @@ hulk: {
 })();
 </script>
 <script>
-/* === Embedded from mow_lang_plbase.js === */
+/* === Inlined from mow_lang_plbase.js === */
 /* mow_lang.js (PL/EN) — minimal i18n layer for Man O' War builder
  * IMPORTANT DESIGN:
  * - We DO NOT translate any existing English text into Polish.
@@ -3958,7 +4072,7 @@ const obs = new MutationObserver((muts)=>{
 })();
 </script>
 <script>
-/* === Embedded from mow_data_bundle_fixed_merged.js === */
+/* === Inlined from mow_data_bundle_fixed_merged.js === */
 /* Auto-generated Allies Catalog (Man O' War Builder) — CLEAN */
 const ALLIES_CATALOG = {
   "Bretonnia": {
@@ -4871,7 +4985,7 @@ const NORMALIZE = {
 
 </script>
 <script>
-/* === Embedded from mow_fleets.js === */
+/* === Inlined from mow_fleets.js === */
 /* mow_fleets.js
  * Fleet definitions used by mow_core_fixed.js
  * Add new fleets by appending a new entry to window.MOW_FLEETS.
@@ -5794,7 +5908,7 @@ c.push([
 
 </script>
 <script>
-/* === Embedded from mow_fleet_patches.js === */
+/* === Inlined from mow_fleet_patches.js === */
 /* mow_fleet_patches.js
  * Combined fleet patches for Man O' War Builder
  * Generated: 2026-02-23 16:20:13
@@ -6702,7 +6816,7 @@ c.push([
 
 </script>
 <script>
-/* === Embedded from mow_core_fixed.js === */
+/* === Inlined from mow_core_fixed.js === */
 /* mow_core.js
  * Core engine shared by all fleet builders (UI stays per-fleet HTML).
  * Requires:
@@ -6805,6 +6919,16 @@ function classifyKind(typeStr){
   return "OTHER";
 }
 
+function modelsPerSelectionForUnit(type, id, label, explicit){
+  const value = parseInt(explicit, 10);
+  if(Number.isFinite(value) && value > 0) return value;
+  const kind = String(type || "").toUpperCase();
+  const identity = `${id || ""} ${label || ""}`.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  // Death Fortress is one model even where an allies source classifies it as a squadron.
+  if(kind === "SOL" && !identity.includes("deathfortress")) return 3;
+  return 1;
+}
+
 // === Tooltip helpers (UI-only; no impact on core counting) ===
 function _normKey(s){
   return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"").trim();
@@ -6897,10 +7021,12 @@ function _resolveProfileUnitKey(profileFactionKey, u){
       const profileUnitKey = _resolveProfileUnitKey(profileFactionKey, u);
 
       row.dataset.faction = profileFactionKey;
+      row.dataset.namingFaction = String(u.faction || race || profileFactionKey);
       row.dataset.unitKey = profileUnitKey;
       row.dataset.unitName = u.name || "";
       row.dataset.kind = kind;
       row.dataset.unitType = kind;
+      row.dataset.modelsPerSelection = String(modelsPerSelectionForUnit(kind, profileUnitKey, u.name, u.modelsPerSelection));
       const ukey = (u.key || u.id || u.name || "unit");
       const uid = `ally_${race}_${ukey}`.replace(/[^a-zA-Z0-9_]/g,"_");
       row.dataset.uid = uid;
@@ -7277,12 +7403,24 @@ fleet.baseUnits.forEach(u=>{
     }
   }
 
-  const isNameableShip = String(u.type || "").toUpperCase() === "MOW" || String(u.id || "") === "pf_sorcerer";
+  const unitType = String(u.type || "").toUpperCase();
+  const isNameableShip = ["MOW","SOL","INDEP"].includes(unitType) || String(u.id || "") === "pf_sorcerer";
+  const modelsPerSelection = modelsPerSelectionForUnit(unitType, u.id, label, u.modelsPerSelection);
+  const modelCount = n * modelsPerSelection;
   const customNames = (isNameableShip && window.MOW_SHIP_NAMES && typeof window.MOW_SHIP_NAMES.getNames === "function")
-    ? window.MOW_SHIP_NAMES.getNames(u.id, fleetKey).slice(0, n)
+    ? window.MOW_SHIP_NAMES.getNames(u.id, fleetKey).slice(0, modelCount)
     : [];
   const hasCustomNames = customNames.some(name => String(name || "").trim());
-  if(hasCustomNames){
+  if(hasCustomNames && modelsPerSelection > 1){
+    lines.push(`- ${label} x${n} = ${base.pts[u.id]} pts`);
+    for(let squadronIndex=0; squadronIndex<n; squadronIndex++){
+      const offset = squadronIndex * modelsPerSelection;
+      const squadronNames = customNames.slice(offset, offset + modelsPerSelection).map(value => String(value || "").trim()).filter(Boolean);
+      if(squadronNames.length){
+        lines.push(`  ${tr("Eskadra", "Squadron")} ${squadronIndex + 1}: ${squadronNames.join(" · ")}`);
+      }
+    }
+  }else if(hasCustomNames){
     const perUnit = Number(u.cost || 0) || Math.round(Number(base.pts[u.id] || 0) / Math.max(1, n));
     const shipLabel = String(u.id || "") === "pf_sorcerer"
       ? "Bane Tower of Tzeentch (incl. Chaos Sorcerer)"
@@ -7316,10 +7454,21 @@ if(allies.race || allies.points>0){
         if(qty<=0) return;
         const type = String(r.dataset.unitType || "").toUpperCase();
         const isBaneTower = String(name).toLowerCase().includes("bane tower of tzeentch");
-        const customNames = ((type === "MOW" || isBaneTower) && window.MOW_SHIP_NAMES && typeof window.MOW_SHIP_NAMES.getNames === "function")
-          ? window.MOW_SHIP_NAMES.getNames(uid, fleetKey).slice(0, qty)
+        const isNameableShip = ["MOW","SOL","INDEP"].includes(type) || isBaneTower;
+        const modelsPerSelection = modelsPerSelectionForUnit(type, uid, name, r.dataset.modelsPerSelection);
+        const customNames = (isNameableShip && window.MOW_SHIP_NAMES && typeof window.MOW_SHIP_NAMES.getNames === "function")
+          ? window.MOW_SHIP_NAMES.getNames(uid, fleetKey).slice(0, qty * modelsPerSelection)
           : [];
-        if(customNames.some(value => String(value || "").trim())){
+        if(customNames.some(value => String(value || "").trim()) && modelsPerSelection > 1){
+          allyLines.push(`  - ${name} x${qty} = ${qty*per} pts`);
+          for(let squadronIndex=0; squadronIndex<qty; squadronIndex++){
+            const offset = squadronIndex * modelsPerSelection;
+            const squadronNames = customNames.slice(offset, offset + modelsPerSelection).map(value => String(value || "").trim()).filter(Boolean);
+            if(squadronNames.length){
+              allyLines.push(`    ${tr("Eskadra", "Squadron")} ${squadronIndex + 1}: ${squadronNames.join(" · ")}`);
+            }
+          }
+        }else if(customNames.some(value => String(value || "").trim())){
           for(let i=0; i<qty; i++){
             const customName = String(customNames[i] || "").trim();
             const displayLabel = customName ? `${customName} — ${name}` : name;
@@ -7395,14 +7544,13 @@ fleet.baseUnits.forEach(u=>{
     row.dataset.unitKey = unitKey;
     row.dataset.unitName = u.label || u.name || u.id || unitKey;
     row.dataset.unitType = u.type || "";
+    row.dataset.modelsPerSelection = String(modelsPerSelectionForUnit(u.type, u.id, u.label || u.name, u.modelsPerSelection));
 
     // Image search links are mounted after the row has complete unit metadata.
     if(window.MOW_IMAGE_SEARCH && typeof window.MOW_IMAGE_SEARCH.attach === "function") {
       window.MOW_IMAGE_SEARCH.attach(row);
     }
 
-    // dostępność: pozwala focusować cały wiersz (tooltip na focus działa)
-    if(!row.hasAttribute("tabindex")) row.tabIndex = 0;
   }
   // === /Unit Preview hook ===
 
@@ -7462,7 +7610,7 @@ if(fleetKey !== "Chaos"){
 
 </script>
 <script>
-/* === Embedded from mow_fleet_analysis.js === */
+/* === Inlined from mow_fleet_analysis.js === */
 /* mow_fleet_analysis.js
  * Lightweight fleet analysis panel.
  * - Does NOT change core logic.
@@ -8836,7 +8984,7 @@ function render(){
 
 </script>
   <script>
-/* === Embedded from mow_fleet_conclusions_rules.js === */
+/* === Inlined from mow_fleet_conclusions_rules.js === */
 (function(){
   // Fleet conclusions rules (authoritative)
   // Each rule: {id, category, tone, text, when(ctx)->bool}
@@ -8970,7 +9118,7 @@ function render(){
 })();
 </script>
 <script>
-/* === Embedded from mow_theme.js === */
+/* === Inlined from mow_theme.js === */
 // mow_theme.js (STRONGER THEMES + DISTINCT BACKGROUNDS)
 
 (function(){
@@ -9105,7 +9253,7 @@ HighElves: {
 
 </script>
 <script>
-/* === Embedded from mow_scenarios.js === */
+/* === Inlined from mow_scenarios.js === */
 /* mow_scenarios.js
    Addon-only Scenario Generator for Man O' War builder
    - no dependencies on mow_core_fixed.js
@@ -9897,7 +10045,7 @@ HighElves: {
 })();
 </script>
 <script>
-/* === Embedded from mow_firepower2_patch_from_csv.js === */
+/* === Inlined from mow_firepower2_patch_from_csv.js === */
 /* Auto-generated firepower2 patch from mow_firepower2_global.csv */
 /* Adds per-mount notes: mount.notes (CSV 'notes'/'mount_note') */
 (function(){
@@ -10157,18 +10305,20 @@ function addRam(u, text){
 })();
 </script>
 <script>
-/* === Embedded from mow_unit_preview.js === */
+/* === Inlined from mow_unit_preview.js === */
 /* =========================================
-   MoW Unit Preview (MVP tooltip) — patch module
+   MoW Unit Preview — independent inline panels
+   - Click a unit name to expand/collapse its panel
+   - Multiple unit panels may stay open for comparison
    - No deps, no core refactor
    - Reads: window.MOW_PROFILES + unit.firepower2 (if present)
    ========================================= */
 (function(){
   const state = {
     enabled: false,
-    open: false,
-    currentEl: null,
-    currentKey: null, // "Faction::unitKey"
+    openKeys: new Set(),
+    refreshTimer: null,
+    observer: null
   };
 
   function $(sel, root=document){ return root.querySelector(sel); }
@@ -10394,25 +10544,20 @@ function resolveUnit(faction, unitKey, unitName){
   return null;
 }
 
-  // ---- Tooltip DOM ----
-  function ensureTooltip(){
-    let tip = $("#mowUnitPreviewTip");
-    if(tip) return tip;
-
-    tip = document.createElement("div");
-    tip.id = "mowUnitPreviewTip";
-    tip.setAttribute("role", "tooltip");
-    tip.setAttribute("aria-hidden", "true");
-    tip.setAttribute("data-open", "0");
-    tip.tabIndex = -1;
-
-    document.body.appendChild(tip);
-    return tip;
-  }
-
+  // ---- Inline panel DOM and controls ----
   function getUnitPreviewLabel(){
     const isEN = !!(window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang() === "en");
     return isEN ? "Unit preview" : "Podgląd jednostki";
+  }
+
+  function getCloseLabel(){
+    const isEN = !!(window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang() === "en");
+    return isEN ? "Close" : "Zamknij";
+  }
+
+  function getOpenHint(){
+    const isEN = !!(window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang() === "en");
+    return isEN ? "Click to open unit preview" : "Kliknij, aby otworzyć podgląd jednostki";
   }
 
   function refreshToggleLabel(){
@@ -10427,14 +10572,14 @@ function resolveUnit(faction, unitKey, unitName){
 
   function mountToggle(){
     // Try common containers; fall back to body top.
-	const candidates = [
-	  "#mowUpToggleHost",
-	  "#topbar", ".topbar",
-	  "#toolbar", ".toolbar",
-	  "#header", "header",
-	  "#appHeader", ".appHeader",
-	  "#controls", ".controls"
-	];
+    const candidates = [
+      "#mowUpToggleHost",
+      "#topbar", ".topbar",
+      "#toolbar", ".toolbar",
+      "#header", "header",
+      "#appHeader", ".appHeader",
+      "#controls", ".controls"
+    ];
     let host = null;
     for(const sel of candidates){
       host = $(sel);
@@ -10451,14 +10596,14 @@ function resolveUnit(faction, unitKey, unitName){
     const wrap = document.createElement("label");
     wrap.id = "mowUpToggleWrap";
     wrap.className = "mowUpToggle";
-	const unitPreviewLabel = getUnitPreviewLabel();
-	wrap.innerHTML = `
-	  <label class="mowUpSwitch">
-		<input type="checkbox" id="mowUpToggle" aria-label="${unitPreviewLabel}" />
-		<span class="mowUpSlider"></span>
-	  </label>
-	  <span class="mowUpSwitchLabel">${unitPreviewLabel}</span>
-	`;
+    const unitPreviewLabel = getUnitPreviewLabel();
+    wrap.innerHTML = `
+      <label class="mowUpSwitch">
+        <input type="checkbox" id="mowUpToggle" aria-label="${unitPreviewLabel}" />
+        <span class="mowUpSlider"></span>
+      </label>
+      <span class="mowUpSwitchLabel">${unitPreviewLabel}</span>
+    `;
 
     // Insert near start (safe)
     if(host === document.body){
@@ -10468,7 +10613,6 @@ function resolveUnit(faction, unitKey, unitName){
       wrap.style.zIndex = "9998";
       wrap.style.backdropFilter = "blur(6px)";
     } else {
-      // inline in header/toolbar
       wrap.style.marginLeft = ".5rem";
     }
 
@@ -10477,8 +10621,88 @@ function resolveUnit(faction, unitKey, unitName){
     const cb = $("#mowUpToggle", wrap);
     cb.addEventListener("change", () => {
       state.enabled = !!cb.checked;
-      if(!state.enabled) closeTip();
+      document.body.classList.toggle("mow-unit-preview-enabled", state.enabled);
+      if(!state.enabled) closeAllPanels();
+      refreshPreviewTargets();
     });
+  }
+
+  function getRowTitle(row){
+    return row?.querySelector?.(".title") || null;
+  }
+
+  function rowPreviewKey(row){
+    const faction = row?.dataset?.faction || "";
+    const unitKey = row?.dataset?.unitKey || "";
+    const scope = row?.closest?.(".section")?.id || row?.parentElement?.id || "units";
+    return `${faction}::${scope}::${unitKey}`;
+  }
+
+  function hashText(text){
+    let h = 2166136261;
+    const value = String(text || "");
+    for(let i = 0; i < value.length; i++){
+      h ^= value.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return (h >>> 0).toString(36);
+  }
+
+  function triggerIdForRow(row){
+    return `mowUnitPreviewTrigger_${hashText(rowPreviewKey(row))}`;
+  }
+
+  function panelIdForRow(row){
+    return `mowUnitPreviewPanel_${hashText(rowPreviewKey(row))}`;
+  }
+
+  function resolveRowUnit(row){
+    const faction = row?.dataset?.faction;
+    const unitKey = row?.dataset?.unitKey;
+    if(!faction || !unitKey) return null;
+    return resolveUnit(faction, unitKey, row?.dataset?.unitName);
+  }
+
+  function findPanelForRow(row){
+    if(!row || !row.parentElement) return null;
+    const key = rowPreviewKey(row);
+    for(const el of row.parentElement.children){
+      if(el?.classList?.contains("mowUnitPreviewPanel") && el.dataset.previewKey === key) return el;
+    }
+    return null;
+  }
+
+  function setTriggerState(row, isOpen){
+    const title = getRowTitle(row);
+    if(!title) return;
+    title.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    if(isOpen){
+      title.setAttribute("aria-controls", panelIdForRow(row));
+    } else {
+      title.removeAttribute("aria-controls");
+    }
+  }
+
+  function makeTitleInteractive(row, available){
+    const title = getRowTitle(row);
+    if(!title) return;
+
+    if(state.enabled && available){
+      title.classList.add("mowUnitPreviewTrigger");
+      title.setAttribute("role", "button");
+      title.setAttribute("tabindex", "0");
+      title.setAttribute("aria-expanded", state.openKeys.has(rowPreviewKey(row)) ? "true" : "false");
+      title.setAttribute("data-mow-preview-hint", getOpenHint());
+      title.id = triggerIdForRow(row);
+    } else {
+      title.classList.remove("mowUnitPreviewTrigger");
+      title.removeAttribute("role");
+      title.removeAttribute("tabindex");
+      title.removeAttribute("aria-expanded");
+      title.removeAttribute("aria-controls");
+      title.removeAttribute("data-mow-preview-hint");
+      if(title.id && title.id.startsWith("mowUnitPreviewTrigger_")) title.removeAttribute("id");
+    }
   }
 
 	function capitalize(s){
@@ -10795,184 +11019,232 @@ ${weaponNotesHtml}
       .replaceAll("'","&#039;");
   }
 
-  function positionTip(tip, anchorEl){
-    const r = anchorEl.getBoundingClientRect();
-    const pad = 10;
+  function panelFooterHTML(){
+    return `
+      <div class="mowUpActions">
+        <button type="button" class="mowUnitPreviewClose">${escapeHtml(getCloseLabel())}</button>
+      </div>
+    `;
+  }
 
-    // initial: below-left of row
-    let x = r.left + pad;
-    let y = r.bottom + pad;
+  function openPanelForRow(row){
+    if(!state.enabled || !row) return false;
 
-    // measure
-    tip.style.left = "0px";
-    tip.style.top = "0px";
-    tip.style.maxWidth = "min(520px, calc(100vw - 24px))";
-    tip.style.visibility = "hidden";
-    tip.setAttribute("data-open","1");
-    const tr = tip.getBoundingClientRect();
-    tip.style.visibility = "";
+    const faction = row?.dataset?.faction;
+    const unitKey = row?.dataset?.unitKey;
+    if(!faction || !unitKey) return false;
 
-    // clamp horizontally
-    const maxX = window.innerWidth - tr.width - 12;
-    x = Math.max(12, Math.min(x, maxX));
+    const unit = resolveRowUnit(row);
+    if(!unit) return false;
 
-    // if would overflow bottom, place above
-    if(y + tr.height > window.innerHeight - 12){
-      y = r.top - tr.height - pad;
-      if(y < 12) y = 12;
+    const key = rowPreviewKey(row);
+    let panel = findPanelForRow(row);
+    if(!panel){
+      panel = document.createElement("div");
+      panel.className = "mowUnitPreviewPanel";
+      panel.dataset.previewKey = key;
+      panel.id = panelIdForRow(row);
+      panel.setAttribute("role", "region");
+      panel.setAttribute("aria-labelledby", triggerIdForRow(row));
+      row.insertAdjacentElement("afterend", panel);
     }
 
-    tip.style.left = `${Math.round(x)}px`;
-    tip.style.top = `${Math.round(y)}px`;
+    panel.innerHTML = renderTipHTML(faction, unitKey, unit) + panelFooterHTML();
+    panel.hidden = false;
+    panel.setAttribute("data-open", "1");
+
+    state.openKeys.add(key);
+    setTriggerState(row, true);
+    return true;
   }
 
-  function openTipForRow(rowEl){
-    if(!state.enabled) return;
+  function closePanelForRow(row, focusTrigger=false){
+    if(!row) return;
+    const key = rowPreviewKey(row);
+    const panel = findPanelForRow(row);
+    if(panel) panel.remove();
+    state.openKeys.delete(key);
+    setTriggerState(row, false);
 
-    const faction = rowEl?.dataset?.faction;
-    const unitKey = rowEl?.dataset?.unitKey;
-    if(!faction || !unitKey) return;
-
-    const unitName = rowEl?.dataset?.unitName;
-
-    const unit = resolveUnit(faction, unitKey, unitName);
-    if(!unit) return;
-
-    const key = `${faction}::${unitKey}`;
-    const tip = ensureTooltip();
-
-    if(state.open && state.currentKey === key && state.currentEl === rowEl){
-      // already open on same row, just reposition
-      positionTip(tip, rowEl);
-      return;
+    if(focusTrigger){
+      const title = getRowTitle(row);
+      if(title && typeof title.focus === "function") title.focus();
     }
-
-    tip.innerHTML = renderTipHTML(faction, unitKey, unit);
-    tip.setAttribute("aria-hidden","false");
-    tip.setAttribute("data-open","1");
-
-    state.open = true;
-    state.currentEl = rowEl;
-    state.currentKey = key;
-
-    positionTip(tip, rowEl);
   }
 
-  function closeTip(){
-    const tip = $("#mowUnitPreviewTip");
-    if(!tip) return;
-    tip.setAttribute("aria-hidden","true");
-    tip.setAttribute("data-open","0");
-    state.open = false;
-    state.currentEl = null;
-    state.currentKey = null;
+  function closeAllPanels(){
+    document.querySelectorAll(".mowUnitPreviewPanel").forEach(panel => panel.remove());
+    state.openKeys.clear();
+    document.querySelectorAll(".mow-plan-row[data-faction][data-unit-key]").forEach(row => setTriggerState(row, false));
   }
 
-  function findRowFromEventTarget(t){
-    if(!t) return null;
-    if(t.closest?.(".mow-image-search-link")) return null;
-    // Two safe selectors:
-    // 1) explicit .mow-plan-row wrapper
-    // 2) any element carrying both data-faction and data-unit-key
-    return t.closest?.(".mow-plan-row,[data-faction][data-unit-key]") || null;
+  function togglePanelForRow(row){
+    const key = rowPreviewKey(row);
+    if(state.openKeys.has(key) || findPanelForRow(row)){
+      closePanelForRow(row);
+    } else {
+      openPanelForRow(row);
+    }
+  }
+
+  function refreshOpenPanels(){
+    const seen = new Set();
+    document.querySelectorAll(".mow-plan-row[data-faction][data-unit-key]").forEach(row => {
+      const key = rowPreviewKey(row);
+      seen.add(key);
+      if(!state.openKeys.has(key)) return;
+
+      const unit = resolveRowUnit(row);
+      if(!unit){
+        state.openKeys.delete(key);
+        const panel = findPanelForRow(row);
+        if(panel) panel.remove();
+        return;
+      }
+
+      let panel = findPanelForRow(row);
+      if(!panel){
+        openPanelForRow(row);
+        return;
+      }
+
+      panel.innerHTML = renderTipHTML(row.dataset.faction, row.dataset.unitKey, unit) + panelFooterHTML();
+      panel.setAttribute("aria-labelledby", triggerIdForRow(row));
+      setTriggerState(row, true);
+    });
+
+    for(const key of Array.from(state.openKeys)){
+      if(!seen.has(key)) state.openKeys.delete(key);
+    }
+  }
+
+  function refreshPreviewTargets(){
+    const rows = document.querySelectorAll(".mow-plan-row[data-faction][data-unit-key]");
+    const present = new Set();
+
+    rows.forEach(row => {
+      const key = rowPreviewKey(row);
+      present.add(key);
+      const available = !!resolveRowUnit(row);
+      makeTitleInteractive(row, available);
+
+      if(state.enabled && available && state.openKeys.has(key) && !findPanelForRow(row)){
+        openPanelForRow(row);
+      }
+      if((!state.enabled || !available) && findPanelForRow(row)){
+        closePanelForRow(row);
+      }
+    });
+
+    for(const key of Array.from(state.openKeys)){
+      if(!present.has(key)) state.openKeys.delete(key);
+    }
+  }
+
+  function scheduleRefresh(){
+    if(state.refreshTimer) clearTimeout(state.refreshTimer);
+    state.refreshTimer = setTimeout(() => {
+      state.refreshTimer = null;
+      refreshPreviewTargets();
+    }, 0);
+  }
+
+  function rowFromTitleTarget(target){
+    if(!target || target.closest?.(".mow-image-search-link")) return null;
+    const title = target.closest?.(".title");
+    if(!title) return null;
+    return title.closest?.(".mow-plan-row[data-faction][data-unit-key]") || null;
+  }
+
+  function rowFromPanel(panel){
+    if(!panel) return null;
+    const key = panel.dataset.previewKey;
+    const prev = panel.previousElementSibling;
+    if(prev?.classList?.contains("mow-plan-row") && rowPreviewKey(prev) === key) return prev;
+
+    for(const row of document.querySelectorAll(".mow-plan-row[data-faction][data-unit-key]")){
+      if(rowPreviewKey(row) === key) return row;
+    }
+    return null;
   }
 
   // ---- Events (delegation) ----
   function bindEvents(){
-    // Hover desktop
-    document.addEventListener("mouseover", (e) => {
-      if(!state.enabled) return;
-      const row = findRowFromEventTarget(e.target);
-      if(!row) return;
-      openTipForRow(row);
-    }, { passive:true });
-
-    document.addEventListener("mouseout", (e) => {
-      if(!state.enabled) return;
-      const tip = $("#mowUnitPreviewTip");
-      if(!tip || !state.open) return;
-
-      const to = e.relatedTarget;
-      // if moving into tooltip itself, do not close
-      if(to && (to === tip || tip.contains(to))) return;
-
-      const fromRow = findRowFromEventTarget(e.target);
-      // if leaving current row (and not going into another row), close
-      if(fromRow && fromRow === state.currentEl){
-        closeTip();
+    document.addEventListener("click", (e) => {
+      const closeBtn = e.target.closest?.(".mowUnitPreviewClose");
+      if(closeBtn){
+        const panel = closeBtn.closest(".mowUnitPreviewPanel");
+        const row = rowFromPanel(panel);
+        if(row) closePanelForRow(row, true);
+        return;
       }
-    }, { passive:true });
 
-    // Focus accessibility
-    document.addEventListener("focusin", (e) => {
       if(!state.enabled) return;
-      const row = findRowFromEventTarget(e.target);
+      const row = rowFromTitleTarget(e.target);
       if(!row) return;
-      openTipForRow(row);
+      if(!resolveRowUnit(row)) return;
+      e.preventDefault();
+      togglePanelForRow(row);
     });
 
     document.addEventListener("keydown", (e) => {
       if(!state.enabled) return;
-      if(e.key === "Escape"){
-        closeTip();
-      }
-    });
 
-    // Mobile tap / click: toggle tooltip on row
-    document.addEventListener("click", (e) => {
-      if(!state.enabled) return;
-      const row = findRowFromEventTarget(e.target);
-      const tip = $("#mowUnitPreviewTip");
-
-      // click outside closes
-      if(!row){
-        if(tip && state.open && !(tip.contains(e.target))) closeTip();
+      if(e.key === "Enter" || e.key === " "){
+        const row = rowFromTitleTarget(e.target);
+        if(!row || !resolveRowUnit(row)) return;
+        e.preventDefault();
+        togglePanelForRow(row);
         return;
       }
 
-      // if click inside tooltip, ignore (do not toggle)
-      if(tip && tip.contains(e.target)) return;
+      if(e.key === "Escape"){
+        const panel = e.target.closest?.(".mowUnitPreviewPanel");
+        if(panel){
+          const row = rowFromPanel(panel);
+          if(row) closePanelForRow(row, true);
+          return;
+        }
 
-      const faction = row.dataset?.faction;
-      const unitKey = row.dataset?.unitKey;
-      if(!faction || !unitKey) return;
-
-      const key = `${faction}::${unitKey}`;
-      if(state.open && state.currentKey === key){
-        closeTip();
-      } else {
-        openTipForRow(row);
+        const row = e.target.closest?.(".mow-plan-row[data-faction][data-unit-key]");
+        if(row && state.openKeys.has(rowPreviewKey(row))){
+          closePanelForRow(row);
+        }
       }
     });
-    
-    // reposition on scroll/resize if open
-    window.addEventListener("scroll", () => {
-      if(!state.enabled || !state.open || !state.currentEl) return;
-      const tip = $("#mowUnitPreviewTip");
-      if(!tip) return;
-      positionTip(tip, state.currentEl);
-    }, { passive:true });
+  }
 
-    window.addEventListener("resize", () => {
-      if(!state.enabled || !state.open || !state.currentEl) return;
-      const tip = $("#mowUnitPreviewTip");
-      if(!tip) return;
-      positionTip(tip, state.currentEl);
-    }, { passive:true });
+  function observeDynamicRows(){
+    if(state.observer || !window.MutationObserver) return;
+    state.observer = new MutationObserver((mutations) => {
+      const relevant = mutations.some(m => {
+        if(m.target?.closest?.(".mowUnitPreviewPanel")) return false;
+        const nodes = [...m.addedNodes, ...m.removedNodes];
+        if(nodes.length && nodes.every(n => n.nodeType === 1 && n.classList?.contains("mowUnitPreviewPanel"))) return false;
+        return true;
+      });
+      if(relevant) scheduleRefresh();
+    });
+    state.observer.observe(document.body, { childList:true, subtree:true });
   }
 
   function init(){
     mountToggle();
-    ensureTooltip();
     bindEvents();
+    observeDynamicRows();
+    refreshPreviewTargets();
     ["langPL","langEN"].forEach(id=>{
       const el = document.getElementById(id);
       if(el && !el.__mowUpLangBound){
-        el.addEventListener("click", ()=> setTimeout(refreshToggleLabel, 0));
+        el.addEventListener("click", ()=> setTimeout(() => {
+          refreshToggleLabel();
+          refreshPreviewTargets();
+          refreshOpenPanels();
+        }, 0));
         el.__mowUpLangBound = true;
       }
     });
-    console.log("[MoW Unit Preview] Ready");
+    console.log("[MoW Unit Preview] Inline panels ready");
   }
 
   if(document.readyState === "loading"){
@@ -10983,7 +11255,7 @@ ${weaponNotesHtml}
 })();
 </script>
 <script>
-/* === Embedded from mow_image_search.js === */
+/* === Inlined from mow_image_search.js === */
 /* mow_image_search.js
  * Adds a compact Google Images search link to physical unit rows.
  * No images are hosted by the builder; each link opens a targeted search in a new tab.
@@ -11276,7 +11548,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_ship_name_tables.js === */
+/* === Inlined from mow_ship_name_tables.js === */
 /* Auto-generated wrapper for mow_ship_name_generator_tables_v14.json.
    Source of truth: mow_ship_name_generator_tables_v14.json
    Embedded in the standalone build so the generator works fully offline. */
@@ -11295,7 +11567,7 @@ ${weaponNotesHtml}
     "allow_x_of_y": false,
     "allow_numbers": false,
     "avoid_duplicates_within_current_fleet": true,
-    "generation_scope": "Men O' War ship names modal only"
+    "generation_scope": "Nameable ship models in the ship names editor"
   },
   "factions": {
     "Dwarfs": {
@@ -15083,7 +15355,11 @@ ${weaponNotesHtml}
           "Nurgle Plagueship": "nurgle",
           "Slaanesh Hellship": "slaanesh",
           "Tzeentch Great Winged Terror": "tzeentch",
-          "Bane Tower of Tzeentch": "tzeentch"
+          "Bane Tower of Tzeentch": "tzeentch",
+          "Ironsharks": "khorne",
+          "Plaguecrushers": "nurgle",
+          "Hellrammers": "slaanesh",
+          "Hellslicers": "slaanesh"
         }
       },
       "profiles": {
@@ -16622,7 +16898,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_ship_name_generator.js === */
+/* === Inlined from mow_ship_name_generator.js === */
 /* =========================================
    Man O' War lore-based ship-name generator
    - consumes window.MOW_SHIP_NAME_TABLES
@@ -16716,7 +16992,24 @@ ${weaponNotesHtml}
     if(combined.includes("bloodship")) return "Khorne Bloodship";
     if(combined.includes("hellship")) return "Slaanesh Hellship";
     if(combined.includes("plagueship")) return "Nurgle Plagueship";
+    if(combined.includes("ironshark")) return "Ironsharks";
+    if(combined.includes("plaguecrusher")) return "Plaguecrushers";
+    if(combined.includes("hellrammer")) return "Hellrammers";
+    if(combined.includes("hellslicer")) return "Hellslicers";
+    if(combined.includes("death galley") || combined.includes("deathgall")) return "Deathgalleys";
     return text(context && context.unitName);
+  }
+
+  function chaosProfileFromContext(context){
+    const value = norm([
+      context && context.chaosVariant,
+      context && context.faction
+    ].filter(Boolean).join(" "));
+    if(value.includes("khorne")) return "khorne";
+    if(value.includes("slaanesh")) return "slaanesh";
+    if(value.includes("tzeentch")) return "tzeentch";
+    if(value.includes("nurgle")) return "nurgle";
+    return "";
   }
 
   function resolveUndeadProfile(factionDef, context){
@@ -16740,7 +17033,10 @@ ${weaponNotesHtml}
 
     if(factionName === "Chaos"){
       const canonicalUnit = canonicalChaosUnit(context || {});
-      const profileId = text(factionDef.selection_logic && factionDef.selection_logic.by_unit && factionDef.selection_logic.by_unit[canonicalUnit]);
+      let profileId = text(factionDef.selection_logic && factionDef.selection_logic.by_unit && factionDef.selection_logic.by_unit[canonicalUnit]);
+      // Deathgalleys serve every patron-specific fleet. In a mixed Plaguefleet or
+      // as generic Chaos allies they deliberately have no automatic patron table.
+      if(!profileId && canonicalUnit === "Deathgalleys") profileId = chaosProfileFromContext(context || {});
       const profile = profileId && factionDef.profiles && factionDef.profiles[profileId];
       if(!profile) return null;
       return {
@@ -16914,11 +17210,13 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_ship_names.js === */
+/* === Inlined from mow_ship_names.js === */
 /* =========================================
-   Man O' War custom ship names
-   - optional names for individual Men O' War models
-   - includes allied Men O' War and the Bane Tower of Tzeentch
+   Custom ship names
+   - optional names for individual Men O' War, Ship of the Line
+     and Independent vessel models
+   - includes allied ships and the Bane Tower of Tzeentch
+   - Ship of the Line selections expand to their three physical models
    - lore-based random generation uses the actual ship faction/patron
    - desktop uses a modal; mobile uses an inline editor to avoid
      Android soft-keyboard focus loss inside fixed overlays
@@ -16936,14 +17234,16 @@ ${weaponNotesHtml}
   const TEXT = {
     pl: {
       button: "Nazwy okrętów",
-      title: "Nazwy okrętów Men O’ War",
-      hint: "Nadaj własne nazwy albo wylosuj je z tabel dopasowanych do frakcji i konkretnego okrętu. Oficjalna nazwa jednostki pozostanie widoczna w rozpisce.",
+      title: "Nazwy okrętów",
+      hint: "Nadaj własne nazwy poszczególnym okrętom Men O’ War, okrętom liniowym i jednostkom niezależnym albo wylosuj je z tabel dopasowanych do frakcji i konkretnego okrętu. Oficjalna nazwa jednostki pozostanie widoczna w rozpisce.",
       done: "Gotowe",
       close: "Zamknij",
-      empty: "Najpierw dodaj co najmniej jeden okręt Men O’ War albo Bane Tower do floty.",
+      empty: "Najpierw dodaj do floty co najmniej jeden okręt możliwy do nazwania.",
       placeholder: "Własna nazwa okrętu",
       nameLabel: "Nazwa",
       shipNumber: "Okręt {n}",
+      squadronNumber: "Eskadra {n}",
+      squadronSummary: "Eskadra {n}: {names}",
       aria: "Edytuj nazwy okrętów",
       generate: "Losuj",
       generateAria: "Wylosuj nazwę dla: {ship}",
@@ -16954,14 +17254,16 @@ ${weaponNotesHtml}
     },
     en: {
       button: "Ship names",
-      title: "Men O’ War ship names",
-      hint: "Enter custom names or generate lore-based names matched to the faction and actual ship. The official unit name will remain visible in the roster.",
+      title: "Ship names",
+      hint: "Enter custom names for individual Men O’ War, Ships of the Line and Independent vessels, or generate lore-based names matched to the faction and actual ship. The official unit name will remain visible in the roster.",
       done: "Done",
       close: "Close",
-      empty: "Add at least one Men O’ War ship or Bane Tower to the fleet first.",
+      empty: "Add at least one nameable ship to the fleet first.",
       placeholder: "Custom ship name",
       nameLabel: "Name",
       shipNumber: "Ship {n}",
+      squadronNumber: "Squadron {n}",
+      squadronSummary: "Squadron {n}: {names}",
       aria: "Edit ship names",
       generate: "Generate",
       generateAria: "Generate a name for: {ship}",
@@ -16986,6 +17288,10 @@ ${weaponNotesHtml}
     if(!el) return "";
     const selected = el.selectedOptions && el.selectedOptions[0] ? el.selectedOptions[0].textContent : "";
     return String(selected || el.value || "").trim();
+  }
+  function currentChaosVariant(){
+    const el = document.getElementById("chaosVariantSelect");
+    return String(el && el.value ? el.value : "").trim().toLowerCase();
   }
   function isMobileEditor(){
     try{ return !!(window.matchMedia && window.matchMedia("(max-width: 700px)").matches); }
@@ -17054,8 +17360,10 @@ ${weaponNotesHtml}
     return String(row?.querySelector(".title")?.textContent || row?.dataset?.unitName || rowUnitId(row)).trim();
   }
   function rowFaction(row){
-    if(row && row.closest && row.closest("#allyMiniBuilder")) return String(row.dataset.faction || selectedAllyFaction() || "");
-    return String(row?.dataset?.faction || currentFleet());
+    if(row && row.closest && row.closest("#allyMiniBuilder")){
+      return String(row.dataset.namingFaction || row.dataset.faction || selectedAllyFaction() || "");
+    }
+    return String(row?.dataset?.namingFaction || row?.dataset?.faction || currentFleet());
   }
   function selectedAllyFaction(){
     const value = String(document.getElementById("allyFaction")?.value || "");
@@ -17067,8 +17375,26 @@ ${weaponNotesHtml}
     const name = String(row?.dataset?.unitName || row?.querySelector(".title")?.textContent || "").toLowerCase();
     return id === "pf_sorcerer" || id.includes("bane_tower") || name.includes("bane tower of tzeentch");
   }
-  function isMowRow(row){ return String(row?.dataset?.unitType || "").toUpperCase() === "MOW"; }
-  function isNameableRow(row){ return !!row && (isMowRow(row) || isBaneTowerRow(row)); }
+  function rowType(row){ return String(row?.dataset?.unitType || row?.dataset?.kind || "").toUpperCase(); }
+  function isMowRow(row){ return rowType(row) === "MOW"; }
+  function isSolRow(row){ return rowType(row) === "SOL"; }
+  function isIndependentRow(row){ return rowType(row) === "INDEP"; }
+  function isDeathFortressRow(row){
+    const id = String(rowStorageId(row) || rowUnitId(row)).toLowerCase().replace(/[^a-z0-9]+/g, "");
+    const name = String(row?.dataset?.unitName || row?.querySelector(".title")?.textContent || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+    return id.includes("deathfortress") || name.includes("deathfortress");
+  }
+  function rowModelsPerSelection(row){
+    const explicit = parseInt(row?.dataset?.modelsPerSelection || "", 10);
+    if(Number.isFinite(explicit) && explicit > 0) return explicit;
+    // Death Fortress counts as a squadron for some fleet-list purposes but is one physical model.
+    if(isSolRow(row) && !isDeathFortressRow(row)) return 3;
+    return 1;
+  }
+  function rowModelQty(row){ return rowQty(row) * rowModelsPerSelection(row); }
+  function isNameableRow(row){
+    return !!row && (isMowRow(row) || isSolRow(row) || isIndependentRow(row) || isBaneTowerRow(row));
+  }
   function getNameableRows(){
     const rows = Array.from(document.querySelectorAll("#unitsRoot .row, #allyMiniBuilder .row"));
     return rows.filter(isNameableRow);
@@ -17093,14 +17419,19 @@ ${weaponNotesHtml}
       unitId:rowStorageId(row),
       unitName,
       isAllied:isAlliedRow(row),
-      admiral:currentAdmiral()
+      admiral:currentAdmiral(),
+      chaosVariant:currentChaosVariant()
     };
     const generator = window.MOW_SHIP_NAME_GENERATOR;
     const resolution = generator && typeof generator.resolve === "function" ? generator.resolve(context) : null;
     return {
       row,
       storageId:rowStorageId(row),
-      qty:rowQty(row),
+      type:rowType(row),
+      selectionQty:rowQty(row),
+      modelsPerSelection:rowModelsPerSelection(row),
+      modelQty:rowModelQty(row),
+      qty:rowModelQty(row),
       unitName,
       faction,
       isAllied:isAlliedRow(row),
@@ -17114,7 +17445,7 @@ ${weaponNotesHtml}
     const out = [];
     selectedNameableRows().forEach(row => {
       const descriptor = descriptorForRow(row);
-      getNames(descriptor.storageId).slice(0, descriptor.qty).forEach((name, index) => {
+      getNames(descriptor.storageId).slice(0, descriptor.modelQty).forEach((name, index) => {
         const value = normalizeName(name);
         if(value) out.push({storageId:descriptor.storageId, index, value});
       });
@@ -17131,11 +17462,10 @@ ${weaponNotesHtml}
     if(!row) return;
     const first = row.firstElementChild;
     if(!first) return;
-    const unitId = rowStorageId(row);
-    const qty = rowQty(row);
-    const activeNames = getNames(unitId).slice(0, qty).map(normalizeName).filter(Boolean);
+    const descriptor = descriptorForRow(row);
+    const names = getNames(descriptor.storageId).slice(0, descriptor.modelQty).map(normalizeName);
     let summary = first.querySelector(":scope > .mow-ship-custom-names");
-    if(!activeNames.length){
+    if(!names.some(Boolean)){
       if(summary) summary.remove();
       return;
     }
@@ -17146,8 +17476,27 @@ ${weaponNotesHtml}
       if(title) title.insertAdjacentElement("afterend", summary);
       else first.prepend(summary);
     }
-    summary.textContent = activeNames.join(" · ");
-    summary.title = activeNames.join("\n");
+    summary.innerHTML = "";
+    const titleLines = [];
+    if(descriptor.modelsPerSelection > 1){
+      for(let squadronIndex=0; squadronIndex<descriptor.selectionQty; squadronIndex++){
+        const offset = squadronIndex * descriptor.modelsPerSelection;
+        const active = names.slice(offset, offset + descriptor.modelsPerSelection).filter(Boolean);
+        if(!active.length) continue;
+        const text = tr("squadronSummary")
+          .replace("{n}", String(squadronIndex + 1))
+          .replace("{names}", active.join(" · "));
+        const line = document.createElement("div");
+        line.textContent = text;
+        summary.appendChild(line);
+        titleLines.push(text);
+      }
+    }else{
+      const active = names.filter(Boolean);
+      summary.textContent = active.join(" · ");
+      titleLines.push(...active);
+    }
+    summary.title = titleLines.join("\n");
   }
 
   function ensureEditorButton(section, visible){
@@ -17176,7 +17525,9 @@ ${weaponNotesHtml}
 
   function ensureSectionButtons(){
     const selected = selectedNameableRows();
-    ensureEditorButton(document.getElementById("sec_MOW"), selected.some(row => !isAlliedRow(row) && !isBaneTowerRow(row)));
+    ensureEditorButton(document.getElementById("sec_MOW"), selected.some(row => !isAlliedRow(row) && isMowRow(row) && !isBaneTowerRow(row)));
+    ensureEditorButton(document.getElementById("sec_SOL"), selected.some(row => !isAlliedRow(row) && isSolRow(row)));
+    ensureEditorButton(document.getElementById("sec_INDEP"), selected.some(row => !isAlliedRow(row) && isIndependentRow(row)));
     ensureEditorButton(document.getElementById("sec_OTHER"), selected.some(row => !isAlliedRow(row) && isBaneTowerRow(row)));
     ensureEditorButton(document.getElementById("sec_allies"), selected.some(isAlliedRow));
   }
@@ -17306,6 +17657,50 @@ ${weaponNotesHtml}
     updateGenerateAllButton(document.getElementById("mowShipNamesInlineGenerateAll"), document.getElementById("mowShipNamesInlineFields"));
   }
 
+  function appendNameField(container, descriptor, index, captionText, prefix){
+    const field = document.createElement("div");
+    field.className = "mow-ship-name-field";
+    const inputId = `${prefix}_${descriptor.storageId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${index}`;
+    const caption = document.createElement("label");
+    caption.htmlFor = inputId;
+    caption.textContent = captionText;
+
+    const controls = document.createElement("div");
+    controls.className = "mow-ship-name-field-controls";
+    const input = document.createElement("input");
+    input.id = inputId;
+    input.type = "text";
+    input.inputMode = "text";
+    input.enterKeyHint = "done";
+    input.maxLength = 80;
+    input.autocomplete = "off";
+    input.autocapitalize = "words";
+    input.spellcheck = false;
+    input.placeholder = tr("placeholder");
+    input.value = getNames(descriptor.storageId)[index] || "";
+    input.dataset.unitId = descriptor.storageId;
+    input.dataset.shipIndex = String(index);
+    input.__mowDescriptor = descriptor;
+    input.addEventListener("input", () => {
+      setName(descriptor.storageId, index, input.value, currentFleet(), true, true);
+      updateRowNameSummary(descriptor.row);
+      updateAllGenerateButtons();
+    });
+
+    const generate = document.createElement("button");
+    generate.type = "button";
+    generate.className = "mow-ship-name-generate";
+    generate.textContent = tr("generate");
+    generate.disabled = !descriptor.generatorAvailable;
+    generate.title = descriptor.generatorAvailable ? tr("generateAria").replace("{ship}", descriptor.unitName) : tr("noGenerator");
+    generate.setAttribute("aria-label", generate.title);
+    generate.addEventListener("click", () => generateOne(input));
+
+    controls.append(input, generate);
+    field.append(caption, controls);
+    container.appendChild(field);
+  }
+
   function buildFieldGroups(host, prefix){
     if(!host) return;
     host.innerHTML = "";
@@ -17335,51 +17730,27 @@ ${weaponNotesHtml}
       }
       group.appendChild(source);
 
-      const names = getNames(descriptor.storageId);
-      for(let i=0; i<descriptor.qty; i++){
-        const field = document.createElement("div");
-        field.className = "mow-ship-name-field";
-        const inputId = `${prefix}_${descriptor.storageId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${i}`;
-        const caption = document.createElement("label");
-        caption.htmlFor = inputId;
-        caption.textContent = descriptor.qty > 1
-          ? tr("shipNumber").replace("{n}", String(i + 1))
-          : tr("nameLabel");
-
-        const controls = document.createElement("div");
-        controls.className = "mow-ship-name-field-controls";
-        const input = document.createElement("input");
-        input.id = inputId;
-        input.type = "text";
-        input.inputMode = "text";
-        input.enterKeyHint = "done";
-        input.maxLength = 80;
-        input.autocomplete = "off";
-        input.autocapitalize = "words";
-        input.spellcheck = false;
-        input.placeholder = tr("placeholder");
-        input.value = names[i] || "";
-        input.dataset.unitId = descriptor.storageId;
-        input.dataset.shipIndex = String(i);
-        input.__mowDescriptor = descriptor;
-        input.addEventListener("input", () => {
-          setName(descriptor.storageId, i, input.value, currentFleet(), true, true);
-          updateRowNameSummary(descriptor.row);
-          updateAllGenerateButtons();
-        });
-
-        const generate = document.createElement("button");
-        generate.type = "button";
-        generate.className = "mow-ship-name-generate";
-        generate.textContent = tr("generate");
-        generate.disabled = !descriptor.generatorAvailable;
-        generate.title = descriptor.generatorAvailable ? tr("generateAria").replace("{ship}", descriptor.unitName) : tr("noGenerator");
-        generate.setAttribute("aria-label", generate.title);
-        generate.addEventListener("click", () => generateOne(input));
-
-        controls.append(input, generate);
-        field.append(caption, controls);
-        group.appendChild(field);
+      if(descriptor.modelsPerSelection > 1){
+        for(let squadronIndex=0; squadronIndex<descriptor.selectionQty; squadronIndex++){
+          const squadron = document.createElement("div");
+          squadron.className = "mow-ship-name-squadron";
+          const squadronTitle = document.createElement("div");
+          squadronTitle.className = "mow-ship-name-squadron-title";
+          squadronTitle.textContent = tr("squadronNumber").replace("{n}", String(squadronIndex + 1));
+          squadron.appendChild(squadronTitle);
+          for(let shipIndex=0; shipIndex<descriptor.modelsPerSelection; shipIndex++){
+            const absoluteIndex = squadronIndex * descriptor.modelsPerSelection + shipIndex;
+            appendNameField(squadron, descriptor, absoluteIndex, tr("shipNumber").replace("{n}", String(shipIndex + 1)), prefix);
+          }
+          group.appendChild(squadron);
+        }
+      }else{
+        for(let i=0; i<descriptor.modelQty; i++){
+          const caption = descriptor.modelQty > 1
+            ? tr("shipNumber").replace("{n}", String(i + 1))
+            : tr("nameLabel");
+          appendNameField(group, descriptor, i, caption, prefix);
+        }
       }
       host.appendChild(group);
     });
@@ -17521,7 +17892,8 @@ ${weaponNotesHtml}
       const inlineOpen = document.getElementById("mowShipNamesInline")?.classList.contains("is-open");
       if(modalOpen && isMobileEditor()){
         closeModal(false);
-        openInline(document.getElementById("sec_MOW"));
+        const firstSelected = selectedNameableRows()[0];
+        openInline(firstSelected?.closest?.(".section") || document.getElementById("sec_MOW") || document.getElementById("sec_SOL") || document.getElementById("sec_INDEP"));
       }else if(inlineOpen && !isMobileEditor()){
         closeInline(false);
         openModal();
@@ -17536,7 +17908,12 @@ ${weaponNotesHtml}
     getNames:function(unitId, fleetKey){ return getNames(String(unitId || ""), fleetKey).slice(); },
     refresh:scheduleRefresh,
     open:openEditor,
-    getNameableRows:function(){ return getNameableRows().slice(); }
+    getNameableRows:function(){ return getNameableRows().slice(); },
+    modelsPerSelection:function(unitId){
+      const id = String(unitId || "");
+      const row = getNameableRows().find(item => rowStorageId(item) === id || rowUnitId(item) === id);
+      return row ? rowModelsPerSelection(row) : 1;
+    }
   };
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
@@ -17545,7 +17922,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_tools_toggles.js === */
+/* === Inlined from mow_tools_toggles.js === */
 /* =========================================
    MoW Tools Toggles — UI module (minimal risk)
    - Builds a vertical toggle column next to Unit Preview
@@ -17716,7 +18093,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_citadel_journal_toggles.js === */
+/* === Inlined from mow_citadel_journal_toggles.js === */
 /* =========================================
    Citadel Journal optional-rules toggles
    - Context-sensitive fleet module:
@@ -18058,7 +18435,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_mobile_setup_layout.js === */
+/* === Inlined from mow_mobile_setup_layout.js === */
 /* =========================================
    Mobile Fleet Setup layout
    - Fleet selection is shown before optional controls on narrow screens.
@@ -18207,7 +18584,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_mobile_quantity_steppers.js === */
+/* === Inlined from mow_mobile_quantity_steppers.js === */
 /* Man O' War Fleet Builder — mobile quantity steppers
    Adds touch-friendly minus/plus controls to unit quantity inputs while
    preserving direct numeric entry and the builder's existing event flow. */
@@ -18421,7 +18798,7 @@ ${weaponNotesHtml}
 
 </script>
 <script>
-/* === Embedded from mow_high_elves_citadel_journal.js === */
+/* === Inlined from mow_high_elves_citadel_journal.js === */
 /* =========================================
    High Elves Citadel Journal behaviour
    - Elven Mage replaces the standard Wizard.
@@ -18759,7 +19136,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
 
 root.innerHTML = html;
 
-// --- Unit Preview: add dataset hooks for tooltip (mobile + desktop) ---
+// --- Unit Preview: add dataset hooks for inline panels (mobile + desktop) ---
 {
   const rows = root.querySelectorAll(".row");
   rows.forEach(row => {
@@ -18777,8 +19154,9 @@ root.innerHTML = html;
     if(unitDef){
       row.dataset.unitName = unitDef.label || unitDef.id || unitKey;
       row.dataset.unitType = unitDef.type || "";
+      row.dataset.modelsPerSelection = String(String(unitDef.type || "").toUpperCase() === "SOL" ? 3 : 1);
     }
-    row.classList.add("mow-plan-row"); // wspierany selector w mow_unit_preview.js
+    row.classList.add("mow-plan-row"); // inline preview target used by mow_unit_preview.js
   });
   if(window.MOW_IMAGE_SEARCH && typeof window.MOW_IMAGE_SEARCH.attach === "function") {
     window.MOW_IMAGE_SEARCH.attach(root);
@@ -19305,6 +19683,7 @@ function bindRealtimeNavStats(){
   function readInputQty(id){ const el=$(id); if(!el) return 0; if(el.tagName==='SELECT'){ const val=parseInt(el.value,10); return Number.isFinite(val)&&val>0?1:0; } return clampInt(el.value,0,999999); }
   function readInputPoints(id){ const el=$(id); if(!el) return 0; if(el.tagName==='SELECT'){ const val=parseInt(el.value,10); return Number.isFinite(val)?val:0; } return clampInt(el.value,0,999999); }
   function getCurrentFleetKey(){ const sel=$('fleetSelect'); if(sel && sel.value) return String(sel.value).trim(); return String(window.MOW_BOOT_FLEET||'Dwarfs').trim(); }
+  function modelsPerSelection(type,id,label,explicit){ const value=parseInt(explicit,10); if(Number.isFinite(value)&&value>0) return value; const kind=String(type||'').toUpperCase(); const identity=`${id||''} ${label||''}`.toLowerCase().replace(/[^a-z0-9]+/g,''); return kind==='SOL'&&!identity.includes('deathfortress')?3:1; }
   function buildBaseUnitsExport(fleet){
     const units=[];
     (fleet.baseUnits||[]).forEach(u=>{
@@ -19321,11 +19700,13 @@ function bindRealtimeNavStats(){
         qty=readInputQty(u.id); points=qty*(u.cost||0);
       }
       if(qty<=0 && points<=0) return;
-      const isNameableShip=String(u.type||'').toUpperCase()==='MOW' || String(u.id||'')==='pf_sorcerer';
+      const type=String(u.type||'OTHER').toUpperCase();
+      const isNameableShip=['MOW','SOL','INDEP'].includes(type) || String(u.id||'')==='pf_sorcerer';
+      const modelMultiplier=modelsPerSelection(type,u.id,u.label,u.modelsPerSelection);
       const customNames=(isNameableShip && window.MOW_SHIP_NAMES && typeof window.MOW_SHIP_NAMES.getNames==='function')
-        ? window.MOW_SHIP_NAMES.getNames(u.id, getCurrentFleetKey()).slice(0, qty)
+        ? window.MOW_SHIP_NAMES.getNames(u.id, getCurrentFleetKey()).slice(0, qty*modelMultiplier)
         : [];
-      units.push({ id:u.id, label:u.label||u.id, type:u.type||'OTHER', mode:u.mode||'qty', qty, cost:Number(u.cost||0), points, selectedLabel, customNames });
+      units.push({ id:u.id, label:u.label||u.id, type:u.type||'OTHER', mode:u.mode||'qty', qty, modelsPerSelection:modelMultiplier, cost:Number(u.cost||0), points, selectedLabel, customNames });
     });
     return units;
   }
@@ -19348,11 +19729,12 @@ function bindRealtimeNavStats(){
       const uid=r.dataset.uid; const per=parseInt(r.dataset.points||'0',10)||0; const inp=uid?$(uid):null; const qty=inp?clampInt(inp.value,0,999999):0; if(qty<=0) return;
       const titleEl=r.querySelector('.title'); const label=titleEl?titleEl.textContent.trim():(uid||'Ally unit');
       const type=String(r.dataset.unitType||r.dataset.kind||'OTHER').toUpperCase();
-      const isNameableShip=type==='MOW' || String(label).toLowerCase().includes('bane tower of tzeentch');
+      const isNameableShip=['MOW','SOL','INDEP'].includes(type) || String(label).toLowerCase().includes('bane tower of tzeentch');
+      const modelMultiplier=modelsPerSelection(type,uid,label,r.dataset.modelsPerSelection);
       const customNames=(isNameableShip && window.MOW_SHIP_NAMES && typeof window.MOW_SHIP_NAMES.getNames==='function')
-        ? window.MOW_SHIP_NAMES.getNames(uid, getCurrentFleetKey()).slice(0, qty)
+        ? window.MOW_SHIP_NAMES.getNames(uid, getCurrentFleetKey()).slice(0, qty*modelMultiplier)
         : [];
-      out.units.push({ id:uid||label.toLowerCase().replace(/[^a-z0-9]+/g,'_'), label, type, qty, cost:per, points:qty*per, customNames });
+      out.units.push({ id:uid||label.toLowerCase().replace(/[^a-z0-9]+/g,'_'), label, type, qty, modelsPerSelection:modelMultiplier, cost:per, points:qty*per, customNames });
       out.points += qty*per;
     });
     return out;
@@ -19529,7 +19911,7 @@ function bindRealtimeNavStats(){
 </script>
 
 <script>
-/* === Embedded from mow_fleet_library.js === */
+/* === Inlined from mow_fleet_library.js === */
 /* =========================================
    Man O' War Fleet Library
    - local autosave of the currently edited fleet
@@ -19803,7 +20185,7 @@ function bindRealtimeNavStats(){
       <details>
         <summary>Nazwy statków i generator nazw</summary>
         <div class="mow-help-detail">
-          <p>Poszczególnym modelom Men O’ War możesz nadać własne nazwy. Są one zapisywane razem z flotą i trafiają do tekstowego rosteru oraz udostępnianych list.</p>
+          <p>Każdemu wybranemu okrętowi Men O’ War, Ship of the Line lub Independent możesz nadać własną nazwę. Każda eskadra Ship of the Line otrzymuje osobne pola dla wszystkich trzech fizycznych modeli. Nazwy są zapisywane razem z flotą i trafiają do tekstowego rosteru oraz udostępnianych list.</p>
           <p>Generator proponuje nazwy dopasowane do świata i charakteru danej frakcji.</p>
           <p>Możesz użyć:</p>
           <ul>
@@ -19819,7 +20201,7 @@ function bindRealtimeNavStats(){
       <details>
         <summary>Podgląd jednostki, Analiza floty i Generator scenariuszy</summary>
         <div class="mow-help-detail">
-          <p><b>Podgląd jednostki</b> pokazuje pomocnicze informacje o jednostce podczas budowy listy. Nie zastępuje pełnych zasad ani shipcardu.</p>
+          <p><b>Podgląd jednostki</b> pokazuje pomocnicze informacje o jednostce podczas budowy listy. Po jego włączeniu kliknij nazwę jednostki, aby rozwinąć panel bezpośrednio pod jej wierszem. Możesz pozostawić otwartych kilka paneli do szybkiego porównania i zamykać je pojedynczo przyciskiem <b>Zamknij</b>. Nie zastępuje pełnych zasad ani shipcardu.</p>
           <p><b>Analiza floty</b> opisuje ogólną charakterystykę rozpiski. To wskazówka, a nie dodatkowy test legalności ani gwarancja skuteczności.</p>
           <p><b>Generator scenariuszy</b> pomaga wybrać założenia bitwy. Jest opcjonalny i nie jest potrzebny do zbudowania standardowej floty.</p>
         </div>
@@ -19913,7 +20295,7 @@ function bindRealtimeNavStats(){
       <details>
         <summary>Ship names and the name generator</summary>
         <div class="mow-help-detail">
-          <p>You can give individual Men O’ War models their own names. Names are saved with the fleet and included in text rosters and shared fleets.</p>
+          <p>You can name every selected Men O’ War, Ship of the Line or Independent vessel. Each Ship of the Line squadron receives separate fields for all three physical models. Names are saved with the fleet and included in text rosters and shared fleets.</p>
           <p>The generator suggests names matched to the setting and character of each faction.</p>
           <p>You can use:</p>
           <ul>
@@ -19929,7 +20311,7 @@ function bindRealtimeNavStats(){
       <details>
         <summary>Unit preview, Fleet analysis and Scenario Generator</summary>
         <div class="mow-help-detail">
-          <p><b>Unit preview</b> provides useful unit information while building a roster. It does not replace the complete rules or shipcard.</p>
+          <p><b>Unit preview</b> provides useful unit information while building a roster. After enabling it, click a unit name to expand a panel directly below that row. You can keep several panels open for quick comparison and close them individually with the <b>Close</b> button. It does not replace the complete rules or shipcard.</p>
           <p><b>Fleet analysis</b> describes the roster’s general character. It is guidance, not another legality check or a guarantee of battlefield performance.</p>
           <p><b>Scenario Generator</b> helps choose battle conditions. It is optional and not required for a standard fleet.</p>
         </div>
