@@ -47,6 +47,8 @@ Use **Export all** in **My fleets** to create a `.mowfleets` backup before clear
 - `mow_mobile_quantity_steppers.js` — touch-friendly mobile quantity controls for dynamically rendered unit rows
 - `mow_image_search.js` — responsive model-image links, placed beside titles on desktop and beside cost descriptions on mobile
 - `README.md` — project description and cumulative changelog
+- `robots.txt` — search-engine crawling rules and sitemap location
+- `sitemap.xml` — sitemap for the published GitHub Pages URL
 
 ## Rules sources
 
