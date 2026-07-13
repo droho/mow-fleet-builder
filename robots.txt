@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://droho.github.io/mow-fleet-builder/sitemap.xml
+Sitemap: https://mowfleetbuilder.com/sitemap.xml

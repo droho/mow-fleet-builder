@@ -4,7 +4,7 @@ An unofficial, bilingual fleet-building tool for Games Workshop's classic **Man 
 
 ## Live version
 
-https://droho.github.io/mow-fleet-builder/
+https://mowfleetbuilder.com/
 
 ## Main features
 
@@ -34,6 +34,8 @@ https://droho.github.io/mow-fleet-builder/
 
 Saved fleets are stored only in the browser's local storage. No fleet data is uploaded to a server.
 
+The published website uses Cloudflare Web Analytics for aggregate visits and page-view statistics. Cloudflare states that it does not track individual visitors.
+
 Use **Export all** in **My fleets** to create a `.mowfleets` backup before clearing browser data or moving to another device. The backup can then be imported on a phone, tablet or desktop browser.
 
 ## Repository files
@@ -46,9 +48,10 @@ Use **Export all** in **My fleets** to create a `.mowfleets` backup before clear
 - `mow_ship_name_generator.js` — generic faction/profile resolver and weighted generator engine
 - `mow_mobile_quantity_steppers.js` — touch-friendly mobile quantity controls for dynamically rendered unit rows
 - `mow_image_search.js` — responsive model-image links, placed beside titles on desktop and beside cost descriptions on mobile
-- `README.md` — project description and cumulative changelog
-- `robots.txt` — search-engine crawling rules and sitemap location
-- `sitemap.xml` — sitemap for the published GitHub Pages URL
+- `README.md` — public project description and release notes
+- `CNAME` — GitHub Pages custom-domain declaration for `mowfleetbuilder.com`
+- `robots.txt` — search-engine crawling rules and custom-domain sitemap location
+- `sitemap.xml` — sitemap for the published custom-domain URL
 
 ## Rules sources
 
@@ -58,6 +61,22 @@ The builder is based on:
 - MOW Community Annual v0.1
 - MOW Ship Cards v3.7
 - Citadel Journal optional rules compiled in the Community Annual
+
+## Current release
+
+**Fleet Builder 1.7 — build step74 — 2026-07-13**
+
+Version 1.7 adds individual names for all vessels, inline unit-comparison panels, improved search discoverability and the new `mowfleetbuilder.com` address.
+
+## What's new in version 1.7
+
+- Optional individual names for Men O' War, Ship of the Line and Independent vessels, including every physical ship in a squadron
+- Lore-based name generation for the newly supported vessel types
+- Expandable unit previews displayed directly below unit rows, with several panels open at once for quick comparison
+- Improved page title, description, canonical URL and structured metadata for search engines and shared links
+- A `robots.txt` file and sitemap for the published site
+- Custom-domain SEO metadata for `https://mowfleetbuilder.com/`
+- Privacy-focused aggregate traffic statistics through Cloudflare Web Analytics
 
 ## Disclaimer
 
