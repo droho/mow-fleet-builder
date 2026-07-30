@@ -14,6 +14,7 @@ https://mowfleetbuilder.com/
 - Fleet Setup workspace for flagships, characters, resources and pre-game decisions
 - Unit Preview, Fleet Analysis and Scenario Generator
 - Core and Citadel Journal rules support
+- Optional Community Annual expanded standard Wizard levels
 - Local autosave and named fleet library
 - Save, Save As, Load and Duplicate workflows
 - Optional custom names for ships and characters
@@ -34,26 +35,20 @@ The published website uses Cloudflare Web Analytics for aggregate visits and pag
 
 ## Current release
 
-**Fleet Builder 1.8 — RELEASE-90 PUBLIC-1 — 2026-07-27**
+**Fleet Builder 1.8.1 — FB-MAINT-02 — 2026-07-30**
 
-This release brings the current RELEASE-90 mainline to the public GitHub Pages build. It includes the accepted VISUAL-3 interface, HOTFIX-90I Ruleset stability correction and publication-specific Polish-language cleanup.
+This maintenance release adds the Community Annual seven-level ladder for ordinary standard Wizards. Core mode retains the original 50 / 100 / 150 point levels, and existing fleets remain compatible.
 
-## What's new since the previously published step74 build
+## What's new in 1.8.1
 
-- Dedicated Fleet Setup workspace with legal target assignments and pre-game decisions
-- Character names, manual editing and character-name generation
-- Hierarchical roster showing assigned characters, crew and upgrades under ships
-- Stable text selection, caret and scroll in Roster Preview
-- Correct grouping of multi-model flyer purchases
-- Default fresh ruleset changed to Core + Citadel Journal
-- Extensive Chaos, Goblin Shaman, Great Taurus, Skaven and Norse corrections
-- Hardened save/load, Save As, duplicate, migration and local-library behavior
-- Parchment Light, Dark — Classic and System themes
-- Redesigned desktop, mobile, modal, accessibility and print presentation
-- Consolidated active visual runtime: one CSS file and one visual JavaScript file
-- Updated Polish interface labels, accessibility text, roster structure and Live Checks grammar
+- Optional seven-level standard Wizard ladder from the Community Annual
+- Stable Wizard level identity through save, duplicate and `.mowfleets` backup workflows
+- Detailed Wizard properties shown in the selector, Fleet Setup and bilingual Help
+- Compact Wizard lines in Roster Preview, copied roster text and print output
+- Explicit warning instead of silent conversion when an Annual-only level remains selected after the module is disabled
+- Polish and English help and validation wording
 
-Unit Preview, Fleet Analysis, Scenario Generator, My Fleets, Share Fleet and `.mowfleets` backup existed in the previous public version and have been improved rather than introduced from scratch.
+Specialist magic systems are unchanged. This is not full digital Magic Phase support.
 
 ## Publication note
 
@@ -76,7 +71,6 @@ The builder is based on:
 - MOW Community Rulebook v0.1
 - MOW Community Annual v0.1
 - MOW Ship Cards v3.7
-- Citadel Journal optional rules compiled in the Community Annual
 
 ## Disclaimer
 

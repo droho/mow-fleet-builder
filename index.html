@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="1.8" name="application-version"/>
-<meta content="release90-public1-2026-07-27" name="build-id"/>
+<meta content="1.8.1" name="application-version"/>
+<meta content="fbmaint02-release-r1-2026-07-30" name="build-id"/>
 <meta content="public" name="release-channel"/>
 <meta content="release90-hotfix90h-2026-07-27" name="visual-branch-base"/>
 <meta content="release90-visual2d3-dark-scroll-fix-2026-07-27" name="visual-branch-parent"/>
@@ -35,7 +35,7 @@
   "operatingSystem": "Any",
   "isAccessibleForFree": true,
   "inLanguage": ["en", "pl"],
-  "softwareVersion": "1.8",
+  "softwareVersion": "1.8.1",
   "author": {
     "@type": "Person",
     "name": "Droho"
@@ -2104,7 +2104,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 <div class="row" id="mowFleetFluffNameRow">
 <div>
 <div class="title" data-i18n="fleet_fluff_name_title">FABULARNA NAZWA FLOTY</div>
-<div class="desc" data-i18n="fleet_fluff_name_desc">Publiczna nazwa floty widoczna w udostępnionej flocie i narzędziach gry. Nie zmienia technicznej nazwy zapisu w bibliotece.</div>
+<div class="desc" data-i18n="fleet_fluff_name_desc">Publiczna nazwa floty widoczna w eksporcie i narzędziach gry. Nie zmienia technicznej nazwy zapisu w bibliotece.</div>
 </div>
 <div class="qty mow-fleet-name-qty"><input aria-label="Fabularna nazwa floty" data-i18n="fleet_fluff_name_placeholder" data-i18n-attr="placeholder" id="mowFleetFluffName" maxlength="200" placeholder="np. Barak Varr Iron Tide" type="text" value=""/></div>
 </div>
@@ -2238,7 +2238,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 </div>
 </div>
 <footer class="mowAppFooter" role="contentinfo">
-<div aria-label="Fleet Builder version 1.8, RELEASE-90 PUBLIC-1, 2026-07-27" class="mowBuildStamp" data-build-date="2026-07-27" data-build-step="RELEASE-90 PUBLIC-1" data-version="1.8" id="mowBuildStamp" role="note">Fleet Builder 1.8 — RELEASE-90 PUBLIC-1 — 2026-07-27</div>
+<div aria-label="Fleet Builder version 1.8.1, FB-MAINT-02, 2026-07-30" class="mowBuildStamp" data-build-date="2026-07-30" data-build-step="FB-MAINT-02" data-version="1.8.1" id="mowBuildStamp" role="note">Fleet Builder 1.8.1 — FB-MAINT-02 — 2026-07-30</div>
 <div class="mowFooterSource"><span data-i18n="source">Źródło</span>: <b data-i18n="source_body" data-i18n-html>Man’O’War Community Rulebook v0.1; opcjonalne moduły Citadel Journal (MOW Community Annual v0.1)</b>.</div>
 </footer>
 <script>
@@ -3652,7 +3652,7 @@ hulk: {
       fleet_points_cap_title: "FLEET POINTS LIMIT",
       fleet_points_cap_desc: "Used for the Allies limit (max 1/3 of plan) and the “Total ≤ plan” check.",
       fleet_fluff_name_title: "FLEET NAME",
-      fleet_fluff_name_desc: "Public fleet name shown in shared fleets and game tools. It is independent of the technical save name in the library.",
+      fleet_fluff_name_desc: "Public fleet name used in exports and game tools. It is independent from the technical save name in the library.",
       fleet_fluff_name_placeholder: "e.g. Barak Varr Iron Tide",
 
       // Allies
@@ -4188,6 +4188,7 @@ if(currentLang !== "pl" && currentLang !== "en"){
     const nodes = sel ? root.querySelectorAll(sel) : [];
 
     nodes.forEach(el=>{
+      if(el.dataset&&el.dataset.mowDynamicI18nOwner==="wizard-mastery")return;
       const isPtsDynamic = (el.classList && el.classList.contains("pts")) || (/^pts_/i.test(el.id || ""));
       if(isPtsDynamic){
         // Dynamic numeric fields (points, KPIs etc.) must not be "restored" to a stale original value.
@@ -6213,59 +6214,164 @@ c.push([
  *   2) mow_anti_flyer_patch.js
  */
 
-/* ===== Patch 1: Wizard options ===== */
-/* mow_wizard_options_patch.js
- * Adds wizard select options to fleets that use mode:"select_points" for unit id "wizard".
- * Safe patch: does not modify core, and tolerates missing fleets.
+/* ===== Patch 1: Standard Wizard mastery catalog ===== */
+/* FB-MAINT-02B generated consumer projection.
+ * Canonical catalog: mow_wizard_mastery_standard_v1.json
+ * SHA-256: 3ca0050d8e48fb5c476dde462c48361cfa073972fc64f0264b9431802c391b40
+ * Binding matrix SHA-256: 1d2603f7f2515ad5601231ba7c579bdbd757e92429ec293c29968b339c55fcf0
+ * Points remain a legacy UI carrier; variant_id remains canonical identity.
  */
-(function(){
-  const F = window.MOW_FLEETS;
-  if(!F) return;
-
-  const defaultWizardOptions = [
-    { value:50,  label:"Wizard Champion (50 pkt)" },
-    { value:100, label:"Master Wizard (100 pkt)" },
-    { value:150, label:"Wizard Lord (150 pkt)" }
+(function(root){
+  "use strict";
+  const F=root.MOW_FLEETS;
+  if(!F)return;
+  const MODULE_ID="annual_expanded_wizards";
+  const STORAGE_KEY="mow_community_annual_expanded_wizards_enabled";
+  const FLAG="MOW_ANNUAL_EXPANDED_WIZARDS_ON";
+  const VARIANTS=Object.freeze([{"variant_id":"wizard_champion","name":"Wizard Champion","points":50,"magic_cards":2,"dice_modifier":0,"battle_honours":1,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"high_wizard_champion","name":"High Wizard Champion","points":75,"magic_cards":3,"dice_modifier":0,"battle_honours":1,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"master_wizard","name":"Master Wizard","points":100,"magic_cards":4,"dice_modifier":0,"battle_honours":2,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"high_master_wizard","name":"High Master Wizard","points":125,"magic_cards":5,"dice_modifier":0,"battle_honours":2,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"wizard_lord","name":"Wizard Lord","points":150,"magic_cards":6,"dice_modifier":1,"battle_honours":3,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"high_wizard_lord","name":"High Wizard Lord","points":175,"magic_cards":7,"dice_modifier":1,"battle_honours":3,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},{"variant_id":"grand_wizard_lord","name":"Grand Wizard Lord","points":200,"magic_cards":8,"dice_modifier":1,"battle_honours":4,"reroll_scope":"any_colour","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"}].map(Object.freeze));
+  const CORE_IDS=Object.freeze(["wizard_champion","master_wizard","wizard_lord"]);
+  const ANNUAL_IDS=Object.freeze(["wizard_champion","high_wizard_champion","master_wizard","high_master_wizard","wizard_lord","high_wizard_lord","grand_wizard_lord"]);
+  const BINDINGS=Object.freeze([{"fleet":"Empire","selection_id":"selection.role.empire.wizard"},{"fleet":"Bretonnia","selection_id":"selection.role.bretonnia.wizard"},{"fleet":"Elves","selection_id":"selection.role.elves.wizard"},{"fleet":"DarkElves","selection_id":"selection.role.dark_elves.wizard"},{"fleet":"Orcs","selection_id":"selection.role.orcs.wizard"},{"fleet":"Norse","selection_id":"selection.role.norse.wizard"},{"fleet":"Undead","selection_id":"selection.role.undead.wizard"}].map(Object.freeze));
+  const BY_ID=new Map(VARIANTS.map(v=>[v.variant_id,v]));
+  const BY_POINTS=new Map(VARIANTS.map(v=>[String(v.points),v]));
+  const ANNUAL_ONLY=new Set(ANNUAL_IDS.filter(id=>!CORE_IDS.includes(id)));
+  const selectedByFleet=new Map();
+  function lang(){try{return root.MOW_I18N?.getLang?.()==="en"?"en":"pl";}catch(e){return "pl";}}
+  function readOn(){try{return localStorage.getItem(STORAGE_KEY)==="1";}catch(e){return false;}}
+  if(typeof root[FLAG]!=="boolean")root[FLAG]=readOn();
+  function isOn(){return !!root[FLAG];}
+  function sourceKeyForFleet(fleetKey){return `${fleetKey}.wizard`;}
+  function modelPoints(fleetKey){
+    try{
+      const model=root.MOW_FLEET_NATIVE_MODEL;
+      if(!model||String(model.identity?.fleet_key||"")!==String(fleetKey||""))return 0;
+      const selection=(model.selections||[]).find(s=>String(s?.source_ref?.raw_external_key||"")===sourceKeyForFleet(fleetKey));
+      return Number(selection?.points?.total||0);
+    }catch(e){return 0;}
+  }
+  function capture(fleetKey){
+    const key=String(fleetKey||"");if(!key)return 0;
+    const el=root.document?.getElementById("wizard");
+    const value=Number(el?.value||0);
+    if(value>0)selectedByFleet.set(key,value);
+    return value;
+  }
+  function selectedPoints(fleetKey,explicitValue){
+    // An explicit selector value is the freshest source during the change event;
+    // the native model is committed a moment later by the RELEASE-90 command bridge.
+    const explicit=Number(explicitValue||0);if(explicit>0)return explicit;
+    const modelValue=modelPoints(fleetKey);if(modelValue>0)return modelValue;
+    return Number(selectedByFleet.get(String(fleetKey||""))||0);
+  }
+  function optionLabel(v,conflict){
+    const unit=lang()==="en"?"pts":"pkt";
+    const suffix=conflict?(lang()==="en"?" — requires Community Annual module":" — wymaga modułu Community Annual"):"";
+    return `${v.name} (${v.points} ${unit})${suffix}`;
+  }
+  function option(v,conflict){return Object.freeze({
+    value:v.points,label:optionLabel(v,!!conflict),variant_id:v.variant_id,
+    magic_cards:v.magic_cards,dice_modifier:v.dice_modifier,battle_honours:v.battle_honours,
+    reroll_scope:v.reroll_scope,required_module:ANNUAL_ONLY.has(v.variant_id)?MODULE_ID:null,
+    disabled:!!conflict,conflict:!!conflict
+  });}
+  function wizardUnit(fleetKey){
+    const fleet=F[fleetKey];
+    return fleet&&Array.isArray(fleet.baseUnits)?fleet.baseUnits.find(u=>u&&u.id==="wizard"&&u.mode==="select_points")||null:null;
+  }
+  function syncFleetOptions(fleetKey,explicitValue){
+    const key=String(fleetKey||"");const unit=wizardUnit(key);if(!unit)return [];
+    const allowed=isOn()?ANNUAL_IDS:CORE_IDS;
+    const options=allowed.map(id=>option(BY_ID.get(id),false));
+    const selected=BY_POINTS.get(String(selectedPoints(key,explicitValue)||""));
+    if(!isOn()&&selected&&ANNUAL_ONLY.has(selected.variant_id))options.push(option(selected,true));
+    unit.options=options;
+    unit.wizard_catalog_id="wizard_mastery.standard.v1";
+    unit.wizard_selection_family="standard_wizard";
+    const current=selectedPoints(key,explicitValue);
+    unit.desc=current>0?`${formatMetadata(current,lang())}. ${lang()==="en"?"Maximum 1 Wizard per fleet and 1 spell cast per turn.":"Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę."}`:emptyDescription(lang());
+    updateRenderedDescription(key,current);
+    return options.slice();
+  }
+  function syncAll(){BINDINGS.forEach(b=>syncFleetOptions(b.fleet));}
+  // Preserve the accepted Undead specialist Admiral selector exactly. The legacy
+  // wizard patch also supplied these options; replacing that patch must not let
+  // the generic select_points fallback turn Liche/Necromancer/Tomb King into a
+  // standard Wizard ladder.
+  const undeadAdmiral=Array.isArray(F.Undead?.baseUnits)?F.Undead.baseUnits.find(u=>u&&u.id==="admiral"&&u.mode==="select_points"):null;
+  if(undeadAdmiral)undeadAdmiral.options=[
+    {value:300,label:"Liche (300 pkt)"},
+    {value:250,label:"Necromancer (250 pkt)"},
+    {value:50,label:"Tomb King (50 pkt)"}
   ];
-
-  // Community Annual — Undead fleet uses a longer wizard ladder.
-  const undeadWizardOptions = [
-    { value:50,  label:"Wizard Champion (50 pkt)" },
-    { value:75,  label:"High Wizard Champion (75 pkt)" },
-    { value:100, label:"Master Wizard (100 pkt)" },
-    { value:125, label:"High Master Wizard (125 pkt)" },
-    { value:150, label:"Wizard Lord (150 pkt)" },
-    { value:175, label:"High Wizard Lord (175 pkt)" },
-    { value:200, label:"Grand Wizard Lord (200 pkt)" }
-  ];
-
-  // Community Annual — Undead Admiral choice (drives crew points display + wizard gating).
-  const undeadAdmiralOptions = [
-    { value:300, label:"Liche (300 pkt)" },
-    { value:250, label:"Necromancer (250 pkt)" },
-    { value:50,  label:"Tomb King (50 pkt)" }
-  ];
-
-  Object.keys(F).forEach(k=>{
-    const fleet = F[k];
-    if(!fleet || !Array.isArray(fleet.baseUnits)) return;
-
-    const isUndead = fleet.key === "Undead";
-
-    fleet.baseUnits.forEach(u=>{
-      if(!u || !u.mode || u.mode !== "select_points" || u.options) return;
-
-      if(u.id === "wizard"){
-        u.options = isUndead ? undeadWizardOptions : defaultWizardOptions;
+  function conflictFor(fleetKey,points){const v=BY_POINTS.get(String(Number(points||0)));return !!(!isOn()&&v&&ANNUAL_ONLY.has(v.variant_id));}
+  function metadataByPoints(points){const v=BY_POINTS.get(String(Number(points||0)));return v?Object.freeze(Object.assign({},v)):null;}
+  function formatRules(points,language){
+    const v=metadataByPoints(points);if(!v)return "";const en=language==="en";
+    const mod=v.dice_modifier>0?`+${v.dice_modifier}`:String(v.dice_modifier);
+    const reroll=v.reroll_scope==="any_colour"?(en?"reroll any colour":"przerzut dowolnego koloru"):(en?"reroll own College":"przerzut własnego Kolegium");
+    return en?`${v.magic_cards} Magic Cards; Dice Modifier ${mod}; ${v.battle_honours} Battle Honours; ${reroll}`:`karty Magii: ${v.magic_cards}; modyfikator kości: ${mod}; Battle Honours: ${v.battle_honours}; ${reroll}`;
+  }
+  function formatMetadata(points,language){
+    const v=metadataByPoints(points);if(!v)return "";const en=language==="en";
+    return `${v.name} — ${v.points} ${en?"pts":"pkt"}; ${formatRules(points,language)}`;
+  }
+  function emptyDescription(language){
+    return language==="en"
+      ? "Core offers Wizard Champion, Master Wizard and Wizard Lord. Enable Community Annual — Expanded Wizard Levels for all seven levels. Maximum 1 Wizard per fleet and 1 spell cast per turn."
+      : "Core obejmuje Wizard Champion, Master Wizard i Wizard Lord. Włącz Community Annual — rozszerzone poziomy Wizarda, aby użyć pełnej drabinki siedmiu poziomów. Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę.";
+  }
+  function updateRenderedDescription(fleetKey,points){
+    const current=String(root.document?.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||"");
+    if(current!==String(fleetKey||""))return;
+    const desc=root.document?.getElementById("wizard")?.closest(".row")?.querySelector(".desc");
+    if(!desc)return;
+    desc.dataset.mowDynamicI18nOwner="wizard-mastery";
+    const value=Number(points||root.document.getElementById("wizard")?.value||0);
+    const body=value>0?formatMetadata(value,lang()):emptyDescription(lang());
+    const conflict=conflictFor(fleetKey,value)?(lang()==="en"?" Selection preserved, but it requires the Community Annual module.":" Wybór został zachowany, ale wymaga modułu Community Annual."):"";
+    desc.textContent=`${body}. ${lang()==="en"?"Maximum 1 Wizard per fleet and 1 spell cast per turn.":"Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę."}${conflict}`.replace(/\.\s*\./g,".");
+  }
+  BINDINGS.forEach(binding=>{
+    const fleet=F[binding.fleet],prior=fleet&&fleet.checks;
+    if(!fleet||typeof prior!=="function"||prior.__fbmaint02bWizardWrapped)return;
+    const wrapped=function(state){
+      const rows=prior.call(this,state)||[];const points=Number(state?.base?.pts?.wizard||0);
+      if(conflictFor(binding.fleet,points)){
+        const message=lang()==="en"?"Wizard level requires Community Annual — Expanded Wizard Levels. Re-enable the module or explicitly choose a core level.":"Poziom Wizarda wymaga Community Annual — rozszerzonych poziomów. Włącz moduł ponownie albo jawnie wybierz poziom core.";
+        rows.push([message,"FAIL","fail"]);
       }
-
-      if(u.id === "admiral" && isUndead){
-        u.options = undeadAdmiralOptions;
-      }
-    });
+      return rows;
+    };
+    wrapped.__fbmaint02bWizardWrapped=true;fleet.checks=wrapped;
   });
-})();
-
+  syncAll();
+  if(root.document){
+    root.document.addEventListener("change",event=>{
+      const target=event&&event.target;if(!target||target.id!=="wizard")return;
+      const fleetKey=String(root.document.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||"");
+      const value=Number(target.value||0);if(value>0)selectedByFleet.set(fleetKey,value);
+      if(!isOn()&&!conflictFor(fleetKey,value)){
+        Array.from(target.querySelectorAll('option[data-module-conflict="annual_expanded_wizards"]')).forEach(option=>option.remove());
+      }
+      syncFleetOptions(fleetKey,value);
+      updateRenderedDescription(fleetKey,value);
+    },true);
+    ["langPL","langEN"].forEach(id=>root.document.getElementById(id)?.addEventListener("click",()=>setTimeout(()=>{
+      const fleetKey=String(root.document.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||"");
+      syncFleetOptions(fleetKey,Number(root.document.getElementById("wizard")?.value||0));
+    },60)));
+    root.document.addEventListener("mow:nativefleetmodelchange",()=>setTimeout(()=>{
+      const fleetKey=String(root.document.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||"");
+      syncFleetOptions(fleetKey,Number(root.document.getElementById("wizard")?.value||0));
+    },90));
+  }
+  root.MOW_WIZARD_MASTERY=Object.freeze({
+    BUILD:"fbmaint02-release-r1-2026-07-30",catalog_id:"wizard_mastery.standard.v1",
+    module_id:MODULE_ID,storage_key:STORAGE_KEY,flag:FLAG,variants:VARIANTS,core_variant_ids:CORE_IDS,
+    annual_variant_ids:ANNUAL_IDS,bindings:BINDINGS,capture,syncFleetOptions,syncAll,isOn,conflictFor,
+    metadataByPoints,formatRules,formatMetadata,emptyDescription,updateRenderedDescription,variantIdByPoints(points){const v=BY_POINTS.get(String(Number(points||0)));return v?v.variant_id:null;}
+  });
+})(typeof window!=="undefined"?window:globalThis);
 
 
 /* ===== Patch 2: Anti-flyer weapons ===== */
@@ -18604,6 +18710,14 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     ]
   };
 
+  const WIZARD_MASTERY_CONFIG = {
+    flag: "MOW_ANNUAL_EXPANDED_WIZARDS_ON",
+    storage: "mow_community_annual_expanded_wizards_enabled",
+    moduleId: "annual_expanded_wizards",
+    pl: "Community Annual — rozszerzone poziomy Wizarda",
+    en: "Community Annual — Expanded Wizard Levels"
+  };
+
   function $(sel, root=document){ try { return root.querySelector(sel); } catch(e){ return null; } }
   function getFleetKey(){
     const sel = document.getElementById("fleetSelect");
@@ -18627,6 +18741,7 @@ window.MOW_FLEET_STEP85 = Object.freeze({
   });
   window[SHORE_FORTS_CONFIG.flag] = readOn(SHORE_FORTS_CONFIG);
   window[SHIPS_BOATS_CONFIG.flag] = readOn(SHIPS_BOATS_CONFIG);
+  if(typeof window[WIZARD_MASTERY_CONFIG.flag] !== "boolean") window[WIZARD_MASTERY_CONFIG.flag] = readOn(WIZARD_MASTERY_CONFIG);
 
   function ensureToggleColumn(host){
     let col = $("#mowOptionalRulesRows", host);
@@ -18701,6 +18816,30 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     }
   }
 
+  function mountWizardMasteryToggle(col){
+    let wrap = document.getElementById("mowAnnualExpandedWizardsToggle_wrap");
+    if(!wrap){
+      wrap = makeToggleRow("mowAnnualExpandedWizardsToggle_wrap", "mowAnnualExpandedWizardsToggle");
+      const fleetWrap = document.getElementById("mowCitadelJournalToggle_wrap");
+      if(fleetWrap && fleetWrap.parentElement === col) fleetWrap.insertAdjacentElement("afterend", wrap);
+      else insertBeforeTools(col, wrap);
+    }else if(wrap.parentElement !== col){ col.appendChild(wrap); }
+    const cb = document.getElementById("mowAnnualExpandedWizardsToggle");
+    if(cb && !cb.__mowAnnualExpandedWizardsBound){
+      cb.addEventListener("change", function(){
+        const fleetKey=getFleetKey();
+        try{ window.MOW_WIZARD_MASTERY?.capture?.(fleetKey); }catch(e){}
+        const on=!!cb.checked;
+        window[WIZARD_MASTERY_CONFIG.flag]=on;
+        writeOn(WIZARD_MASTERY_CONFIG,on);
+        try{ window.MOW_WIZARD_MASTERY?.syncFleetOptions?.(fleetKey); }catch(e){}
+        rerenderCurrentFleet();
+        try{ document.dispatchEvent(new CustomEvent("mow:wizardmasterymodulechange",{detail:{module_id:WIZARD_MASTERY_CONFIG.moduleId,enabled:on,fleet_key:fleetKey}})); }catch(e){}
+      });
+      cb.__mowAnnualExpandedWizardsBound=true;
+    }
+  }
+
   function mountShorefortToggle(col){
     let wrap = document.getElementById("mowExpandedShorefortsToggle_wrap");
     if(!wrap){
@@ -18759,6 +18898,7 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     const host = document.getElementById("mowUpToggleHost") || $(".right") || document.body;
     const col = ensureToggleColumn(host);
     mountFleetToggle(col);
+    mountWizardMasteryToggle(col);
     mountShorefortToggle(col);
     mountShipsBoatsToggle(col);
     sync();
@@ -18782,6 +18922,18 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     const txt = wrap.querySelector(".mowUpSwitchLabel");
     if(txt) txt.textContent = label;
     wrap.style.display = "";
+  }
+
+  function syncWizardMasteryToggle(){
+    const wrap=document.getElementById("mowAnnualExpandedWizardsToggle_wrap");
+    const cb=document.getElementById("mowAnnualExpandedWizardsToggle");
+    if(!wrap||!cb)return;
+    if(typeof window[WIZARD_MASTERY_CONFIG.flag] !== "boolean") window[WIZARD_MASTERY_CONFIG.flag]=readOn(WIZARD_MASTERY_CONFIG);
+    const label=labelFor(WIZARD_MASTERY_CONFIG);
+    cb.checked=!!window[WIZARD_MASTERY_CONFIG.flag];
+    cb.setAttribute("aria-label",label);
+    const txt=wrap.querySelector(".mowUpSwitchLabel");if(txt)txt.textContent=label;
+    wrap.style.display="";
   }
 
   function syncShorefortToggle(){
@@ -18818,6 +18970,7 @@ window.MOW_FLEET_STEP85 = Object.freeze({
 
   function sync(){
     syncFleetToggle();
+    syncWizardMasteryToggle();
     syncShorefortToggle();
     syncShipsBoatsToggle();
   }
@@ -19287,7 +19440,18 @@ window.MOW_FLEET_STEP85 = Object.freeze({
 
       if(mode === "select_points"){
         // Points selector: value = points (handled in core). Supports per-unit custom options via u.options.
-        const desc = (typeof u.desc === "string" && u.desc.trim()) ? esc(u.desc) : "Wybierz poziom (punkty). Koszt: wg wyboru.";
+        let rawDesc = (typeof u.desc === "string" && u.desc.trim()) ? u.desc : "Wybierz poziom (punkty). Koszt: wg wyboru.";
+        if(String(u.id||"")==="wizard" && window.MOW_WIZARD_MASTERY){
+          const api=window.MOW_WIZARD_MASTERY,language=window.MOW_I18N?.getLang?.()==="en"?"en":"pl",fleetKey=String(sel.value||window.MOW_BOOT_FLEET||"");
+          const model=window.MOW_FLEET_INT1C_STEP83?.getCurrentModel?.(),source=`${fleetKey}.wizard`,selection=Array.isArray(model?.selections)?model.selections.find(item=>item?.source_ref?.raw_external_key===source):null;
+          const points=Number(selection?.points?.total||UNIT_CACHE[u.id]||document.getElementById(u.id)?.value||0);
+          if(points>0){
+            const limits=language==="en"?"Maximum 1 Wizard per fleet and 1 spell cast per turn.":"Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę.";
+            const conflict=api.conflictFor(fleetKey,points)?(language==="en"?" Selection preserved, but it requires the Community Annual module.":" Wybór został zachowany, ale wymaga modułu Community Annual."):"";
+            rawDesc=`${api.formatMetadata(points,language)}. ${limits}${conflict}`;
+          }else rawDesc=api.emptyDescription(language);
+        }
+        const desc=esc(rawDesc);
         const opts = (Array.isArray(u.options) && u.options.length)
           ? u.options
           : [
@@ -19296,7 +19460,18 @@ window.MOW_FLEET_STEP85 = Object.freeze({
               { value: 150, label: "Wizard Lord (150 pkt)" }
             ];
 const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz —</option>']
-          .concat(opts.map(o=>`<option value="${esc(String(o.value))}">${esc(String(o.label))}</option>`))
+          .concat(opts.map(o=>{
+            const attrs = [
+              o.disabled ? " disabled" : "",
+              o.conflict ? ' data-module-conflict="annual_expanded_wizards"' : "",
+              o.variant_id ? ` data-variant-id="${esc(String(o.variant_id))}"` : "",
+              Number.isFinite(Number(o.magic_cards)) ? ` data-magic-cards="${esc(String(o.magic_cards))}"` : "",
+              Number.isFinite(Number(o.dice_modifier)) ? ` data-dice-modifier="${esc(String(o.dice_modifier))}"` : "",
+              Number.isFinite(Number(o.battle_honours)) ? ` data-battle-honours="${esc(String(o.battle_honours))}"` : "",
+              o.reroll_scope ? ` data-reroll-scope="${esc(String(o.reroll_scope))}"` : ""
+            ].join("");
+            return `<option value="${esc(String(o.value))}"${attrs}>${esc(String(o.label))}</option>`;
+          }))
           .join("");
 
         return `
@@ -19450,6 +19625,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
     }
 
     function renderUnits(fleetKey){
+      try{ window.MOW_WIZARD_MASTERY?.syncFleetOptions?.(fleetKey); }catch(e){}
       const fleet = (window.MOW_FLEETS || {})[fleetKey];
       if(!fleet || !Array.isArray(fleet.baseUnits)){
         root.innerHTML = "";
@@ -19605,8 +19781,11 @@ sel.innerHTML = ordered.map(k => {
     if(ordered.includes(current)) sel.value = current;
 
     function bootTo(k){
-      snapshotFleetUnitValues(window.MOW_BOOT_FLEET || sel.value || k);
+      const previousFleet=window.MOW_BOOT_FLEET || sel.value || k;
+      try{ window.MOW_WIZARD_MASTERY?.capture?.(previousFleet); }catch(e){}
+      snapshotFleetUnitValues(previousFleet);
       window.MOW_BOOT_FLEET = k;
+      try{ window.MOW_WIZARD_MASTERY?.syncFleetOptions?.(k); }catch(e){}
       
 
       // THEME PATCH (per fleet)
@@ -20264,7 +20443,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.7",
+    version: "1.8.1",
     build: "step89-2026-07-17",
     contract_schema: "mow.fleet",
     contract_version: "0.1.1",
@@ -20503,7 +20682,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.7",
+    version: "1.8.1",
     build: "step89-2026-07-17",
     private_state_schema: "mow.builder.fleet-state",
     private_state_version: 2,
@@ -21397,7 +21576,7 @@ function bindRealtimeNavStats(){
   "use strict";
 
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.7",build:"step89-2026-07-17",
+    app:"Man O' War Fleet Builder",version:"1.8.1",build:"step89-2026-07-17",
     schema:"mow.target_eligibility_report",schema_version:"0.1.0"
   });
   const NS="mow.builder";
@@ -21700,7 +21879,7 @@ function bindRealtimeNavStats(){
   "use strict";
 
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.7",build:"step87-2026-07-17",
+    app:"Man O' War Fleet Builder",version:"1.8.1",build:"step87-2026-07-17",
     schema:"mow.assignment_rebase_report",schema_version:"0.1.0"
   });
   const NS="mow.builder";
@@ -21868,7 +22047,7 @@ function bindRealtimeNavStats(){
 (function(root){
   "use strict";
 
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.7",build:"step89-2026-07-17",schema:"mow.purchase_legality_report",schema_version:"0.1.0"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"step89-2026-07-17",schema:"mow.purchase_legality_report",schema_version:"0.1.0"});
   const IMPLICIT_MODULES=new Set(["core","allies_catalog","sea_monsters"]);
   const PROVISIONAL_DEFINITION_STATUSES=new Set(["proposed_definition","draft_requires_definition"]);
   const PROVISIONAL_AVAILABILITY_STATUSES=new Set(["draft_requires_definition","draft_unresolved"]);
@@ -22039,7 +22218,7 @@ function bindRealtimeNavStats(){
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.7",
+    version:"1.8.1",
     build:"step89-2026-07-17",
     contract_schema:"mow.fleet",
     contract_version:"0.1.1"
@@ -22352,7 +22531,7 @@ function bindRealtimeNavStats(){
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.7",
+    version:"1.8.1",
     build:"step89-2026-07-17",
     contract_version:"0.1.1",
     integration_expectations_version:"0.1.1"
@@ -22599,7 +22778,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.7",
+    version:"1.8.1",
     build:"step83.2-2026-07-17",
     repair:"legacy_ship_names_to_native_units"
   });
@@ -22849,6 +23028,11 @@ function bindRealtimeNavStats(){
       flag: "MOW_SHIPS_BOATS_ON",
       storage: "mow_citadel_journal_ships_boats_enabled",
       control: "mowShipsBoatsToggle"
+    },
+    annualExpandedWizards: {
+      flag: "MOW_ANNUAL_EXPANDED_WIZARDS_ON",
+      storage: "mow_community_annual_expanded_wizards_enabled",
+      control: "mowAnnualExpandedWizardsToggle"
     }
   };
 
@@ -23042,8 +23226,19 @@ function bindRealtimeNavStats(){
         <summary>Walidacja i dodatkowe moduły</summary>
         <div class="mow-help-detail">
           <p>Przełącznik <b>Wszystkie / Tylko FAIL</b> pozwala pokazać wszystkie kontrole albo wyłącznie problemy wymagające uwagi.</p>
-          <p>W sekcji <b>Zasady opcjonalne</b> można włączyć uzgodnione dodatki, takie jak frakcyjne materiały z <i>Citadel Journal</i>, <b>Citadel Journal — Expanded Shoreforts</b> i <b>Citadel Journal — łodzie okrętowe</b>.</p>
+          <p>W sekcji <b>Zasady opcjonalne</b> można włączyć uzgodnione dodatki, takie jak frakcyjne materiały z <i>Citadel Journal</i>, <b>Community Annual — rozszerzone poziomy Wizarda</b>, <b>Citadel Journal — Expanded Shoreforts</b> i <b>Citadel Journal — łodzie okrętowe</b>.</p>
           <p>Brak komunikatów FAIL potwierdza zgodność z kontrolami zapisanymi w builderze. Nadal uwzględnij szczególne zasady scenariusza i ustalenia z przeciwnikiem.</p>
+        </div>
+      </details>
+
+
+      <details>
+        <summary>Core i Community Annual — poziomy Wizarda</summary>
+        <div class="mow-help-detail">
+          <p>Bez dodatkowego modułu zwykły Wizard korzysta z trzech poziomów core: <b>Wizard Champion</b>, <b>Master Wizard</b> i <b>Wizard Lord</b>.</p>
+          <p>Przełącznik <b>Community Annual — rozszerzone poziomy Wizarda</b> udostępnia pełną drabinkę siedmiu poziomów. Opis pod selektorem pokazuje liczbę kart Magii, modyfikator kości, Battle Honours i zakres przerzutu.</p>
+          <p>Wyłączenie modułu przy wybranym poziomie dostępnym tylko w Community Annual nie zmienia go automatycznie. Builder zachowuje wybór, pokazuje konflikt i wymaga jawnej korekty albo ponownego włączenia modułu.</p>
+          <p>Obowiązuje nadal maksymalnie <b>1 Wizard we flocie</b> i <b>1 czar rzucany na turę</b>. Systemy specjalistyczne, takie jak Elven Mage, Orc Shaman, Grey Seer, Runesmith, Liche i Necromancer, nie korzystają z tej drabinki.</p>
         </div>
       </details>
 
@@ -23112,6 +23307,7 @@ function bindRealtimeNavStats(){
         <summary>Kopiowanie rosteru, Reset i korzystanie na telefonie</summary>
         <div class="mow-help-detail">
           <p><b>Kopiuj do schowka</b> tworzy czytelną wersję tekstową, którą można wkleić do wiadomości, dokumentu lub zgłoszenia.</p>
+          <p><b>Eksportuj flotę</b> zapisuje przenośny plik <span class="mow-help-code">mow.fleet 0.1.2</span>. <b>Importuj flotę</b> otwiera taki plik lub historyczny kod <span class="mow-help-code">MOWFLEET1</span> jako nową, niezależną kopię.</p>
           <p><b>Reset</b> czyści bieżącą rozpiskę, ale nie usuwa nazwanych flot z biblioteki. Niezapisaną pracę warto wcześniej zapisać.</p>
           <p>Na telefonie część sekcji jest zwijana, a ilości zmienia się dużymi przyciskami − / liczba / +. Jeśli klawiatura zasłania pole nazwy, przewiń aktywne pole wyżej.</p>
         </div>
@@ -23152,8 +23348,19 @@ function bindRealtimeNavStats(){
         <summary>Validation and additional modules</summary>
         <div class="mow-help-detail">
           <p>The <b>All / FAIL only</b> control shows every check or only problems that need attention.</p>
-          <p>Under <b>Optional rules</b> you can enable agreed additions such as faction material from <i>Citadel Journal</i>, <b>Citadel Journal — Expanded Shoreforts</b> and <b>Citadel Journal — Ships’ Boats</b>.</p>
+          <p>Under <b>Optional rules</b> you can enable agreed additions such as faction material from <i>Citadel Journal</i>, <b>Community Annual — Expanded Wizard Levels</b>, <b>Citadel Journal — Expanded Shoreforts</b> and <b>Citadel Journal — Ships’ Boats</b>.</p>
           <p>No FAIL messages means the roster passes the checks implemented in the builder. You should still apply scenario-specific rules and any agreements made with your opponent.</p>
+        </div>
+      </details>
+
+
+      <details>
+        <summary>Core and Community Annual Wizard levels</summary>
+        <div class="mow-help-detail">
+          <p>Without the additional module, an ordinary Wizard uses the three core levels: <b>Wizard Champion</b>, <b>Master Wizard</b> and <b>Wizard Lord</b>.</p>
+          <p><b>Community Annual — Expanded Wizard Levels</b> enables the complete seven-level ladder. The selector description shows Magic Cards, Dice Modifier, Battle Honours and reroll scope.</p>
+          <p>Disabling the module while an Annual-only level is selected does not convert it automatically. The builder preserves the choice, shows a conflict and requires an explicit correction or re-enabling the module.</p>
+          <p>The global limits remain <b>1 Wizard per fleet</b> and <b>1 spell cast per turn</b>. Specialist systems such as Elven Mage, Orc Shaman, Grey Seer, Runesmith, Liche and Necromancer do not use this ladder.</p>
         </div>
       </details>
 
@@ -23222,6 +23429,7 @@ function bindRealtimeNavStats(){
         <summary>Copying a roster, Reset and mobile use</summary>
         <div class="mow-help-detail">
           <p><b>Copy to clipboard</b> creates a readable text roster for messages, documents or event submissions.</p>
+          <p><b>Export fleet</b> saves a portable <span class="mow-help-code">mow.fleet 0.1.2</span> file. <b>Import fleet</b> opens that file or a historical <span class="mow-help-code">MOWFLEET1</span> code as a new independent copy.</p>
           <p><b>Reset</b> clears the current roster but does not delete named fleets from the library. Save any work you want to keep first.</p>
           <p>On mobile, some sections collapse and unit quantities use large − / number / + controls. If the keyboard covers a ship-name field, scroll the active field higher on the screen.</p>
         </div>
@@ -23300,13 +23508,20 @@ function bindRealtimeNavStats(){
   }
   function validateNativeModelFully(model){
     const normalized=normalizeNativeModelContract(model);
+    const wizardSources=new Set(["Empire.wizard","Bretonnia.wizard","Elves.wizard","DarkElves.wizard","Orcs.wizard","Norse.wizard","Undead.wizard"]),wizardVariants=new Set(["wizard_champion","high_wizard_champion","master_wizard","high_master_wizard","wizard_lord","high_wizard_lord","grand_wizard_lord"]);
+    for(const selection of normalized.selections||[]){
+      const source=String(selection&&selection.source_ref&&selection.source_ref.raw_external_key||"");if(!wizardSources.has(source)||Number(selection.quantity||0)<=0)continue;
+      if(!wizardVariants.has(String(selection.variant_id||""))){const error=new Error("Unknown standard Wizard variant_id");error.code="UNKNOWN_STANDARD_WIZARD_VARIANT";error.details={source_ref:source,variant_id:selection.variant_id};throw error;}
+      for(const roleId of selection.result_refs&&selection.result_refs.role_instance_ids||[]){const role=(normalized.roles||[]).find(item=>item&&item.role_instance_id===roleId);if(role&&String(role.variant_id||"")!==String(selection.variant_id||"")){const error=new Error("Standard Wizard role variant_id mismatch");error.code="STANDARD_WIZARD_VARIANT_MISMATCH";error.details={source_ref:source,selection_variant_id:selection.variant_id,role_variant_id:role.variant_id};throw error;}}
+    }
     authority().validateNativeModel(normalized);
     if(!window.MowFleetSemantic || typeof window.MowFleetSemantic.validate !== "function") throw new Error("Semantic fleet validator is unavailable");
     const semantic = window.MowFleetSemantic.validate(normalized,{maxErrors:300,maxWarnings:300,targetEligibility:true});
     const draftAllowed=new Set([
       "ROSTER_BUILD_ASSIGNMENT_PENDING","INVALID_ROSTER_ASSIGNMENT","ROSTER_ASSIGNMENT_TARGET_REQUIRED",
       "ASSIGNMENT_TARGET_DEPENDENCY_UNRESOLVED","ASSIGNMENT_NO_LEGAL_TARGET","ASSIGNMENT_TARGET_ILLEGAL",
-      "ASSIGNMENT_TARGET_CAPACITY_EXCEEDED","ADMIRAL_EXACTLY_ONE_REQUIRED","ASSIGNMENT_APPLICABILITY_STALE","ASSIGNMENT_TARGET_QUERY_STALE"
+      "ASSIGNMENT_TARGET_CAPACITY_EXCEEDED","ADMIRAL_EXACTLY_ONE_REQUIRED","ASSIGNMENT_APPLICABILITY_STALE","ASSIGNMENT_TARGET_QUERY_STALE",
+      "WIZARD_ANNUAL_MODULE_REQUIRED"
     ]);
     const blocking=(semantic.errors||[]).filter(item=>!draftAllowed.has(item.code));
     if(blocking.length){
@@ -23696,7 +23911,8 @@ function bindRealtimeNavStats(){
     const modules = {
       factionCitadel: factionCfg ? !!(factionCb ? factionCb.checked : window[factionCfg.flag]) : false,
       expandedShoreforts: !!($(GLOBAL_MODULES.expandedShoreforts.control)?.checked ?? window[GLOBAL_MODULES.expandedShoreforts.flag]),
-      shipsBoats: !!($(GLOBAL_MODULES.shipsBoats.control)?.checked ?? window[GLOBAL_MODULES.shipsBoats.flag])
+      shipsBoats: !!($(GLOBAL_MODULES.shipsBoats.control)?.checked ?? window[GLOBAL_MODULES.shipsBoats.flag]),
+      annualExpandedWizards: !!($(GLOBAL_MODULES.annualExpandedWizards.control)?.checked ?? window[GLOBAL_MODULES.annualExpandedWizards.flag])
     };
     return modules;
   }
@@ -23858,7 +24074,8 @@ function bindRealtimeNavStats(){
       const modulePairs = [
         ["mowCitadelJournalToggle", !!(state.modules && state.modules.factionCitadel)],
         [GLOBAL_MODULES.expandedShoreforts.control, !!(state.modules && state.modules.expandedShoreforts)],
-        [GLOBAL_MODULES.shipsBoats.control, !!(state.modules && state.modules.shipsBoats)]
+        [GLOBAL_MODULES.shipsBoats.control, !!(state.modules && state.modules.shipsBoats)],
+        [GLOBAL_MODULES.annualExpandedWizards.control, !!(state.modules && state.modules.annualExpandedWizards)]
       ];
       for(const pair of modulePairs){
         const el = $(pair[0]);
@@ -24312,7 +24529,7 @@ function bindRealtimeNavStats(){
       version:SHARE_VERSION,
       profile:SHARE_PROFILE,
       shared_at:nowIso(),
-      producer:{ app:"mow-fleet-builder", version:"1.7", build:"step89" },
+      producer:{ app:"mow-fleet-builder", version:"1.8.1", build:"fbmaint02-release-r1-2026-07-30" },
       label:getActiveFleetName() || null,
       state:deepClone(current)
     };
@@ -24990,14 +25207,14 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.7",
+    version: "1.8.1",
     build: "step89-2026-07-17",
     source_ui: "1.7-step81",
     bridge_schema: "mow.builder.ui-snapshot",
     bridge_version: 3
   });
   const EXT_NS = "mow.builder";
-  const VARIANT_BY_SOURCE_VALUE = {"Bretonnia.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"DarkElves.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"Elves.elf_mage":{"50":"mage","75":"mage_master","100":"mage_lord","150":"high_mage"},"Elves.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"Empire.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"Norse.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"Orcs.orc_flagship_shaman":{"25":"goblin_shaman_level_1","50":"orc_shaman_level_2","75":"goblin_boss_shaman_level_3","100":"orc_boss_shaman_level_4","125":"orc_shaman_lord_level_5"},"Orcs.wizard":{"50":"wizard_champion","100":"master_wizard","150":"wizard_lord"},"Skaven.grey_seer":{"100":"warlock_champion","150":"warlock_master"},"Undead.admiral":{"300":"liche","250":"necromancer","50":"tomb_king"},"Undead.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"}};
+  const VARIANT_BY_SOURCE_VALUE = {"Bretonnia.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"DarkElves.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"Elves.elf_mage":{"50":"mage","75":"mage_master","100":"mage_lord","150":"high_mage"},"Elves.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"Empire.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"Norse.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"Orcs.orc_flagship_shaman":{"25":"goblin_shaman_level_1","50":"orc_shaman_level_2","75":"goblin_boss_shaman_level_3","100":"orc_boss_shaman_level_4","125":"orc_shaman_lord_level_5"},"Orcs.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"},"Skaven.grey_seer":{"100":"warlock_champion","150":"warlock_master"},"Undead.admiral":{"300":"liche","250":"necromancer","50":"tomb_king"},"Undead.wizard":{"50":"wizard_champion","75":"high_wizard_champion","100":"master_wizard","125":"high_master_wizard","150":"wizard_lord","175":"high_wizard_lord","200":"grand_wizard_lord"}};
   const KNOWN_SOURCE_KEYS = new Set(["Bretonnia.admiral","Bretonnia.anti_flyer","Bretonnia.boat_bomb","Bretonnia.boat_lifeboat","Bretonnia.boat_raiding","Bretonnia.buccaneers","Bretonnia.cards","Bretonnia.corsair","Bretonnia.galleon","Bretonnia.pegasus","Bretonnia.shorefort_coastal_bastion","Bretonnia.shorefort_defence_tower","Bretonnia.shorefort_sea_fortress","Bretonnia.shorefort_standard","Bretonnia.wizard","Chaos.anti_flyer","Chaos.bloodship","Chaos.boat_bomb","Chaos.boat_lifeboat","Chaos.boat_raiding","Chaos.death_galleys","Chaos.hellrammers","Chaos.hellship","Chaos.hellslicers","Chaos.ironsharks","Chaos.lord_of_change","Chaos.pf_lord_khorne","Chaos.pf_lord_nurgle","Chaos.pf_lord_slaanesh","Chaos.pf_lord_tzeentch","Chaos.pf_reward_cards","Chaos.pf_sorcerer","Chaos.plaguecrushers","Chaos.plagueship","Chaos.shorefort_coastal_bastion","Chaos.shorefort_defence_tower","Chaos.shorefort_sea_fortress","Chaos.shorefort_standard","Chaos.wingedterror","ChaosDwarfs.anti_flyer","ChaosDwarfs.boat_bomb","ChaosDwarfs.boat_lifeboat","ChaosDwarfs.boat_raiding","ChaosDwarfs.chaos_lord","ChaosDwarfs.chaos_sorcerer","ChaosDwarfs.greatleveller","ChaosDwarfs.greattaurus","ChaosDwarfs.hulldestroyers","ChaosDwarfs.reward_cards","ChaosDwarfs.shorefort_coastal_bastion","ChaosDwarfs.shorefort_defence_tower","ChaosDwarfs.shorefort_sea_fortress","ChaosDwarfs.shorefort_standard","ChaosDwarfs.thunderfire","ChaosDwarfs.thunderrollers","DarkElves.admiral","DarkElves.anti_flyer","DarkElves.blackark","DarkElves.boat_bomb","DarkElves.boat_lifeboat","DarkElves.boat_raiding","DarkElves.cards","DarkElves.chaos_sorcerer","DarkElves.de_beast_lord","DarkElves.de_stone_ikonarashk","DarkElves.de_stone_irshkileth","DarkElves.de_stone_misharolth","DarkElves.de_stone_true_seeker","DarkElves.de_stone_urkarontir","DarkElves.de_stone_wild_mind","DarkElves.de_witch_elf_coven","DarkElves.deathfortress","DarkElves.doomreavers","DarkElves.manticore","DarkElves.shorefort_coastal_bastion","DarkElves.shorefort_defence_tower","DarkElves.shorefort_sea_fortress","DarkElves.shorefort_standard","DarkElves.wizard","Dwarfs.admiral","Dwarfs.anti_flyer","Dwarfs.boat_bomb","Dwarfs.boat_lifeboat","Dwarfs.boat_raiding","Dwarfs.cards","Dwarfs.dreadnought","Dwarfs.gyrocopters","Dwarfs.ironclad","Dwarfs.master_engineer","Dwarfs.me_flame_cannon","Dwarfs.me_improved_gears","Dwarfs.me_overdrive_engine","Dwarfs.me_spare_boiler","Dwarfs.monitors","Dwarfs.nautilus","Dwarfs.rune_cannon_burning","Dwarfs.rune_cannon_penetrating","Dwarfs.rune_cannon_swiftness","Dwarfs.rune_hull_adamant","Dwarfs.rune_hull_cleaving","Dwarfs.rune_hull_gromril","Dwarfs.rune_hull_piercing","Dwarfs.rune_hull_spell_eating","Dwarfs.rune_shot_fortune","Dwarfs.rune_shot_smiting","Dwarfs.runesmith","Dwarfs.shorefort_coastal_bastion","Dwarfs.shorefort_defence_tower","Dwarfs.shorefort_sea_fortress","Dwarfs.shorefort_standard","Dwarfs.slayers","Dwarfs.warballoons","Elves.admiral","Elves.anti_flyer","Elves.boat_bomb","Elves.boat_lifeboat","Elves.boat_raiding","Elves.cards","Elves.dragonriders","Elves.dragonship","Elves.eagleship","Elves.elf_mage","Elves.hawkships","Elves.he_crystal_anurell","Elves.he_crystal_caltahari","Elves.he_crystal_delianith","Elves.he_crystal_paerennir","Elves.he_crystal_remianath","Elves.he_crystal_salithis","Elves.shorefort_coastal_bastion","Elves.shorefort_defence_tower","Elves.shorefort_sea_fortress","Elves.shorefort_standard","Elves.wardancers","Elves.wareagles","Elves.wizard","Empire.admiral","Empire.anti_flyer","Empire.boat_bomb","Empire.boat_lifeboat","Empire.boat_raiding","Empire.cards","Empire.greatship","Empire.griffons","Empire.hellhammer","Empire.ironfist","Empire.shorefort_coastal_bastion","Empire.shorefort_defence_tower","Empire.shorefort_sea_fortress","Empire.shorefort_standard","Empire.wargalley","Empire.wizard","Empire.wolf","Norse.admiral","Norse.boat_bomb","Norse.boat_lifeboat","Norse.boat_raiding","Norse.cards","Norse.kingship","Norse.longship","Norse.shorefort_coastal_bastion","Norse.shorefort_defence_tower","Norse.shorefort_sea_fortress","Norse.shorefort_standard","Norse.wizard","Orcs.admiral","Orcs.anti_flyer","Orcs.bigchukkas","Orcs.boat_bomb","Orcs.boat_lifeboat","Orcs.boat_raiding","Orcs.cards","Orcs.drillakillas","Orcs.hulk","Orcs.orc_flagship_shaman","Orcs.orc_kustom_beer","Orcs.orc_kustom_big_whip","Orcs.orc_kustom_fanatics","Orcs.orc_kustom_gobbedoes","Orcs.orc_kustom_pointy_bit","Orcs.orc_kustom_squig_launchers","Orcs.orc_kustom_troll_pens","Orcs.orc_other_goblin_boss_shaman","Orcs.orc_other_goblin_shaman","Orcs.orc_other_orc_shaman","Orcs.orc_squadron_goblin_shaman","Orcs.shorefort_coastal_bastion","Orcs.shorefort_defence_tower","Orcs.shorefort_sea_fortress","Orcs.shorefort_standard","Orcs.wizard","Orcs.wyvernrider","SeaMonsters.behemoth","SeaMonsters.blackleviathan","SeaMonsters.gargantuan","SeaMonsters.kraken","SeaMonsters.megaladon","SeaMonsters.promethean","SeaMonsters.seadragon","SeaMonsters.seaelemental","SeaMonsters.triton","Skaven.anti_flyer","Skaven.boat_bomb","Skaven.boat_lifeboat","Skaven.boat_raiding","Skaven.deathburners","Skaven.doombringer","Skaven.eshin_assassin","Skaven.grey_seer","Skaven.rat_ogres","Skaven.reward_cards","Skaven.shorefort_coastal_bastion","Skaven.shorefort_defence_tower","Skaven.shorefort_sea_fortress","Skaven.shorefort_standard","Skaven.skaven_warlord","Skaven.warp_raiders","Undead.admiral","Undead.anti_flyer","Undead.boat_bomb","Undead.boat_lifeboat","Undead.boat_raiding","Undead.cards","Undead.carrion","Undead.deathships","Undead.floating_necropolis","Undead.ghostship","Undead.shorefort_coastal_bastion","Undead.shorefort_defence_tower","Undead.shorefort_sea_fortress","Undead.shorefort_standard","Undead.skullrammers","Undead.wizard","Undead.zombie_dragons","ally_catalog.Bretonnia.Buccaneers","ally_catalog.Bretonnia.Corsairs","ally_catalog.Bretonnia.Galleon","ally_catalog.Bretonnia.Pegasus Riders","ally_catalog.Chaos Dwarfs.Great Leveller Battlebarge","ally_catalog.Chaos Dwarfs.Great Taurus Rider","ally_catalog.Chaos Dwarfs.Hull Destroyers","ally_catalog.Chaos Dwarfs.Thunder Rollers","ally_catalog.Chaos Dwarfs.Thunderfire Battlebarge","ally_catalog.Chaos.Bane Tower of Tzeentch","ally_catalog.Chaos.Bloodship","ally_catalog.Chaos.Death Galleys","ally_catalog.Chaos.Great Winged Terror","ally_catalog.Chaos.Hellrammers","ally_catalog.Chaos.Hellship","ally_catalog.Chaos.Hellslicers","ally_catalog.Chaos.Ironsharks","ally_catalog.Chaos.Lord of Change","ally_catalog.Chaos.Plaguecrushers","ally_catalog.Chaos.Plagueship","ally_catalog.Dark Elves.Black Ark","ally_catalog.Dark Elves.Death Fortress","ally_catalog.Dark Elves.Doomreavers","ally_catalog.Dark Elves.Manticore Riders","ally_catalog.Dwarfs.Dreadnought","ally_catalog.Dwarfs.Gyrocopters","ally_catalog.Dwarfs.Ironclad","ally_catalog.Dwarfs.Monitors","ally_catalog.Dwarfs.Nautilus","ally_catalog.Dwarfs.War Balloons","ally_catalog.Elves.Dragon Riders","ally_catalog.Elves.Dragonship","ally_catalog.Elves.Eagleship","ally_catalog.Elves.Hawkships","ally_catalog.Elves.War Eagles","ally_catalog.Empire.Greatship","ally_catalog.Empire.Griffon Riders","ally_catalog.Empire.Hellhammers","ally_catalog.Empire.Ironfists","ally_catalog.Empire.Wargalleys","ally_catalog.Empire.Wolfships","ally_catalog.Norse.Kingship","ally_catalog.Norse.Longship","ally_catalog.Orcs.Bigchukkas","ally_catalog.Orcs.Drillakillas","ally_catalog.Orcs.Hulk","ally_catalog.Orcs.Wyvern Rider","ally_catalog.Pirates.Wargalleys","ally_catalog.Skaven.Deathburners","ally_catalog.Skaven.Doombringer","ally_catalog.Skaven.Warp-Raiders"]);
   const FACTION_MODULE = Object.freeze({
     Dwarfs: "citadel_journal_dwarfs",
@@ -25125,9 +25342,11 @@ function bindRealtimeNavStats(){
     const factionToggle = doc && doc.getElementById("mowCitadelJournalToggle");
     const expanded = doc && doc.getElementById("mowExpandedShorefortsToggle");
     const boats = doc && doc.getElementById("mowShipsBoatsToggle");
+    const annualWizards = doc && doc.getElementById("mowAnnualExpandedWizardsToggle");
     if ((factionToggle ? factionToggle.checked : !!root[(fleetKey === "Dwarfs" ? "MOW_DWARFS_CITADEL_JOURNAL_ON" : fleetKey === "DarkElves" ? "MOW_DARK_ELVES_CITADEL_JOURNAL_ON" : fleetKey === "Elves" ? "MOW_HIGH_ELVES_CITADEL_JOURNAL_ON" : fleetKey === "Orcs" ? "MOW_ORCS_CITADEL_JOURNAL_ON" : "")]) && FACTION_MODULE[fleetKey]) modules.push(FACTION_MODULE[fleetKey]);
     if (expanded ? expanded.checked : !!root.MOW_EXPANDED_SHOREFORTS_ON) modules.push("shoreforts");
     if (boats ? boats.checked : !!root.MOW_SHIPS_BOATS_ON) modules.push("ships_boats");
+    if (annualWizards ? annualWizards.checked : !!root.MOW_ANNUAL_EXPANDED_WIZARDS_ON) modules.push("annual_expanded_wizards");
     (selections || []).forEach(item => {
       try{
         const mod = catalog().resolveSource({ source_external_key:item.source_external_key }).availability.rules_module_id;
@@ -25593,6 +25812,7 @@ function bindRealtimeNavStats(){
     if (!preserved.has("mowCitadelJournalToggle")) setStructuralControl("mowCitadelJournalToggle", !!(factionModule && modules.has(factionModule)), true);
     if (!preserved.has("mowExpandedShorefortsToggle")) setStructuralControl("mowExpandedShorefortsToggle", modules.has("shoreforts"), true);
     if (!preserved.has("mowShipsBoatsToggle")) setStructuralControl("mowShipsBoatsToggle", modules.has("ships_boats"), true);
+    if (!preserved.has("mowAnnualExpandedWizardsToggle")) setStructuralControl("mowAnnualExpandedWizardsToggle", modules.has("annual_expanded_wizards"), true);
     const alliance = model.planning && model.planning.alliance;
     const allySelect = doc.getElementById("allyFaction");
     if (allySelect && !preserved.has("allyFaction")){
@@ -25740,7 +25960,7 @@ function bindRealtimeNavStats(){
   function commandKind(target){
     if (!target || !target.id) return "ignore";
     if (target.id === "fleetSelect") return "fleet_context";
-    if (["chaosVariantSelect","allyFaction","mowCitadelJournalToggle","mowExpandedShorefortsToggle","mowShipsBoatsToggle"].includes(target.id)) return "structure";
+    if (["chaosVariantSelect","allyFaction","mowCitadelJournalToggle","mowExpandedShorefortsToggle","mowShipsBoatsToggle","mowAnnualExpandedWizardsToggle"].includes(target.id)) return "structure";
     if (target.id === "mowFleetFluffName") return "identity";
     if (target.id === "plannedPts" || target.id === "allyPts") return "planning";
     return controlSourceKey(target) ? "selection" : "ignore";
@@ -26090,7 +26310,7 @@ function bindRealtimeNavStats(){
 (function(root){
   "use strict";
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.7",build:"release90-2026-07-19",
+    app:"Man O' War Fleet Builder",version:"1.8.1",build:"release90-2026-07-19",
     contract_schema:"mow.fleet",contract_version:"0.1.2",schema_id:"urn:mow:schema:fleet:0.1.2"
   });
   const SCHEMA={"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"urn:mow:schema:fleet:0.1.2","title":"Man O' War Fleet Contract 0.1.2","description":"Portable fleet-construction and prepared-roster contract with named role/resource instances and durable pre-game setup tasks. It excludes battle, card-zone, table and simulation state.","type":"object","additionalProperties":false,"required":["schema","schema_version","document_profile","fleet_id","revision","created_at","updated_at","producer","ruleset_ref","identity","planning","points","selections","squadrons","units","roles","resources","assignments","setups","extensions"],"properties":{"schema":{"const":"mow.fleet"},"schema_version":{"const":"0.1.2"},"document_profile":{"type":"string","enum":["builder_export","prepared_fleet"],"description":"builder_export may contain only policy-valid pending assignments. prepared_fleet requires every mandatory assignment to be resolved; optional assignments may remain pending."},"fleet_id":{"$ref":"#/$defs/instanceId"},"revision":{"type":"integer","minimum":1},"created_at":{"type":"string","format":"date-time"},"updated_at":{"type":"string","format":"date-time"},"producer":{"$ref":"#/$defs/producer"},"ruleset_ref":{"$ref":"#/$defs/rulesetRef"},"identity":{"$ref":"#/$defs/fleetIdentity"},"planning":{"$ref":"#/$defs/planning"},"points":{"$ref":"#/$defs/pointsSummary"},"selections":{"type":"array","items":{"$ref":"#/$defs/selectionInstance"}},"squadrons":{"type":"array","items":{"$ref":"#/$defs/squadronInstance"}},"units":{"type":"array","items":{"$ref":"#/$defs/unitInstance"}},"roles":{"type":"array","items":{"$ref":"#/$defs/roleInstance"}},"resources":{"type":"array","items":{"$ref":"#/$defs/resourceInstance"}},"assignments":{"type":"array","items":{"$ref":"#/$defs/assignment"}},"validation":{"$ref":"#/$defs/validationCache"},"extensions":{"$ref":"#/$defs/extensions"},"setups":{"type":"array","items":{"$ref":"#/$defs/setupInstance"}}},"allOf":[{"if":{"properties":{"document_profile":{"const":"prepared_fleet"}},"required":["document_profile"]},"then":{"properties":{"assignments":{"items":{"oneOf":[{"allOf":[{"$ref":"#/$defs/assignment"},{"properties":{"status":{"const":"resolved"},"target_ref":{"$ref":"#/$defs/unitTargetRef"}}}]},{"allOf":[{"$ref":"#/$defs/assignment"},{"properties":{"status":{"const":"pending"},"requirement":{"const":"optional_assignment"},"target_ref":{"type":"null"}}}]}]}},"setups":{"items":{"allOf":[{"$ref":"#/$defs/setupInstance"},{"properties":{"status":{"const":"resolved"}}}]}}}}}],"$defs":{"extensions":{"type":"object","description":"Only sanctioned forward-compatibility escape hatch. Unknown extension members must survive round-trip unchanged.","additionalProperties":true},"instanceId":{"type":"string","oneOf":[{"pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"},{"pattern":"^[0-9A-HJKMNP-TV-Z]{26}$"}],"description":"UUID v1-v5 or canonical uppercase ULID."},"canonicalId":{"type":"string","minLength":1,"maxLength":160,"pattern":"^[A-Za-z0-9][A-Za-z0-9._:-]*$"},"nullableCanonicalId":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}]},"factionId":{"type":"string","enum":["Bretonnia","Chaos","ChaosDwarfs","DarkElves","Dwarfs","Elves","Empire","Norse","Orcs","Skaven","Undead","global"]},"channel":{"type":"string","enum":["primary","ally","sea_monster","optional_module","shorefort","boat"]},"classification":{"type":"string","enum":["man_o_war","ship_of_the_line","independent","flyer","sea_monster","shorefort","boat","other"]},"definitionStatus":{"type":"string","enum":["available","source_resolved","missing_in_data_core"]},"producer":{"type":"object","additionalProperties":false,"required":["app","version"],"properties":{"app":{"type":"string","minLength":1},"version":{"type":"string","minLength":1},"build":{"type":["string","null"]}}},"rulesetRef":{"type":"object","additionalProperties":false,"required":["data_core_release","schema_version","content_version","ruleset_version","rules_mode_key","modules"],"properties":{"data_core_release":{"type":"string","minLength":1},"base_release":{"type":["string","null"]},"schema_version":{"oneOf":[{"type":"integer","minimum":1},{"type":"string","minLength":1}]},"content_version":{"type":"string","minLength":1},"ruleset_version":{"type":"string","minLength":1},"rules_mode_key":{"$ref":"#/$defs/canonicalId"},"modules":{"type":"array","items":{"$ref":"#/$defs/canonicalId"},"uniqueItems":true}}},"fleetVariant":{"oneOf":[{"type":"null"},{"type":"object","minProperties":1,"additionalProperties":{"type":["string","integer","number","boolean","null"]}}]},"fleetIdentity":{"type":"object","additionalProperties":false,"required":["name","primary_faction_id","fleet_variant","language"],"properties":{"name":{"type":"string","minLength":1,"maxLength":200},"primary_faction_id":{"$ref":"#/$defs/factionId"},"fleet_variant":{"$ref":"#/$defs/fleetVariant"},"language":{"type":"string","pattern":"^[a-z]{2,3}(?:-[A-Z]{2})?$"}}},"alliance":{"type":"object","additionalProperties":false,"required":["ally_faction_id","relation","points_limit","points_used"],"properties":{"ally_faction_id":{"$ref":"#/$defs/factionId"},"relation":{"type":"string","minLength":1},"points_limit":{"type":"integer","minimum":0},"points_used":{"type":"integer","minimum":0}}},"planning":{"type":"object","additionalProperties":false,"required":["points_limit","alliance"],"properties":{"points_limit":{"type":"integer","minimum":0},"alliance":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/alliance"}]}}},"pointsByChannel":{"type":"object","additionalProperties":false,"required":["primary","ally","sea_monster","optional_module","shorefort","boat"],"properties":{"primary":{"type":"integer","minimum":0},"ally":{"type":"integer","minimum":0},"sea_monster":{"type":"integer","minimum":0},"optional_module":{"type":"integer","minimum":0},"shorefort":{"type":"integer","minimum":0},"boat":{"type":"integer","minimum":0}}},"pointsSummary":{"type":"object","additionalProperties":false,"required":["selected_total","remaining","by_channel","primary_and_modules","allies","sea_monsters"],"properties":{"selected_total":{"type":"integer","minimum":0},"remaining":{"type":"integer"},"by_channel":{"$ref":"#/$defs/pointsByChannel"},"primary_and_modules":{"type":"integer","minimum":0},"allies":{"type":"integer","minimum":0},"sea_monsters":{"type":"integer","minimum":0}}},"selectionContext":{"type":"object","additionalProperties":false,"required":["primary_faction_id","selection_fleet_context_id","rules_module_id"],"properties":{"primary_faction_id":{"$ref":"#/$defs/factionId"},"selection_fleet_context_id":{"$ref":"#/$defs/factionId"},"ally_faction_id":{"$ref":"#/$defs/factionId"},"rules_module_id":{"$ref":"#/$defs/canonicalId"}}},"selectionPoints":{"type":"object","additionalProperties":false,"required":["mode","per_selection","total"],"properties":{"mode":{"type":"string","enum":["fixed","tiered","variant","calculated"]},"per_selection":{"oneOf":[{"type":"integer","minimum":0},{"type":"null"}]},"total":{"type":"integer","minimum":0}}},"sourceRef":{"type":"object","additionalProperties":false,"required":["external_system","external_id"],"properties":{"external_system":{"type":"string","minLength":1},"external_version":{"type":["string","null"]},"alias_id":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}]},"external_context_key":{"type":["string","null"]},"external_id":{"type":"string","minLength":1},"raw_external_key":{"type":["string","null"]}}},"resultRefs":{"type":"object","additionalProperties":false,"required":["squadron_instance_ids","unit_instance_ids","role_instance_ids","resource_instance_ids"],"properties":{"squadron_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"unit_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"role_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"resource_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true}}},"selectionInstance":{"type":"object","additionalProperties":false,"required":["selection_instance_id","selection_id","availability_id","variant_id","channel","context","quantity","points","source_ref","result_refs","extensions"],"properties":{"selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_id":{"$ref":"#/$defs/canonicalId"},"availability_id":{"$ref":"#/$defs/nullableCanonicalId"},"variant_id":{"$ref":"#/$defs/nullableCanonicalId"},"channel":{"$ref":"#/$defs/channel"},"context":{"$ref":"#/$defs/selectionContext"},"quantity":{"type":"integer","minimum":1},"points":{"$ref":"#/$defs/selectionPoints"},"source_ref":{"$ref":"#/$defs/sourceRef"},"result_refs":{"$ref":"#/$defs/resultRefs"},"extensions":{"$ref":"#/$defs/extensions"}}},"squadronInstance":{"type":"object","additionalProperties":false,"required":["squadron_instance_id","origin_selection_instance_id","selection_occurrence","unit_id","channel","roster_category","unit_instance_ids","extensions"],"properties":{"squadron_instance_id":{"$ref":"#/$defs/instanceId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_occurrence":{"type":"integer","minimum":1},"unit_id":{"$ref":"#/$defs/canonicalId"},"channel":{"$ref":"#/$defs/channel"},"roster_category":{"type":"string","minLength":1},"unit_instance_ids":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"extensions":{"$ref":"#/$defs/extensions"}}},"unitInstance":{"type":"object","additionalProperties":false,"required":["unit_instance_id","unit_id","origin_selection_instance_id","selection_occurrence","faction_id","channel","roster_category","classification","squadron_instance_id","ordinal_in_squadron","custom_name","definition_status","extensions"],"properties":{"unit_instance_id":{"$ref":"#/$defs/instanceId"},"unit_id":{"$ref":"#/$defs/canonicalId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_occurrence":{"type":"integer","minimum":1},"faction_id":{"$ref":"#/$defs/factionId"},"channel":{"$ref":"#/$defs/channel"},"roster_category":{"type":"string","minLength":1},"classification":{"$ref":"#/$defs/classification"},"squadron_instance_id":{"oneOf":[{"$ref":"#/$defs/instanceId"},{"type":"null"}]},"ordinal_in_squadron":{"oneOf":[{"type":"integer","minimum":1},{"type":"null"}]},"custom_name":{"type":["string","null"],"maxLength":200},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"}},"allOf":[{"if":{"properties":{"squadron_instance_id":{"type":"null"}},"required":["squadron_instance_id"]},"then":{"properties":{"ordinal_in_squadron":{"type":"null"}}},"else":{"properties":{"ordinal_in_squadron":{"type":"integer","minimum":1}}}}]},"roleInstance":{"type":"object","additionalProperties":false,"required":["role_instance_id","role_id","origin_selection_instance_id","variant_id","definition_status","custom_name","extensions"],"properties":{"role_instance_id":{"$ref":"#/$defs/instanceId"},"role_id":{"$ref":"#/$defs/canonicalId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"variant_id":{"$ref":"#/$defs/nullableCanonicalId"},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"},"custom_name":{"oneOf":[{"type":"string","minLength":1,"maxLength":200},{"type":"null"}]}}},"resourceInstance":{"type":"object","additionalProperties":false,"required":["resource_instance_id","resource_kind","definition_type","definition_id","quantity","origin_selection_instance_id","definition_status","custom_name","extensions"],"properties":{"resource_instance_id":{"$ref":"#/$defs/instanceId"},"resource_kind":{"type":"string","enum":["card_entitlement","card_pool_entitlement","starting_card","upgrade","counter","other"]},"definition_type":{"$ref":"#/$defs/canonicalId"},"definition_id":{"$ref":"#/$defs/canonicalId"},"quantity":{"type":"integer","minimum":1},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"},"custom_name":{"oneOf":[{"type":"string","minLength":1,"maxLength":200},{"type":"null"}]}}},"subjectRef":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"type":"string","enum":["fleet_designation","squadron_instance","role_instance","resource_instance"]},"id":{"type":"string","minLength":1}}},"unitTargetRef":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"unit_instance"},"id":{"$ref":"#/$defs/instanceId"}}},"stringOrArray":{"oneOf":[{"type":"string","minLength":1},{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}}]},"allowedTargetQuery":{"oneOf":[{"type":"null"},{"type":"object","additionalProperties":false,"properties":{"channel":{"$ref":"#/$defs/stringOrArray"},"classification":{"$ref":"#/$defs/stringOrArray"},"faction_id":{"$ref":"#/$defs/stringOrArray"},"roster_category":{"$ref":"#/$defs/stringOrArray"},"extensions":{"$ref":"#/$defs/extensions"},"unit_id":{"$ref":"#/$defs/stringOrArray"},"exclude_unit_id":{"$ref":"#/$defs/stringOrArray"},"required_designation":{"$ref":"#/$defs/stringOrArray"},"subject_squadron_instance_id":{"oneOf":[{"$ref":"#/$defs/instanceId"},{"type":"null"}]}},"minProperties":1}]},"assignment":{"type":"object","additionalProperties":false,"required":["assignment_id","assignment_type","subject_ref","status","target_ref","resolution_stage","requirement","applicability_ref","pending_reason_code","expected_target_type","allowed_target_query","notes","extensions"],"properties":{"assignment_id":{"$ref":"#/$defs/instanceId"},"assignment_type":{"type":"string","enum":["fleet_designation_to_unit","squadron_designation_to_unit","role_to_unit","resource_to_unit"]},"subject_ref":{"$ref":"#/$defs/subjectRef"},"status":{"type":"string","enum":["pending","resolved"]},"target_ref":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/unitTargetRef"}]},"resolution_stage":{"$ref":"#/$defs/resolutionStage"},"allowed_target_query":{"$ref":"#/$defs/allowedTargetQuery"},"notes":{"type":["string","null"]},"extensions":{"$ref":"#/$defs/extensions"},"requirement":{"$ref":"#/$defs/assignmentRequirement"},"applicability_ref":{"$ref":"#/$defs/canonicalId","description":"Stable reference to the rule or resolver definition that determines legal targets."},"pending_reason_code":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}],"description":"Machine-readable reason for a pending assignment; null when resolved."},"expected_target_type":{"$ref":"#/$defs/expectedTargetType"}},"allOf":[{"if":{"properties":{"status":{"const":"pending"}},"required":["status"]},"then":{"properties":{"target_ref":{"type":"null"},"pending_reason_code":{"$ref":"#/$defs/canonicalId"}}}},{"if":{"properties":{"status":{"const":"resolved"}},"required":["status"]},"then":{"properties":{"target_ref":{"$ref":"#/$defs/unitTargetRef"},"pending_reason_code":{"type":"null"}}}},{"if":{"properties":{"requirement":{"const":"required_at_roster_build"}},"required":["requirement"]},"then":{"properties":{"resolution_stage":{"const":"roster_build"}}}},{"if":{"properties":{"requirement":{"const":"required_before_game"}},"required":["requirement"]},"then":{"properties":{"resolution_stage":{"const":"pre_game_setup"}}}},{"if":{"properties":{"assignment_type":{"const":"fleet_designation_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"fleet_designation"},"id":{"type":"string","minLength":1}}}}}},{"if":{"properties":{"assignment_type":{"const":"squadron_designation_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"squadron_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}},{"if":{"properties":{"assignment_type":{"const":"role_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"role_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}},{"if":{"properties":{"assignment_type":{"const":"resource_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"resource_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}}]},"validationIssue":{"type":"object","additionalProperties":false,"required":["code","severity","path","message","details"],"properties":{"code":{"$ref":"#/$defs/canonicalId"},"severity":{"type":"string","enum":["info","warning","error"]},"path":{"type":"string"},"message":{"type":"string","minLength":1},"details":{"type":"object","additionalProperties":true}}},"validationCache":{"type":"object","additionalProperties":false,"required":["validated_revision","validated_at","validator","structural_status","rules_legality_status","data_core_resolution_status","issues"],"properties":{"validated_revision":{"type":"integer","minimum":1},"validated_at":{"type":"string","format":"date-time"},"validator":{"$ref":"#/$defs/producer"},"structural_status":{"type":"string","enum":["pass","fail","not_checked"]},"rules_legality_status":{"type":"string","enum":["pass","fail","not_checked","representative_not_certified"]},"data_core_resolution_status":{"type":"string","enum":["full","partial","failed","not_checked"]},"issues":{"type":"array","items":{"$ref":"#/$defs/validationIssue"}}}},"assignmentRequirement":{"type":"string","enum":["required_at_roster_build","required_before_game","optional_assignment"],"description":"Explicit policy controlling whether an assignment must be resolved while building the roster, before the game, or may remain unassigned."},"resolutionStage":{"type":"string","enum":["roster_build","pre_game_setup"],"description":"Latest normal stage at which the assignment is expected to be resolved."},"expectedTargetType":{"type":"string","enum":["unit_instance"],"description":"Typed target expected by this contract version."},"setupResultEntry":{"type":"object","additionalProperties":false,"required":["definition_id","quantity"],"properties":{"definition_id":{"type":"string","enum":["norse.warrior.ulfwerener","norse.warrior.berserker","norse.warrior.bondsman","norse.warrior.huscarl"]},"quantity":{"type":"integer","minimum":1,"maximum":5}}},"setupResult":{"type":"object","additionalProperties":false,"required":["entries","resolved_at"],"properties":{"entries":{"type":"array","minItems":1,"maxItems":4,"items":{"$ref":"#/$defs/setupResultEntry"}},"resolved_at":{"type":"string","format":"date-time"}}},"setupInstance":{"type":"object","additionalProperties":false,"required":["setup_instance_id","setup_definition_id","subject_ref","requirement","resolution_stage","status","expected_count","result","source_ref","notes","extensions"],"properties":{"setup_instance_id":{"$ref":"#/$defs/instanceId"},"setup_definition_id":{"const":"setup.norse.kingship_warrior_draw"},"subject_ref":{"$ref":"#/$defs/unitTargetRef"},"requirement":{"const":"required_before_game"},"resolution_stage":{"const":"pre_game_setup"},"status":{"type":"string","enum":["pending","resolved","needs_review"]},"expected_count":{"type":"integer","enum":[4,5]},"result":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/setupResult"}]},"source_ref":{"const":"rule.norse_special_crew"},"notes":{"type":["string","null"]},"extensions":{"$ref":"#/$defs/extensions"}},"allOf":[{"if":{"properties":{"status":{"const":"pending"}},"required":["status"]},"then":{"properties":{"result":{"type":"null"}}}},{"if":{"properties":{"status":{"const":"resolved"}},"required":["status"]},"then":{"properties":{"result":{"$ref":"#/$defs/setupResult"}}}}]}}};
@@ -26327,7 +26547,7 @@ function bindRealtimeNavStats(){
   if(!previousDomain||!previousIdentity||!previousReconciler||!previousCatalog) throw new Error("RELEASE90_BASE_DOMAIN_MISSING");
   const NS="mow.builder";
   const SETUP_DEF="setup.norse.kingship_warrior_draw";
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.7",build:"release90-2026-07-19",target_contract_schema:"mow.fleet",target_contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",target_contract_schema:"mow.fleet",target_contract_version:"0.1.2"});
   function clone(v){return v==null?v:JSON.parse(JSON.stringify(v));}
   function nowIso(){return new Date().toISOString();}
   function cleanName(v){const s=String(v==null?"":v).trim();return s?s.slice(0,200):null;}
@@ -26379,10 +26599,36 @@ function bindRealtimeNavStats(){
   function cloneFleetAsNew(model,options){const opts=options||{},factory=opts.idFactory||previousIdentity.createIdFactory();const base=previousIdentity.cloneFleetAsNew(normalizeContractModel(model),Object.assign({},opts,{idFactory:factory}));base.model.setups=(base.model.setups||[]).map(s=>{const x=clone(s);x.setup_instance_id=factory.next();if(x.subject_ref&&base.id_map.has(x.subject_ref.id))x.subject_ref.id=base.id_map.get(x.subject_ref.id);return x;});base.model=normalizeContractModel(base.model);base.validation=validateGlobalIds(base.model);if(!base.validation.ok)throw new Error("Cloned fleet has invalid or duplicate runtime IDs");return base;}
   const MowFleetIdentity=Object.freeze(Object.assign({},previousIdentity,{runtimeIdEntries,validateGlobalIds,cloneFleetAsNew}));
   function availabilityWithAdmiralMax(a){if(!a)return a;return String(a.source_external_key||"").toLowerCase().endsWith(".admiral")?Object.freeze(Object.assign({},a,{max_quantity:1})):a;}
+  const STANDARD_WIZARD_SELECTIONS=new Set(["selection.role.empire.wizard","selection.role.bretonnia.wizard","selection.role.elves.wizard","selection.role.dark_elves.wizard","selection.role.darkelves.wizard","selection.role.orcs.wizard","selection.role.norse.wizard","selection.role.undead.wizard"]);
+  const STANDARD_WIZARD_ROLE_PREFIX=Object.freeze({"selection.role.empire.wizard":"empire","selection.role.bretonnia.wizard":"bretonnia","selection.role.elves.wizard":"elves","selection.role.dark_elves.wizard":"darkelves","selection.role.orcs.wizard":"orcs","selection.role.norse.wizard":"norse","selection.role.undead.wizard":"undead","selection.role.darkelves.wizard":"darkelves"});
+  const STANDARD_WIZARD_VARIANTS=Object.freeze({"wizard_champion":{"variant_id":"wizard_champion","name":"Wizard Champion","points":50,"magic_cards":2,"dice_modifier":0,"battle_honours":1,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},"high_wizard_champion":{"variant_id":"high_wizard_champion","name":"High Wizard Champion","points":75,"magic_cards":3,"dice_modifier":0,"battle_honours":1,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},"master_wizard":{"variant_id":"master_wizard","name":"Master Wizard","points":100,"magic_cards":4,"dice_modifier":0,"battle_honours":2,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},"high_master_wizard":{"variant_id":"high_master_wizard","name":"High Master Wizard","points":125,"magic_cards":5,"dice_modifier":0,"battle_honours":2,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},"wizard_lord":{"variant_id":"wizard_lord","name":"Wizard Lord","points":150,"magic_cards":6,"dice_modifier":1,"battle_honours":3,"reroll_scope":"own_college","availability":["core","annual_expanded_wizards"],"identity_basis":"variant_id"},"high_wizard_lord":{"variant_id":"high_wizard_lord","name":"High Wizard Lord","points":175,"magic_cards":7,"dice_modifier":1,"battle_honours":3,"reroll_scope":"own_college","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"},"grand_wizard_lord":{"variant_id":"grand_wizard_lord","name":"Grand Wizard Lord","points":200,"magic_cards":8,"dice_modifier":1,"battle_honours":4,"reroll_scope":"any_colour","availability":["annual_expanded_wizards"],"identity_basis":"variant_id"}});
+  function wizardVariant(selectionId,explicitVariantId){
+    if(!STANDARD_WIZARD_SELECTIONS.has(String(selectionId||"")))return null;
+    const row=STANDARD_WIZARD_VARIANTS[String(explicitVariantId||"")];
+    if(!row)return null;
+    return Object.freeze({selection_id:selectionId,variant_id:row.variant_id,name:row.name,variant_kind:"user_choice",activation:Object.freeze({}),pricing_override:Object.freeze({mode:"fixed",points:row.points}),status:"accepted_data_core",wizard_mastery:Object.freeze(clone(row))});
+  }
+  function wizardComponent(selectionId,variantId){
+    const prefix=STANDARD_WIZARD_ROLE_PREFIX[selectionId],row=STANDARD_WIZARD_VARIANTS[String(variantId||"")];
+    if(!prefix||!row)return null;
+    return Object.freeze({component_id:`component.fbmaint02b.${prefix}.${row.variant_id}`,selection_id:selectionId,variant_id:row.variant_id,target_entity_key:`role_definition:role.${prefix}.${row.variant_id}`,target_type:"role_definition",target_id:`role.${prefix}.${row.variant_id}`,component_role:"role",quantity_mode:"per_selection",quantity_value:1,assignment_policy:"fleet_or_unit_role",required:true,status:"target_definition_missing",metadata:Object.freeze({wizard_catalog_id:"wizard_mastery.standard.v1",magic_cards:row.magic_cards,dice_modifier:row.dice_modifier,battle_honours:row.battle_honours,reroll_scope:row.reroll_scope})});
+  }
+  function normalizeWizardBinding(result){
+    if(!result||String(result.availability?.source_external_key||result.alias?.raw_external_key||"")!=="DarkElves.wizard")return result;
+    const canonical="selection.role.dark_elves.wizard";
+    const copy=clone(result);
+    if(copy.definition)copy.definition.selection_id=canonical;
+    if(copy.availability)copy.availability.selection_id=canonical;
+    if(copy.alias)copy.alias.target_entity_key=`selection_definition:${canonical}`;
+    return copy;
+  }
   const MowContractCatalog=Object.freeze(Object.assign({},previousCatalog,{
     getAvailability(id){return availabilityWithAdmiralMax(previousCatalog.getAvailability(id));},
     resolveAvailability(req){return availabilityWithAdmiralMax(previousCatalog.resolveAvailability(req));},
-    resolveSource(req){const r=previousCatalog.resolveSource(req);return Object.assign({},r,{availability:availabilityWithAdmiralMax(r.availability)});}
+    resolveSource(req){const r=normalizeWizardBinding(previousCatalog.resolveSource(req));return Object.assign({},r,{availability:availabilityWithAdmiralMax(r.availability)});},
+    resolveVariant(selectionId,context,explicitVariantId){return wizardVariant(selectionId,explicitVariantId)||previousCatalog.resolveVariant(selectionId,context,explicitVariantId);},
+    getComponents(selectionId,variantId){const existing=previousCatalog.getComponents(selectionId,variantId);if(existing&&existing.length)return existing;const generated=wizardComponent(selectionId,variantId);return generated?[generated]:[];},
+    stats(){const base=previousCatalog.stats();const annualOnly=Object.values(STANDARD_WIZARD_VARIANTS).filter(v=>!v.availability.includes("core")).length;return Object.assign({},base,{variants:Number(base.variants||0)+annualOnly*6,components:Number(base.components||0)+annualOnly*6});}
   }));
   const MowFleetDomain=Object.freeze(Object.assign({},previousDomain,{BUILD,createFleetModel,normalizeContractModel,materializeNorseSetups,setRoleName,setResourceName,setSetupResult,normalizeSetupEntries,cloneFleetAsNew}));
   const MowFleetReconciler=Object.freeze(Object.assign({},previousReconciler,{applySelection(model,request,options){const result=previousReconciler.applySelection(normalizeContractModel(model),request,Object.assign({},options||{},{catalog:MowContractCatalog}));result.model=normalizeContractModel(result.model);return result;}}));
@@ -26910,7 +27156,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.7",
+    version:"1.8.1",
     build:"release90-2026-07-19",
     contract_version:"0.1.1",
     integration_expectations_version:"0.1.1"
@@ -27158,7 +27404,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
   const previous=root.MowFleetSemantic;if(!previous)throw new Error("RELEASE90_BASE_SEMANTIC_MISSING");
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.7",build:"release90-2026-07-19",contract_schema:"mow.fleet",contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",contract_schema:"mow.fleet",contract_version:"0.1.2"});
   function clone(v){return v==null?v:JSON.parse(JSON.stringify(v));}
   function issue(code,message,path,severity,details){return {code,severity:severity||"error",path:path||"$",message,details:details||{}};}
   function sourceKey(s){return String(s&&s.source_ref&&s.source_ref.raw_external_key||"");}
@@ -27166,6 +27412,9 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function fleetFlagshipId(model){const a=(model.assignments||[]).find(x=>x.assignment_type==="fleet_designation_to_unit"&&x.subject_ref&&x.subject_ref.id==="fleet.flagship"&&x.status==="resolved"&&x.target_ref);return a&&a.target_ref.id||null;}
   function validate(document,options){
     const opts=options||{},model=root.MowFleetDomain.normalizeContractModel(document);const base=previous.validate(model,opts);const errors=(base.errors||[]).slice(),warnings=(base.warnings||[]).slice();
+    const standardWizardSources=new Set(["Empire.wizard","Bretonnia.wizard","Elves.wizard","DarkElves.wizard","Orcs.wizard","Norse.wizard","Undead.wizard"]),annualOnlyWizardVariants=new Set(["high_wizard_champion","high_master_wizard","high_wizard_lord","grand_wizard_lord"]),rulesModules=new Set(model.ruleset_ref&&model.ruleset_ref.modules||[]);
+    let annualWizardConflicts=0;
+    (model.selections||[]).forEach((selection,index)=>{const source=sourceKey(selection);if(!standardWizardSources.has(source)||!annualOnlyWizardVariants.has(String(selection.variant_id||"")))return;if(!rulesModules.has("annual_expanded_wizards")){annualWizardConflicts+=1;errors.push(issue("WIZARD_ANNUAL_MODULE_REQUIRED","The selected Wizard level requires the annual_expanded_wizards module.",`$.selections[${index}].variant_id`,"error",{source_external_key:source,variant_id:selection.variant_id,required_module:"annual_expanded_wizards"}));}});
     const standardAdmiralFactions=new Set(["Bretonnia","DarkElves","Dwarfs","Elves","Empire","Norse","Orcs"]);
     const requiresStandardAdmiral=standardAdmiralFactions.has(String(model.identity&&model.identity.primary_faction_id||""));
     const admirals=(model.selections||[]).filter(s=>sourceKey(s).toLowerCase().endsWith(".admiral"));const admiralQty=admirals.reduce((n,s)=>n+Math.max(0,Number(s.quantity)||0),0);
@@ -27188,7 +27437,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const deathgalleySelection=(model.selections||[]).find(s=>sourceKey(s)==="Chaos.death_galleys"&&s.variant_id==="plaguefleet"),deathgalleyPowerIds=new Set(["khorne.deathgalley","nurgle.deathgalley","slaanesh.deathgalley","tzeentch.deathgalley"]),deathgalleyPending=[];
     if(deathgalleySelection)(model.squadrons||[]).filter(s=>s.origin_selection_instance_id===deathgalleySelection.selection_instance_id).forEach((squadron,index)=>{const path=`$.squadrons[${(model.squadrons||[]).indexOf(squadron)}]`,members=(model.units||[]).filter(unit=>unit.squadron_instance_id===squadron.squadron_instance_id);if(squadron.unit_id==="chaos_undivided.deathgalley"||!deathgalleyPowerIds.has(squadron.unit_id)){deathgalleyPending.push(squadron.squadron_instance_id);const entry=issue("DEATHGALLEY_CHAOS_POWER_REQUIRED","Each Plaguefleet Deathgalley squadron must choose one Chaos Power.",path,model.document_profile==="prepared_fleet"?"error":"warning",{squadron_instance_id:squadron.squadron_instance_id,selection_occurrence:squadron.selection_occurrence});(model.document_profile==="prepared_fleet"?errors:warnings).push(entry);}else if(members.some(unit=>unit.unit_id!==squadron.unit_id))errors.push(issue("DEATHGALLEY_SQUADRON_POWER_MISMATCH","All Deathgalleys in a squadron must use the same Chaos Power.",path,"error",{squadron_instance_id:squadron.squadron_instance_id,unit_ids:members.map(unit=>unit.unit_id)}));});
     const dedupe=list=>{const seen=new Set();return list.filter(x=>{const k=x.code+"|"+x.path+"|"+JSON.stringify(x.details||{});if(seen.has(k))return false;seen.add(k);return true;});};
-    const e=dedupe(errors),w=dedupe(warnings);const metrics=Object.assign({},base.metrics||{},{setups:(model.setups||[]).length,setups_pending:(model.setups||[]).filter(s=>s.status!=="resolved").length,deathgalley_power_pending:deathgalleyPending.length,admiral_quantity:admiralQty,requires_standard_admiral:requiresStandardAdmiral});
+    const e=dedupe(errors),w=dedupe(warnings);const metrics=Object.assign({},base.metrics||{},{setups:(model.setups||[]).length,setups_pending:(model.setups||[]).filter(s=>s.status!=="resolved").length,deathgalley_power_pending:deathgalleyPending.length,admiral_quantity:admiralQty,requires_standard_admiral:requiresStandardAdmiral,annual_wizard_module_conflicts:annualWizardConflicts});
     return Object.freeze(Object.assign({},base,{ok:e.length===0,status:e.length?"fail":"pass",errors:e,warnings:w,metrics,document:model}));
   }
   function assertValid(document,options){const report=validate(document,options);if(!report.ok){const first=report.errors[0],error=new Error(`mow.fleet semantic validation failed at ${first.path}: ${first.message}`);error.name="MowFleetSemanticValidationError";error.validation=report;throw error;}return report.document;}
@@ -27281,7 +27530,24 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function byId(items,key,id){return (items||[]).find(x=>x&&x[key]===id)||null;}
   function origin(model,item){return item&&item.origin_selection_instance_id?byId(model.selections,"selection_instance_id",item.origin_selection_instance_id):null;}
   function sourceKey(selection){return String(selection&&selection.source_ref&&selection.source_ref.raw_external_key||"");}
-  function labelFromSource(model,item){if(item&&ROLE_LABELS[item.role_id])return ROLE_LABELS[item.role_id];const sel=origin(model,item),raw=sourceKey(sel);return human(raw.split(".").pop()||item.role_id||item.definition_id||"");}
+  function standardWizardVariant(model,item){
+    const sel=origin(model,item),id=String(item&&item.variant_id||sel&&sel.variant_id||"");
+    const api=root.MOW_WIZARD_MASTERY;
+    return api&&Array.isArray(api.variants)?api.variants.find(v=>v.variant_id===id)||null:null;
+  }
+  function labelFromSource(model,item){const wizard=standardWizardVariant(model,item);if(wizard)return wizard.name;if(item&&ROLE_LABELS[item.role_id])return ROLE_LABELS[item.role_id];const sel=origin(model,item),raw=sourceKey(sel);return human(raw.split(".").pop()||item.role_id||item.definition_id||"");}
+  function roleRulesSummary(model,item){
+    const v=standardWizardVariant(model,item);if(!v)return "";
+    const modifier=Number(v.dice_modifier)>0?`+${Number(v.dice_modifier)}`:String(Number(v.dice_modifier)||0);
+    const reroll=lang()==="en"?(v.reroll_scope==="any_colour"?"reroll any-colour Magic Card":"reroll own College Magic Card"):(v.reroll_scope==="any_colour"?"przerzut karty Magii dowolnego koloru":"przerzut karty Magii własnego Kolegium");
+    const limits=lang()==="en"?"max 1 Wizard per fleet; 1 spell cast per turn":"maks. 1 Wizard we flocie; 1 czar rzucany na turę";
+    const cards=lang()==="en"?(v.magic_cards===1?"1 Magic Card":`${v.magic_cards} Magic Cards`):(v.magic_cards===1?"1 karta Magii":([2,3,4].includes(v.magic_cards)?`${v.magic_cards} karty Magii`:`${v.magic_cards} kart Magii`));
+    const honours=v.battle_honours===1?"1 Battle Honour":`${v.battle_honours} Battle Honours`;
+    let value=`${cards} · ${lang()==="en"?"Dice Modifier":"modyfikator kości"} ${modifier} · ${honours} · ${reroll} · ${limits}`;
+    const modules=new Set(model&&model.ruleset_ref&&Array.isArray(model.ruleset_ref.modules)?model.ruleset_ref.modules:[]),core=new Set(root.MOW_WIZARD_MASTERY&&root.MOW_WIZARD_MASTERY.core_variant_ids||[]);
+    if(!core.has(v.variant_id)&&!modules.has("annual_expanded_wizards"))value+=lang()==="en"?" · REQUIRES COMMUNITY ANNUAL MODULE":" · WYMAGA MODUŁU COMMUNITY ANNUAL";
+    return value;
+  }
   function unitLabel(model,u){if(!u)return "—";const name=String(u.custom_name||"").trim(),base=UNIT_LABELS[u.unit_id]||human(u.unit_id);return name?`${base} “${name}”`:u.ordinal_in_squadron?`${base} #${u.ordinal_in_squadron}`:base;}
   function assignmentFor(model,type,id){return (model.assignments||[]).find(a=>a.subject_ref&&a.subject_ref.type===type&&a.subject_ref.id===id)||null;}
   function assignmentInput(a){return {assignment_type:a.assignment_type,subject_ref:clone(a.subject_ref),source_policy:a.extensions&&a.extensions[NS]&&a.extensions[NS].assignment_policy||null,requirement:a.requirement,resolution_stage:a.resolution_stage,applicability_ref:a.applicability_ref,expected_target_type:a.expected_target_type,allowed_target_query:clone(a.allowed_target_query),notes:a.notes||null};}
@@ -27309,13 +27575,13 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function setDeathgalleyPower(squadronId,power){const m=model(),selection=deathgalleySelection(m),squadron=byId(m.squadrons,"squadron_instance_id",squadronId),next=clone(m),normalized=DEATHGALLEY_POWER_UNIT_IDS[String(power||"").toLowerCase()]?String(power).toLowerCase():"";if(!selection||!squadron)return;const targetSelection=byId(next.selections,"selection_instance_id",selection.selection_instance_id),targetSquadron=byId(next.squadrons,"squadron_instance_id",squadronId),occurrence=String(targetSquadron.selection_occurrence||1),unitId=normalized?DEATHGALLEY_POWER_UNIT_IDS[normalized]:"chaos_undivided.deathgalley";targetSelection.extensions=targetSelection.extensions||{};const selectionMeta=targetSelection.extensions[NS]=Object.assign({},targetSelection.extensions[NS]||{}),map=Object.assign({},selectionMeta.deathgalley_power_by_occurrence||{});if(normalized)map[occurrence]=normalized;else delete map[occurrence];selectionMeta.deathgalley_power_by_occurrence=map;selectionMeta.deathgalley_power_status=Object.keys(map).length===targetSelection.quantity?"resolved":"needs_attention";targetSquadron.unit_id=unitId;targetSquadron.extensions=targetSquadron.extensions||{};targetSquadron.extensions[NS]=Object.assign({},targetSquadron.extensions[NS]||{},{chaos_power:normalized||null,state:normalized?"resolved":"needs_attention"});(next.units||[]).filter(unit=>unit.squadron_instance_id===squadronId).forEach(unit=>{unit.unit_id=unitId;unit.faction_id="Chaos";unit.definition_status="available";unit.extensions=unit.extensions||{};unit.extensions[NS]=Object.assign({},unit.extensions[NS]||{},{chaos_power:normalized||null,state:normalized?"resolved":"needs_attention"});});next.revision=Math.max(1,Number(next.revision)||1)+1;next.updated_at=new Date().toISOString();commit(next,"batch90d_deathgalley_power_update");}
   function deathgalleyRow(squadron){const power=deathgalleyPower(squadron),state=power?tr("ready"):tr("pending"),options=[["",tr("choosePower")],["khorne","Khorne"],["nurgle","Nurgle"],["slaanesh","Slaanesh"],["tzeentch","Tzeentch"]];return `<div class="mow-r90-row" data-r90-deathgalley="${esc(squadron.squadron_instance_id)}"><div class="mow-r90-rowhead"><strong>Deathgalleys — ${esc(lang()==="en"?"Squadron":"Eskadra")} ${squadron.selection_occurrence||1}</strong><span class="mow-r90-state ${power?"ok":"warn"}">${esc(state)}</span></div><label class="mow-r90-power-label">${esc(tr("chaosPower"))}<select data-r90-deathgalley-power="${esc(squadron.squadron_instance_id)}">${options.map(([value,label])=>`<option value="${value}" ${value===power?"selected":""}>${esc(label)}</option>`).join("")}</select></label></div>`;}
   function targetOptions(m,a){let result={candidates:[],dependency_unresolved:false};try{result=root.MowFleetTargetEligibility.resolveTargets(m,a)||result;}catch(e){}const current=a.target_ref&&a.target_ref.id;let html=`<option value="">${esc(a.requirement==="required_at_roster_build"?tr("choose"):tr("later"))}</option>`;(result.candidates||[]).forEach(u=>{html+=`<option value="${esc(u.unit_instance_id)}" ${current===u.unit_instance_id?"selected":""}>${esc(unitLabel(m,u))}</option>`;});return {html,result};}
-  function assignmentRow(m,a,label,nameEditor,fixedTarget){const o=targetOptions(m,a),state=a.status==="resolved"?tr("assigned"):a.extensions&&a.extensions[NS]&&a.extensions[NS].state==="needs_review"?tr("invalid"):tr("pending"),dependencyHint=o.result.dependency_unresolved&&a.applicability_ref==="assignment_rule.orcs.squadron_shaman.squadron_flagship"?(lang()==="en"?"Choose this squadron flagship above first.":"Najpierw wybierz wyżej okręt flagowy tego squadronu."):tr("noTargets"),fixed=fixedTarget&&o.result.candidates.length===1?`<div class="mow-r90-fixed-target"><small>${esc(tr("fixedTarget"))}</small><strong>${esc(unitLabel(m,o.result.candidates[0]))}</strong></div>`:`<select data-r90-assignment-select="${esc(a.assignment_id)}" ${!o.result.candidates.length?"disabled":""}>${o.html}</select>${!o.result.candidates.length?`<small>${esc(dependencyHint)}</small>`:""}`;return `<div class="mow-r90-row" data-r90-assignment="${esc(a.assignment_id)}"><div class="mow-r90-rowhead"><strong>${esc(label)}</strong><span class="mow-r90-state ${a.status==="resolved"?"ok":"warn"}">${esc(state)}</span></div>${nameEditor||""}${fixed}</div>`;}
+  function assignmentRow(m,a,label,nameEditor,fixedTarget,detail){const o=targetOptions(m,a),state=a.status==="resolved"?tr("assigned"):a.extensions&&a.extensions[NS]&&a.extensions[NS].state==="needs_review"?tr("invalid"):tr("pending"),dependencyHint=o.result.dependency_unresolved&&a.applicability_ref==="assignment_rule.orcs.squadron_shaman.squadron_flagship"?(lang()==="en"?"Choose this squadron flagship above first.":"Najpierw wybierz wyżej okręt flagowy tego squadronu."):tr("noTargets"),fixed=fixedTarget&&o.result.candidates.length===1?`<div class="mow-r90-fixed-target"><small>${esc(tr("fixedTarget"))}</small><strong>${esc(unitLabel(m,o.result.candidates[0]))}</strong></div>`:`<select data-r90-assignment-select="${esc(a.assignment_id)}" ${!o.result.candidates.length?"disabled":""}>${o.html}</select>${!o.result.candidates.length?`<small>${esc(dependencyHint)}</small>`:""}`;return `<div class="mow-r90-row" data-r90-assignment="${esc(a.assignment_id)}"><div class="mow-r90-rowhead"><strong>${esc(label)}</strong><span class="mow-r90-state ${a.status==="resolved"?"ok":"warn"}">${esc(state)}</span></div>${detail?`<small class="mow-r90-role-detail">${esc(detail)}</small>`:""}${nameEditor||""}${fixed}</div>`;}
   function nameEditor(kind,id,value,nameable,generatorAvailable){if(!nameable)return "";const generate=generatorAvailable?`<button type="button" data-r90-generate-kind="${kind}" data-r90-generate-id="${esc(id)}">${esc(value?tr("reroll"):tr("generate"))}</button>`:"";return `<div class="mow-r90-name ${generatorAvailable?"":"manual-only"}"><label>${esc(tr("name"))}<input type="text" maxlength="200" value="${esc(value||"")}" placeholder="${esc(tr("manual"))}" data-r90-name-kind="${kind}" data-r90-name-id="${esc(id)}"></label>${generate}</div>`;}
   function group(title,rows,key,pending){if(!rows.length)return "";return `<details class="mow-r90-group" data-r90-group="${key}" ${pending?"open":""}><summary><span>${esc(title)}</span><b>${rows.length}</b></summary><div class="mow-r90-groupbody">${rows.join("")}</div></details>`;}
   function setupRow(m,s){const u=byId(m.units,"unit_instance_id",s.subject_ref.id),counts={};(s.result&&s.result.entries||[]).forEach(x=>counts[x.definition_id]=x.quantity);const total=Object.values(counts).reduce((n,x)=>n+Number(x||0),0);return `<div class="mow-r90-row" data-r90-setup="${esc(s.setup_instance_id)}"><div class="mow-r90-rowhead"><strong>${esc(unitLabel(m,u))}</strong><span class="mow-r90-state ${s.status==="resolved"?"ok":"warn"}">${esc(s.status==="resolved"?tr("ready"):s.status==="needs_review"?tr("invalid"):tr("pending"))}</span></div><p>${esc(tr("expected"))}: <b>${s.expected_count}</b></p><small>${esc(lang()==="en"?"Draw physical counters from the shared cup according to the rules, then record the result here.":"Wylosuj fizyczne żetony ze wspólnej puli zgodnie z zasadami, a następnie wpisz tutaj wynik.")}</small><div class="mow-r90-counters">${[["norse.warrior.ulfwerener","ulf"],["norse.warrior.berserker","bers"],["norse.warrior.bondsman","bond"],["norse.warrior.huscarl","husc"]].map(([id,k])=>`<label>${esc(tr(k))}<input type="number" min="0" max="5" value="${counts[id]||0}" data-r90-counter="${id}" data-r90-setup-id="${esc(s.setup_instance_id)}"></label>`).join("")}</div><p>${esc(tr("sum"))}: <b data-r90-total="${esc(s.setup_instance_id)}">${total}/${s.expected_count}</b></p><div class="mow-r90-actions"><button type="button" data-r90-save="${esc(s.setup_instance_id)}">${esc(tr("save"))}</button>${s.result?`<button type="button" data-r90-clear="${esc(s.setup_instance_id)}">${esc(tr("clear"))}</button>`:""}</div></div>`;}
   function render(){const modal=root.document&&root.document.getElementById("mowFleetSetupModal");if(!modal)return;const m=model();if(!m){modal.querySelector(".mow-r90-content").innerHTML="";return;}const relevant=(m.assignments||[]).filter(a=>ASSIGNMENT_TYPES.has(a.assignment_type)),deathgalleys=chaosVariant(m)==="plaguefleet"?deathgalleySquadrons(m):[];const fleet=[],squads=[],roles=[],resources=[];
-    relevant.forEach(a=>{if(a.assignment_type==="fleet_designation_to_unit")fleet.push(assignmentRow(m,a,tr("fleet"),""));else if(a.assignment_type==="squadron_designation_to_unit"){const s=byId(m.squadrons,"squadron_instance_id",a.subject_ref.id);squads.push(assignmentRow(m,a,`${human(s&&s.unit_id)} #${s&&s.selection_occurrence||1}`,""));}else if(a.assignment_type==="role_to_unit"){const r=byId(m.roles,"role_instance_id",a.subject_ref.id);if(r){const cap=roleNameCapability(m,r);roles.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable),r.role_id==="role.chaos.sorcerer"));}}else if(a.assignment_type==="resource_to_unit"){const r=byId(m.resources,"resource_instance_id",a.subject_ref.id);if(r){const cap=resourceNameCapability(m,r);resources.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("resource",r.resource_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)));}}});
-    (m.roles||[]).filter(r=>!assignmentFor(m,"role_instance",r.role_instance_id)&&roleNameCapability(m,r).nameable).forEach(r=>{const cap=roleNameCapability(m,r);roles.push(`<div class="mow-r90-row"><div class="mow-r90-rowhead"><strong>${esc(labelFromSource(m,r))}</strong></div>${nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)}</div>`);});
+    relevant.forEach(a=>{if(a.assignment_type==="fleet_designation_to_unit")fleet.push(assignmentRow(m,a,tr("fleet"),""));else if(a.assignment_type==="squadron_designation_to_unit"){const s=byId(m.squadrons,"squadron_instance_id",a.subject_ref.id);squads.push(assignmentRow(m,a,`${human(s&&s.unit_id)} #${s&&s.selection_occurrence||1}`,""));}else if(a.assignment_type==="role_to_unit"){const r=byId(m.roles,"role_instance_id",a.subject_ref.id);if(r){const cap=roleNameCapability(m,r);roles.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable),r.role_id==="role.chaos.sorcerer",roleRulesSummary(m,r)));}}else if(a.assignment_type==="resource_to_unit"){const r=byId(m.resources,"resource_instance_id",a.subject_ref.id);if(r){const cap=resourceNameCapability(m,r);resources.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("resource",r.resource_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)));}}});
+    (m.roles||[]).filter(r=>!assignmentFor(m,"role_instance",r.role_instance_id)&&roleNameCapability(m,r).nameable).forEach(r=>{const cap=roleNameCapability(m,r);roles.push(`<div class="mow-r90-row"><div class="mow-r90-rowhead"><strong>${esc(labelFromSource(m,r))}</strong></div>${roleRulesSummary(m,r)?`<small class="mow-r90-role-detail">${esc(roleRulesSummary(m,r))}</small>`:""}${nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)}</div>`);});
     const deathgalleyRows=deathgalleys.map(deathgalleyRow),setups=(m.setups||[]).map(s=>setupRow(m,s));const pending=relevant.filter(a=>a.status!=="resolved").length+(m.setups||[]).filter(s=>s.status!=="resolved").length+deathgalleys.filter(s=>!deathgalleyPower(s)).length,total=relevant.length+(m.setups||[]).length+deathgalleys.length;
     modal.querySelector(".mow-r90-title").textContent=tr("title");modal.querySelector(".mow-r90-hint").textContent=tr("hint");modal.querySelector(".mow-r90-close").textContent=tr("close");
     modal.querySelector(".mow-r90-content").innerHTML=group(tr("fleet"),fleet,"fleet",fleet.some(x=>true)&&relevant.some(a=>a.assignment_type==="fleet_designation_to_unit"&&a.status!=="resolved"))+group(tr("deathgalleys"),deathgalleyRows,"deathgalleys",deathgalleys.some(s=>!deathgalleyPower(s)))+group(tr("squadrons"),squads,"squadrons",relevant.some(a=>a.assignment_type==="squadron_designation_to_unit"&&a.status!=="resolved"))+group(tr("command"),roles,"roles",relevant.some(a=>a.assignment_type==="role_to_unit"&&a.status!=="resolved"))+group(tr("resources"),resources,"resources",relevant.some(a=>a.assignment_type==="resource_to_unit"&&a.status!=="resolved"))+group(tr("setups"),setups,"setups",(m.setups||[]).some(s=>s.status!=="resolved"));
@@ -27338,7 +27604,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
 
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.7",build:"release90-2026-07-19",contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",contract_version:"0.1.2"});
   const MAX_IMPORT_BYTES=5*1024*1024;
   const LEGACY_PREFIX="MOWFLEET1:";
   const PORTABLE_MIME="application/vnd.mow.fleet+json";
@@ -28158,7 +28424,12 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const direct=Array.from(title.childNodes||[]).filter(node=>node.nodeType===3).map(node=>node.textContent).join(" ");
     return clean(direct||title.textContent);
   }
+  function standardWizardVariant(selection){
+    const id=clean(selection&&selection.variant_id),api=root.MOW_WIZARD_MASTERY;
+    return api&&Array.isArray(api.variants)?api.variants.find(v=>v.variant_id===id)||null:null;
+  }
   function selectionLabel(selection){
+    const wizard=standardWizardVariant(selection);if(wizard)return wizard.name;
     const controlId=sourceControlId(selection),row=rowForControl(controlId);
     return stripAvailability(titleText(row)||human(selection?.selection_id||controlId));
   }
@@ -28539,10 +28810,10 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 
 </script>
 <script>
-/* === RELEASE-90 PUBLIC-1: public accessibility labels === */
+/* === RELEASE-90 HOTFIX-90J: mainline locale accessibility parity === */
 (function(root){
   "use strict";
-  const BUILD="release90-public1-2026-07-27";
+  const BUILD="fbmaint02-release-r1-2026-07-30";
   let scheduled=false;
   function doc(){return root.document;}
   function isEnglish(){try{return root.MOW_I18N?.getLang?.()==="en";}catch(e){return false;}}
@@ -28553,7 +28824,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const locale=d.getElementById("mowLocaleSwitch");if(locale)locale.setAttribute("aria-label",en?"Language":"Język");
     const fleet=d.getElementById("fleetSelect");if(fleet)fleet.setAttribute("aria-label",en?"Fleet":"Flota");
     d.querySelectorAll(".mow-modal-x").forEach(button=>button.setAttribute("aria-label",en?"Close":"Zamknij"));
-    const stamp=d.getElementById("mowBuildStamp");if(stamp)stamp.setAttribute("aria-label",en?"Fleet Builder version 1.8, RELEASE-90 PUBLIC-1, 2026-07-27":"Fleet Builder, wersja 1.8, RELEASE-90 PUBLIC-1, 2026-07-27");
+    const stamp=d.getElementById("mowBuildStamp");if(stamp)stamp.setAttribute("aria-label",en?"Fleet Builder version 1.8.1, FB-MAINT-02, 2026-07-30":"Fleet Builder, wersja 1.8.1, FB-MAINT-02, 2026-07-30");
   }
   function schedule(){if(scheduled)return;scheduled=true;setTimeout(sync,0);}
   function boot(){
@@ -28562,10 +28833,39 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     if(root.MutationObserver)new MutationObserver(schedule).observe(doc().body,{childList:true,subtree:true});
     [100,400,1000,2200].forEach(delay=>setTimeout(sync,delay));
   }
-  root.MOW_PUBLIC_A11Y=Object.freeze({build:BUILD,sync});
+  root.MOW_MAINLINE_LOCALE_A11Y=Object.freeze({build:BUILD,sync});
   if(doc().readyState==="loading")doc().addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })(typeof window!=="undefined"?window:globalThis);
 </script>
-<!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"9fb77bb2a56247c39dc9fdd1b1a5b76f"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+/* === FB-MAINT-02C: Wizard description projection owner === */
+(function(root){
+  "use strict";
+  const BUILD="fbmaint02-release-r1-2026-07-30";
+  function language(){return root.MOW_I18N&&root.MOW_I18N.getLang&&root.MOW_I18N.getLang()==="en"?"en":"pl";}
+  function project(){
+    const d=root.document,select=d&&d.getElementById("wizard"),api=root.MOW_WIZARD_MASTERY;if(!select||!api)return false;
+    const fleet=String(d.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||""),model=root.MOW_FLEET_INT1C_STEP83?.getCurrentModel?.();
+    const source=`${fleet}.wizard`,selection=Array.isArray(model?.selections)?model.selections.find(item=>item?.source_ref?.raw_external_key===source):null;
+    const value=Number(selection?.points?.total||select.value||0),desc=select.closest(".row")?.querySelector(".desc");if(!desc)return false;
+    desc.dataset.mowDynamicI18nOwner="wizard-mastery";
+    const lang=language(),body=value>0?api.formatMetadata(value,lang):api.emptyDescription(lang),limits=lang==="en"?"Maximum 1 Wizard per fleet and 1 spell cast per turn.":"Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę.";
+    const conflict=api.conflictFor(fleet,value)?(lang==="en"?" Selection preserved, but it requires the Community Annual module.":" Wybór został zachowany, ale wymaga modułu Community Annual."):"";
+    const next=value>0?`${body}. ${limits}${conflict}`:`${body}${conflict}`;if(desc.textContent!==next)desc.textContent=next;return true;
+  }
+  function schedule(){[0,50,180,450,750,1000,1400].forEach(delay=>root.setTimeout(project,delay));}
+  function wrapCompute(){
+    const prior=root.computeCurrent;if(typeof prior!=="function"||prior.__fbmaint02cProjectionWrapped)return;
+    const wrapped=function(){const result=prior.apply(this,arguments);schedule();return result;};wrapped.__fbmaint02cProjectionWrapped=true;root.computeCurrent=wrapped;
+  }
+  function boot(){
+    wrapCompute();root.document.addEventListener("change",event=>{const id=event?.target?.id;if(id==="wizard"||id==="fleetSelect"||id==="mowAnnualExpandedWizardsToggle")schedule();},true);
+    root.document.addEventListener("click",event=>{if(event?.target?.closest?.("#langPL,#langEN"))schedule();});
+    root.document.addEventListener("mow:nativefleetmodelchange",schedule);schedule();
+  }
+  root.MOW_FBMAINT02C_PROJECTION=Object.freeze({BUILD,project,schedule,wrapCompute});boot();
+})(typeof window!=="undefined"?window:globalThis);
+</script>
+
 </body>
 </html>
