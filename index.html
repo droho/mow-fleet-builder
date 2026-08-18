@@ -4,9 +4,17 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="1.8.1" name="application-version"/>
-<meta content="fbmaint02-release-r1-2026-07-30" name="build-id"/>
-<meta content="public" name="release-channel"/>
+<meta content="1.8.2" name="application-version"/>
+<!-- FB-ARCH-01A Phase C-CORR3: deterministic first-paint boot gate + pre-release synchronous event drain; no timeout/polling. -->
+<style id="mowFbArchBootGateCss">
+html.fbarch01a-booting{background:#0b1118;}
+html.fbarch01a-booting body{visibility:hidden!important;}
+</style>
+<script src="mow_boot_gate_fbarch01a.js"></script>
+<meta content="fbrel01-release-r1-2026-08-18" name="build-id"/>
+<meta content="mainline" name="release-channel"/>
+<meta content="2026-08-18" name="release-date"/>
+<meta content="v1.8.2" name="release-tag"/>
 <meta content="release90-hotfix90h-2026-07-27" name="visual-branch-base"/>
 <meta content="release90-visual2d3-dark-scroll-fix-2026-07-27" name="visual-branch-parent"/>
 <meta content="mainline" name="visual-branch-stage"/>
@@ -35,7 +43,7 @@
   "operatingSystem": "Any",
   "isAccessibleForFree": true,
   "inLanguage": ["en", "pl"],
-  "softwareVersion": "1.8.1",
+  "softwareVersion": "1.8.2",
   "author": {
     "@type": "Person",
     "name": "Droho"
@@ -223,6 +231,11 @@
     .row:last-child{ border-bottom:none; }
     .title{ font-weight:700; font-size:var(--fs-title); }
     .desc{ color:var(--muted); font-size:var(--fs-desc); margin-top:2px; line-height:1.25; }
+    .mow-source-reference{margin-top:7px;padding-top:6px;border-top:1px solid color-mix(in srgb,var(--stroke,#223044) 72%,transparent);color:var(--muted);font-size:11px;line-height:1.45}
+    .mow-source-reference strong{color:var(--text);font-weight:750}
+    .mow-source-reference a{color:var(--muted);text-decoration:none;font-weight:500}
+    .mow-source-reference a:hover,.mow-source-reference a:focus-visible{color:var(--accent);text-decoration:underline}
+    .mow-source-module-title{margin-bottom:2px;color:var(--text);font-weight:800}
 
     .mow-unit-title-line{
       display:flex;
@@ -2022,8 +2035,16 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 
 </script>
 <link href="mow_visual.css" rel="stylesheet"/>
+<meta name="mow-fb-arch-work-package" content="FB-ARCH-01A"/>
+<meta name="mow-fb-arch-increment" content="PHASE-C-CORR3"/>
+<meta name="mow-fb-arch-build" content="1.8.1-dev.10.3+fb-arch-01a-phase-c-corr3"/>
+<meta name="mow-gc-ssc03d-stage" content="SSC03D"/>
+<meta name="mow-gc-ssc03d-build" content="1.8.1-dev.11.2+gc-ssc-03-ssc03d-r5"/>
+<meta name="mow-fb-maint04-build" content="1.8.1-dev.13+fb-maint-04-maint04b-r1"/>
+<meta name="mow-fb-arch-parent-sha256" content="b5d02d3fc29f6e560f36a2fdd40f445c847eb8fa4258733680ae5b5984d708d0"/>
+<meta name="mow-fb-arch-implementation-root-sha256" content="98dcf3bda7f78b7489db99831ad378b9e03af0683c49bb943254c0ad492ee32e"/>
+<script>window.MOW_FB_ARCH_01A_CENTRAL_FLEET_SETUP=true;window.MOW_FB_ARCH_01A_CENTRAL_CHARACTER_NAMES=true;window.MOW_FB_ARCH_01A_CENTRAL_ROSTER=true;window.MOW_FB_ARCH_01A_CENTRAL_PRINT=true;window.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION=true;window.MOW_FB_ARCH_01A_CENTRAL_STORAGE=true;window.MOW_FB_ARCH_01A_CENTRAL_IMPORT_EXPORT_SHARE=true;window.MOW_FB_ARCH_01A_CENTRAL_VALIDATION_PRESENTATION=true;</script>
 <script defer src="mow_visual_ui.js"></script>
-<script>window.MOW_PUBLIC_PORTABLE_IO=false;</script>
 </head>
 <body>
 <header>
@@ -2217,7 +2238,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 </div>
 <div class="checksTitleSep"></div>
 <div class="checksSubRow">
-<small data-i18n="checks_sub">OK/FAIL na bieżąco</small>
+<small data-i18n="checks_sub">OK/FAIL LIVE</small>
 <div class="checksCtl" id="checksCtl"></div>
 </div>
 </div>
@@ -2238,8 +2259,8 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 </div>
 </div>
 <footer class="mowAppFooter" role="contentinfo">
-<div aria-label="Fleet Builder version 1.8.1, FB-MAINT-02, 2026-07-30" class="mowBuildStamp" data-build-date="2026-07-30" data-build-step="FB-MAINT-02" data-version="1.8.1" id="mowBuildStamp" role="note">Fleet Builder 1.8.1 — FB-MAINT-02 — 2026-07-30</div>
-<div class="mowFooterSource"><span data-i18n="source">Źródło</span>: <b data-i18n="source_body" data-i18n-html>Man’O’War Community Rulebook v0.1; opcjonalne moduły Citadel Journal (MOW Community Annual v0.1)</b>.</div>
+<div aria-label="Fleet Builder version 1.8.2, FB-REL-01, 2026-08-18" class="mowBuildStamp" data-build-date="2026-08-18" data-build-step="FB-REL-01" data-version="1.8.2" id="mowBuildStamp" role="note">Fleet Builder 1.8.2 — FB-REL-01 — 2026-08-18</div>
+<div class="mowFooterSource"><span data-i18n="source">Źródła zasad</span>: <b data-i18n="source_body" data-i18n-html>MOW Community Rulebook v0.1; MOW Community Annual v0.1</b>.</div>
 </footer>
 <script>
     // Boot Dwarfs Base (must be set before core computes)
@@ -3629,8 +3650,12 @@ hulk: {
   const LANG = {
     en: {
       // Header / general
-      source: "Source",
-      source_body: "Man’O’War Community Rulebook v0.1; optional Citadel Journal modules (MOW Community Annual v0.1)",
+      source: "Rules references",
+      source_body: "MOW Community Rulebook v0.1; MOW Community Annual v0.1",
+      original_publication_label: "Original publication",
+      reference_compilation_label: "Reference compilation",
+      rules_game_resources_label: "Rules & game resources",
+      expanded_wizard_levels_label: "Expanded Wizard Levels",
       fleet_label: "Fleet",
       fleet_pl_label: "Fleet",
 
@@ -3841,7 +3866,7 @@ hulk: {
         "Analiza floty": "Fleet analysis",
         "Generator scenariuszy": "Scenario Generator",
         "Kopiuj do schowka": "Copy to clipboard",
-        "OK/FAIL na bieżąco": "OK/FAIL live",
+        "OK/FAIL LIVE": "OK/FAIL live",
         "Allies: brak": "Allies: none",
         "— brak —": "— none —",
         "Wybierz frakcję allies aby zobaczyć listę jednostek.": "Choose an allied faction to view its units.",
@@ -3872,6 +3897,23 @@ hulk: {
         "Chaos Lord: wybierz dokładnie 1 (free)": "Chaos Lord: pick exactly 1 (free)",
         "Chaos Lord flagship: wybrana Potęga → wymagany odpowiadający MOW": "Chaos Lord flagship: selected Power → matching MOW required",
         "Allies status: No (niedozwolone)": "Allies status: No (not allowed)",
+        "Dwarfs — zasady rozszerzone": "Dwarfs — expanded rules",
+        "Dark Elves — zasady rozszerzone": "Dark Elves — expanded rules",
+        "High Elves — zasady rozszerzone": "High Elves — expanded rules",
+        "Orcs — zasady rozszerzone": "Orcs — expanded rules",
+        "Ships’ Boats — zasady opcjonalne": "Ships’ Boats — optional rules",
+        "Dowodzenie i załoga": "Command & crew",
+        "Beast-Lords i Coven": "Beast-Lords & Coven",
+        "Elven Mage i High Magic": "Elven Mage & High Magic",
+        "Shamans i Waaagh Magic": "Shamans & Waaagh Magic",
+        "Kustom Kroozers: modyfikacje statku": "Kustom Kroozers: ship modifications",
+        "Kustom Kroozers: załoga i abordaż": "Kustom Kroozers: crew & boarding",
+        "Rozszerzone zasady Dwarfs: Runesmith, Master Engineers, Slayers, Rune cards i Master Engineer cards. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.": "Expanded Dwarf rules: Runesmith, Master Engineers, Slayers, Rune cards, and Master Engineer cards. Validation is aggregate only; assign upgrades to exact ships/turrets manually.",
+        "Rozszerzone zasady Dark Elves: Beast-Lords, Tainted Stones i Witch Elf Coven. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.": "Expanded Dark Elf rules: Beast-Lords, Tainted Stones, and Witch Elf Coven. Validation is aggregate only; assign Stones to the exact Black Ark / Beast-Lord manually.",
+        "Rozszerzone zasady High Elves: Elven Mage, High Magic i Crystals of Power. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.": "Expanded High Elf rules: Elven Mage, High Magic, and Crystals of Power. Crystal validation is aggregate only; assign each Crystal to the exact Elven Man O’ War manually.",
+        "Rozszerzone zasady Orcs: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).": "Expanded Orc rules: multiple Shamans, Waaagh Magic, and Kustom Kroozers. Kustom Kards are unique; validation is aggregate only, so assign them to specific Hulks manually (max. 2 cards per Hulk).",
+        "Rozszerzone zasady pozwalają dzielić ostrzał baterii między cele oraz zastąpić cannons uzbrojeniem właściwym dla frakcji: Eagle Claw bolt throwers dla High Elves, Big Chukkas dla Orcs i pojedyncze bolt throwers działające jak Reapers dla Dark Elves. Zasady te obejmują również standardowy Shorefort. Wszystkie typy fortów wspólnie podlegają limitowi 1 fort na squadron Ships of the Line.": "The expanded rules allow batteries to split their fire between targets and replace cannons with faction-specific weapons: Eagle Claw bolt throwers for High Elves, Big Chukkas for Orcs, and single-bolt throwers using Reaper rules for Dark Elves. These rules also apply to the standard Shorefort. All fort types share a limit of 1 fort per Ships of the Line squadron.",
+        "Każda łódź kosztuje 25 pkt. Łodzie woduje się po ruchu statku, ale przed jego ostrzałem, maksymalnie 2″ od statku; nie poruszają się w turze wodowania. Każdy statek może przewozić łącznie tyle łodzi, ile wynosi jego liczba trafień Below the Waterline potrzebnych do zatopienia. Typy można mieszać. Walidacja jest agregatowa; przypisz łodzie do konkretnych statków ręcznie.": "Each boat costs 25 pts. Boats are launched after the ship moves but before it fires, within 2″ of the ship; they cannot move in the turn they are launched. Each ship may carry a number of boats equal to the number of Below the Waterline hits required to sink it. Boat types may be mixed. Validation is aggregate only; assign boats to specific ships manually.",
         "Citadel Journal — zasady opcjonalne": "Citadel Journal — optional rules",
         "Citadel Journal — dowodzenie i załoga": "Citadel Journal — command & crew",
         "Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.": "Optional Dwarf rules from Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards, and Master Engineer cards. Source: MOW Community Annual v0.1. Validation is aggregate only; assign upgrades to exact ships/turrets manually.",
@@ -3916,7 +3958,7 @@ hulk: {
         "Koszt: 25 pkt. Tylko dla statku Admirała. Admiral dodaje +3 do boarding total zamiast +1; kryształ podąża za Admirałem, gdy zmienia statek. +1 Battle Honour.": "Cost: 25 pts. Admiral’s vessel only. The Admiral adds +3 to the boarding total instead of +1; the crystal follows the Admiral when he changes ships. +1 Battle Honour.",
         "Koszt: 25 pkt. Na początku Magic Phase każdy Chaos Sorcerer traci 1 Power point w 9″, 2 w 6″ albo 3 w 3″ od kryształu. +1 Battle Honour.": "Cost: 25 pts. At the start of the Magic Phase, each Chaos Sorcerer loses 1 Power point within 9″, 2 within 6″, or 3 within 3″ of the crystal. +1 Battle Honour.",
         "Użytkownik magii: wybierz dokładnie 1 (Wizard albo Elven Mage)": "Magic user: choose exactly 1 (Wizard or Elven Mage)",
-        "Citadel Journal Crystals assignment: walidacja agregatowa — przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie; limit jednego kryształu na statek nie jest w pełni sprawdzany": "Citadel Journal Crystals assignment: aggregate validation — assign each Crystal to the exact Elven Man O’ War manually; the one-crystal-per-ship limit is not fully checked",
+        "Crystals of Power assignment: walidacja agregatowa — przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie; limit jednego kryształu na statek nie jest w pełni sprawdzany": "Crystals of Power assignment: aggregate validation — assign each Crystal to the exact Elven Man O’ War manually; the one-crystal-per-ship limit is not fully checked",
         "Citadel Journal — Shamans i Waaagh Magic": "Citadel Journal — Shamans & Waaagh Magic",
         "Citadel Journal — Kustom Kroozers: modyfikacje statku": "Citadel Journal — Kustom Kroozers: ship modifications",
         "Citadel Journal — Kustom Kroozers: załoga i abordaż": "Citadel Journal — Kustom Kroozers: crew & boarding",
@@ -3934,7 +3976,7 @@ hulk: {
         "Koszt: 50 pkt. Na początku boarding zadaje D3+1 trafień w losowe Low locations z save −2; może powodować criticals. Wyniki lokacji 1 mogą uderzyć we własny statek, a po ataku boarding kończy się na tę turę. +2 Battle Honours.": "Cost: 50 pts. At the start of boarding, inflict D3+1 hits on random Low locations with save −2; these may cause criticals. Location rolls of 1 may hit the Orc ship, and boarding ends for the turn after the attack. +2 Battle Honours.",
         "Koszt: 50 pkt. W boarding rzuć D6: 1 — przeciwnik dodaje D3; 2–5 — Orcs dodają D3; 6 — Orcs dodają D6 do combat total. +2 Battle Honours.": "Cost: 50 pts. In boarding, roll D6: 1 — the opponent adds D3; 2–5 — the Orcs add D3; 6 — the Orcs add D6 to the combat total. +2 Battle Honours.",
         "Standard Wizard przy Waaagh Magic: 0": "Standard Wizard with Waaagh Magic: 0",
-        "Citadel Journal Kustom Kards assignment: walidacja agregatowa — przypisz każdą kartę do konkretnego Hulk ręcznie; maksymalnie 2 karty na Hulk": "Citadel Journal Kustom Kards assignment: aggregate validation — assign each card to a specific Hulk manually; maximum 2 cards per Hulk",
+        "Kustom Kards assignment: walidacja agregatowa — przypisz każdą kartę do konkretnego Hulk ręcznie; maksymalnie 2 karty na Hulk": "Kustom Kards assignment: aggregate validation — assign each card to a specific Hulk manually; maximum 2 cards per Hulk",
         "Shorefort (standardowy)": "Shorefort (standard)",
         "Koszt: 100 pkt / szt.": "Cost: 100 pts / fort.",
         "Koszt: 50 pkt / szt.": "Cost: 50 pts / fort.",
@@ -4109,6 +4151,7 @@ function polishCheckText(value){
 }
 
 // --- STATE ---
+const MOW_I18N_CENTRALIZED = !!window.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION;
 let currentLang = null;
   try{ currentLang = localStorage.getItem("mow_lang"); }catch(e){ currentLang = null; }
 
@@ -4299,6 +4342,7 @@ if(currentLang !== "pl" && currentLang !== "en"){
     try{ localStorage.setItem("mow_lang", currentLang); }catch(e){}
     if(typeof window.computeCurrent === "function") window.computeCurrent();
     refresh(document);
+    try{ document.dispatchEvent(new CustomEvent("mow:languagechange",{detail:Object.freeze({lang:currentLang})})); }catch(e){}
   }
 
   // Observe only specific containers; debounce via rAF
@@ -4334,6 +4378,7 @@ const obs = new MutationObserver((muts)=>{
   }
 
   function bindLangButtons(){
+    if(MOW_I18N_CENTRALIZED) return;
     const plBtn = document.getElementById("langPL") || document.getElementById("lang_pl");
     const enBtn = document.getElementById("langEN") || document.getElementById("lang_en");
     if(plBtn) plBtn.addEventListener("click", ()=> setLang("pl"));
@@ -4341,9 +4386,9 @@ const obs = new MutationObserver((muts)=>{
   }
 
   function init(){
-    bindLangButtons();
     refresh(document);
-
+    if(MOW_I18N_CENTRALIZED) return;
+    bindLangButtons();
     // observers for dynamic areas
     DYNAMIC_TARGETS.forEach(tg=> observeContainer(tg.id, tg.selectors));
   }
@@ -4351,10 +4396,12 @@ const obs = new MutationObserver((muts)=>{
   // Expose minimal API (optional)
   window.MOW_I18N = {
     LANG,
+    autonomous: !MOW_I18N_CENTRALIZED,
     t: (key, fallback)=> t(key, fallback != null ? fallback : key),
     getLang: ()=> currentLang,
     setLang,
-    refresh: ()=> refresh(document)
+    refresh: ()=> refresh(document),
+    refreshRoot: root=>refresh(root||document)
   };
 
   if(document.readyState === "loading"){
@@ -6317,8 +6364,8 @@ c.push([
   }
   function emptyDescription(language){
     return language==="en"
-      ? "Core offers Wizard Champion, Master Wizard and Wizard Lord. Enable Community Annual — Expanded Wizard Levels for all seven levels. Maximum 1 Wizard per fleet and 1 spell cast per turn."
-      : "Core obejmuje Wizard Champion, Master Wizard i Wizard Lord. Włącz Community Annual — rozszerzone poziomy Wizarda, aby użyć pełnej drabinki siedmiu poziomów. Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę.";
+      ? "Core offers Wizard Champion, Master Wizard and Wizard Lord. Enable Expanded Wizard Levels for all seven levels. Maximum 1 Wizard per fleet and 1 spell cast per turn."
+      : "Core obejmuje Wizard Champion, Master Wizard i Wizard Lord. Włącz Expanded Wizard Levels, aby użyć pełnej drabinki siedmiu poziomów. Maksymalnie 1 Wizard we flocie i 1 czar rzucany na turę.";
   }
   function updateRenderedDescription(fleetKey,points){
     const current=String(root.document?.getElementById("fleetSelect")?.value||root.MOW_BOOT_FLEET||"");
@@ -6337,7 +6384,7 @@ c.push([
     const wrapped=function(state){
       const rows=prior.call(this,state)||[];const points=Number(state?.base?.pts?.wizard||0);
       if(conflictFor(binding.fleet,points)){
-        const message=lang()==="en"?"Wizard level requires Community Annual — Expanded Wizard Levels. Re-enable the module or explicitly choose a core level.":"Poziom Wizarda wymaga Community Annual — rozszerzonych poziomów. Włącz moduł ponownie albo jawnie wybierz poziom core.";
+        const message=lang()==="en"?"Wizard level requires Expanded Wizard Levels. Re-enable the module or explicitly choose a core level.":"Poziom Wizarda wymaga Expanded Wizard Levels. Włącz moduł ponownie albo jawnie wybierz poziom core.";
         rows.push([message,"FAIL","fail"]);
       }
       return rows;
@@ -6509,8 +6556,8 @@ c.push([
 
   const cjOptions = [
     {
-      id:'cj_blood_iron_note', label:'Citadel Journal — Blood and Iron', cost:0, type:'CJ_NOTE', mode:'info',
-      desc:'Opcjonalne zasady Dwarfs z Citadel Journal: Runesmith, Master Engineers, Slayers, Rune cards and Master Engineer cards. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.'
+      id:'cj_blood_iron_note', label:'Blood and Iron', cost:0, type:'CJ_NOTE', mode:'info',
+      desc:'Rozszerzone zasady Dwarfs: Runesmith, Master Engineers, Slayers, Rune cards i Master Engineer cards. Walidacja jest agregatowa; przypisz ulepszenia do dokładnych statków/turretów ręcznie.'
     },
 
     // Command / crew options
@@ -6585,10 +6632,10 @@ c.push([
       return c;
     }
 
-    c.push([`Citadel Journal rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
-    c.push([`Citadel Journal Runesmith: ${runesmith} ≤ 1`, runesmith <= 1 ? 'OK':'FAIL', runesmith <= 1 ? 'ok':'fail']);
-    c.push([`Citadel Journal Master Engineers: ${masterEngineer} ≤ Dwarf Men O’ War (${menOWar})`, masterEngineer <= menOWar ? 'OK':'FAIL', masterEngineer <= menOWar ? 'ok':'fail']);
-    c.push([`Citadel Journal Slayers: ${slayers} ≤ 1`, slayers <= 1 ? 'OK':'FAIL', slayers <= 1 ? 'ok':'fail']);
+    c.push([`Dwarf expanded rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
+    c.push([`Runesmith: ${runesmith} ≤ 1`, runesmith <= 1 ? 'OK':'FAIL', runesmith <= 1 ? 'ok':'fail']);
+    c.push([`Master Engineers: ${masterEngineer} ≤ Dwarf Men O’ War (${menOWar})`, masterEngineer <= menOWar ? 'OK':'FAIL', masterEngineer <= menOWar ? 'ok':'fail']);
+    c.push([`Slayers: ${slayers} ≤ 1`, slayers <= 1 ? 'OK':'FAIL', slayers <= 1 ? 'ok':'fail']);
 
     const runesNeedRunesmithOk = (allRunes === 0) || (runesmith >= 1);
     c.push([`Rune options require Runesmith: ${allRunes} selected`, runesNeedRunesmithOk ? 'OK':'FAIL', runesNeedRunesmithOk ? 'ok':'fail']);
@@ -6604,7 +6651,7 @@ c.push([
     c.push([`Master Engineer card cap: ${engineerCards} ≤ 2×Master Engineers (${engineerCardCap})`, engineerCards <= engineerCardCap ? 'OK':'FAIL', engineerCards <= engineerCardCap ? 'ok':'fail']);
 
     if(allRunes > 0 || engineerCards > 0){
-      c.push(['Citadel Journal upgrade assignment: aggregate validation only — assign exact ship/turret manually; duplicate/non-cumulative per-ship limits are not fully checked', 'WARN', 'warn']);
+      c.push(['Dwarf upgrade assignment: aggregate validation only — assign exact ship/turret manually; duplicate/non-cumulative per-ship limits are not fully checked', 'WARN', 'warn']);
     }
 
     return c;
@@ -6626,8 +6673,8 @@ c.push([
 
   const cjOptions = [
     {
-      id:'cj_de_cursed_naggaroth_note', label:'Citadel Journal — Cursed of Naggaroth', cost:0, type:'CJ_DE_NOTE', mode:'info',
-      desc:'Opcjonalne zasady Dark Elves z Citadel Journal: Beast-Lords, Tainted Stones i Witch Elf Coven. Źródło: MOW Community Annual v0.1. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.'
+      id:'cj_de_cursed_naggaroth_note', label:'Cursed of Naggaroth', cost:0, type:'CJ_DE_NOTE', mode:'info',
+      desc:'Rozszerzone zasady Dark Elves: Beast-Lords, Tainted Stones i Witch Elf Coven. Walidacja jest agregatowa; przypisz Stones do dokładnej Black Ark / Beast-Lorda ręcznie.'
     },
 
     // Beast-Lords and Witch Elf Coven
@@ -6701,7 +6748,7 @@ c.push([
     const blackArkStoneCap = blackark;
     const allStoneCap = blackark + beastLord;
 
-    c.push([`Citadel Journal rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
+    c.push([`Dark Elf expanded rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
     c.push([`Beast-Lords: ${beastLord} ≤ Black Ark + Death Fortress (${beastLordCap})`, beastLord <= beastLordCap ? 'OK':'FAIL', beastLord <= beastLordCap ? 'ok':'fail']);
     c.push([`Witch Elf Coven: ${witchCoven} ≤ 1`, witchCoven <= 1 ? 'OK':'FAIL', witchCoven <= 1 ? 'ok':'fail']);
     c.push([`Witch Elf Coven requires Black Ark: ${witchCoven > 0 ? blackark : 0} Black Ark`, (witchCoven === 0 || blackark >= 1) ? 'OK':'FAIL', (witchCoven === 0 || blackark >= 1) ? 'ok':'fail']);
@@ -6717,7 +6764,7 @@ c.push([
     c.push([`Tainted Stones total: ${allStones} ≤ Black Arks + Beast-Lords (${allStoneCap})`, allStones <= allStoneCap ? 'OK':'FAIL', allStones <= allStoneCap ? 'ok':'fail']);
 
     if(allStones > 0){
-      c.push(['Citadel Journal Tainted Stones assignment: aggregate validation only — assign exact Black Ark / Beast-Lord manually; per-model one-Stone limit is not fully checked', 'WARN', 'warn']);
+      c.push(['Tainted Stones assignment: aggregate validation only — assign exact Black Ark / Beast-Lord manually; per-model one-Stone limit is not fully checked', 'WARN', 'warn']);
     }
 
     return c;
@@ -6739,8 +6786,8 @@ c.push([
 
   const cjOptions = [
     {
-      id:'cj_he_wind_wave_note', label:'Citadel Journal — Wind and Wave', cost:0, type:'CJ_HE_NOTE', mode:'info',
-      desc:'Opcjonalne zasady High Elves z Citadel Journal: Elven Mage, High Magic i Crystals of Power. Źródło: MOW Community Annual v0.1. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.'
+      id:'cj_he_wind_wave_note', label:'Wind and Wave', cost:0, type:'CJ_HE_NOTE', mode:'info',
+      desc:'Rozszerzone zasady High Elves: Elven Mage, High Magic i Crystals of Power. Walidacja kryształów jest agregatowa; przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie.'
     },
     {
       id:'elf_mage', label:'Elven Mage', mode:'select_points', type:'CJ_HE_MAGIC',
@@ -6814,7 +6861,7 @@ c.push([
       return c;
     }
 
-    c.push([`Citadel Journal rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
+    c.push([`High Elf expanded rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
 
     crystalIds.forEach(id=>{
       const n = qty[id] || 0;
@@ -6826,7 +6873,7 @@ c.push([
     c.push([`Crystals of Power: ${crystalTotal} ≤ elfickie Men O’ War (${elvenMenOWar})`, crystalTotal <= elvenMenOWar ? 'OK':'FAIL', crystalTotal <= elvenMenOWar ? 'ok':'fail']);
 
     if(crystalTotal > 0){
-      c.push(['Citadel Journal Crystals assignment: walidacja agregatowa — przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie; limit jednego kryształu na statek nie jest w pełni sprawdzany', 'WARN', 'warn']);
+      c.push(['Crystals of Power assignment: walidacja agregatowa — przypisz każdy Crystal do dokładnego elfickiego Man O’ War ręcznie; limit jednego kryształu na statek nie jest w pełni sprawdzany', 'WARN', 'warn']);
     }
 
     return c;
@@ -6848,8 +6895,8 @@ c.push([
 
   const cjOptions = [
     {
-      id:'cj_orc_we_are_sailin_note', label:'Citadel Journal — We Are Sailin’!', cost:0, type:'CJ_ORC_NOTE', mode:'info',
-      desc:'Opcjonalne zasady Orcs z Citadel Journal: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Źródło: MOW Community Annual v0.1. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).'
+      id:'cj_orc_we_are_sailin_note', label:'We Are Sailin’!', cost:0, type:'CJ_ORC_NOTE', mode:'info',
+      desc:'Rozszerzone zasady Orcs: wielu Shamanów, Waaagh Magic i Kustom Kroozers. Kustom Kards są unikatowe; walidacja jest agregatowa, więc przypisz je do konkretnych Hulks ręcznie (maks. 2 karty na Hulk).'
     },
 
     // Waaagh Magic — the flagship Shaman replaces the standard Wizard.
@@ -6954,7 +7001,7 @@ c.push([
       return c;
     }
 
-    c.push([`Citadel Journal rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
+    c.push([`Orc expanded rules: ${enabled ? 'ON' : 'OFF'}`, enabled || cjTotal === 0 ? 'OK':'WARN', enabled || cjTotal === 0 ? 'ok':'warn']);
 
     const otherHulkCap = Math.max(0, hulk - 1);
     c.push([`Shamans na pozostałych Hulks: ${otherMowShamans} ≤ pozostałe Hulks (${otherHulkCap})`, otherMowShamans <= otherHulkCap ? 'OK':'FAIL', otherMowShamans <= otherHulkCap ? 'ok':'fail']);
@@ -6970,7 +7017,7 @@ c.push([
     c.push([`Kustom Kards: ${kustomTotal} ≤ 2 × Hulks (${kustomCap})`, kustomTotal <= kustomCap ? 'OK':'FAIL', kustomTotal <= kustomCap ? 'ok':'fail']);
 
     if(kustomTotal > 0){
-      c.push(['Citadel Journal Kustom Kards assignment: walidacja agregatowa — przypisz każdą kartę do konkretnego Hulk ręcznie; maksymalnie 2 karty na Hulk', 'WARN', 'warn']);
+      c.push(['Kustom Kards assignment: walidacja agregatowa — przypisz każdą kartę do konkretnego Hulk ręcznie; maksymalnie 2 karty na Hulk', 'WARN', 'warn']);
     }
 
     return c;
@@ -7006,7 +7053,7 @@ c.push([
       type:'CJ_SHOREFORTS',
       mode:'info',
       summaryOnly:true,
-      desc:'Rozszerzone zasady pozwalają dzielić ostrzał baterii między cele oraz zastąpić cannons uzbrojeniem właściwym dla frakcji: Eagle Claw bolt throwers dla High Elves, Big Chukkas dla Orcs i pojedyncze bolt throwers działające jak Reapers dla Dark Elves. Zasady te obejmują również standardowy Shorefort. Wszystkie typy fortów wspólnie podlegają limitowi 1 fort na squadron Ships of the Line. Źródło: MOW Community Annual v0.1.'
+      desc:'Rozszerzone zasady pozwalają dzielić ostrzał baterii między cele oraz zastąpić cannons uzbrojeniem właściwym dla frakcji: Eagle Claw bolt throwers dla High Elves, Big Chukkas dla Orcs i pojedyncze bolt throwers działające jak Reapers dla Dark Elves. Zasady te obejmują również standardowy Shorefort. Wszystkie typy fortów wspólnie podlegają limitowi 1 fort na squadron Ships of the Line.'
     },
     {
       id:'shorefort_defence_tower',
@@ -7085,7 +7132,7 @@ c.push([
       type:'CJ_BOATS',
       mode:'info',
       summaryOnly:true,
-      desc:'Każda łódź kosztuje 25 pkt. Łodzie woduje się po ruchu statku, ale przed jego ostrzałem, maksymalnie 2″ od statku; nie poruszają się w turze wodowania. Każdy statek może przewozić łącznie tyle łodzi, ile wynosi jego liczba trafień Below the Waterline potrzebnych do zatopienia. Typy można mieszać. Walidacja jest agregatowa; przypisz łodzie do konkretnych statków ręcznie. Źródło: MOW Community Annual v0.1.'
+      desc:'Każda łódź kosztuje 25 pkt. Łodzie woduje się po ruchu statku, ale przed jego ostrzałem, maksymalnie 2″ od statku; nie poruszają się w turze wodowania. Każdy statek może przewozić łącznie tyle łodzi, ile wynosi jego liczba trafień Below the Waterline potrzebnych do zatopienia. Typy można mieszać. Walidacja jest agregatowa; przypisz łodzie do konkretnych statków ręcznie.'
     },
     {
       id:'boat_bomb',
@@ -7250,11 +7297,33 @@ c.push([
     return `${value} ${isEnglish() ? "pts" : "pkt"}`;
   }
 
+  const VALIDATION_PRESENTATION_CENTRALIZED = !!window.MOW_FB_ARCH_01A_CENTRAL_VALIDATION_PRESENTATION;
+  let validationPresentationItems = [];
+  let validationPresentationSignature = "[]";
+  function cloneValidationItems(items){
+    return (Array.isArray(items)?items:[]).map(it=>({text:String(it&&it.text||""),statusText:String(it&&it.statusText||""),klass:String(it&&it.klass||"")}));
+  }
+  const validationPresentationService = Object.freeze({
+    autonomous: !VALIDATION_PRESENTATION_CENTRALIZED,
+    capture(items){
+      const next=cloneValidationItems(items),signature=JSON.stringify(next);
+      if(signature===validationPresentationSignature)return this.snapshot();
+      validationPresentationItems=next;validationPresentationSignature=signature;
+      try{ document.dispatchEvent(new CustomEvent("mow:legacyvalidationchange",{detail:{count:validationPresentationItems.length}})); }catch(e){}
+      return this.snapshot();
+    },
+    snapshot(){ return Object.freeze({items:cloneValidationItems(validationPresentationItems),count:validationPresentationItems.length}); }
+  });
+  window.MOW_VALIDATION_PRESENTATION_SERVICE = validationPresentationService;
+
   function renderChecks(items){
+    const captured = cloneValidationItems(items);
+    validationPresentationService.capture(captured);
+    if(VALIDATION_PRESENTATION_CENTRALIZED) return;
     const host = $("checks");
     if(!host) return;
     host.innerHTML = "";
-    items.forEach(it=>{
+    captured.forEach(it=>{
       const row = document.createElement("div");
       row.className = "check " + (it.klass||"");
       row.innerHTML = `<div class="check-text">${it.text}</div><div class="check-pill ${it.klass||""}">${it.statusText}</div>`;
@@ -18530,7 +18599,12 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     if(wrapS){ const t = wrapS.querySelector(".mowUpSwitchLabel"); if(t) t.textContent = labelS; }
   }
 
+  const CENTRAL_STARTUP = !!window.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION;
+  let mountCount = 0, postReleaseMountCount = 0;
+
   function mount(){
+    mountCount += 1;
+    try{ if(window.MowBootGate?.status?.().released) postReleaseMountCount += 1; }catch(e){}
     const host = document.getElementById("mowUpToggleHost") || $(".right") || document.body;
     const col = ensureToggleColumn(host);
 
@@ -18605,11 +18679,18 @@ window.MOW_FLEET_STEP85 = Object.freeze({
         el.__mowToolsLangBound = true;
       }
     });
-    // re-run to catch late injections (unit preview / scenario generator)
-    setTimeout(mount, 200);
-    setTimeout(mount, 800);
-    setTimeout(mount, 1600);
+    if(!CENTRAL_STARTUP){
+      // Historical fallback only. Central FB-ARCH-01A mode performs one deterministic DOMContentLoaded mount.
+      setTimeout(mount, 200);
+      setTimeout(mount, 800);
+      setTimeout(mount, 1600);
+    }
   }
+
+  window.MOW_BUILDER_TOOLS_TOGGLES = Object.freeze({
+    mount, refreshToggleLabels,
+    status:()=>Object.freeze({central_startup:CENTRAL_STARTUP,mount_count:mountCount,post_release_mount_count:postReleaseMountCount,delayed_startup_retries:CENTRAL_STARTUP?0:3})
+  });
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
@@ -18637,8 +18718,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     "Dwarfs": {
       flag: "MOW_DWARFS_CITADEL_JOURNAL_ON",
       storage: "mow_dwarfs_citadel_journal_blood_iron_enabled",
-      pl: "Citadel Journal — Dwarfs",
-      en: "Citadel Journal — Dwarfs",
+      pl: "Dwarfs — zasady rozszerzone",
+      en: "Dwarfs — expanded rules",
       optionIds: [
         "runesmith","master_engineer","slayers",
         "rune_shot_fortune","rune_shot_smiting",
@@ -18650,8 +18731,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     "DarkElves": {
       flag: "MOW_DARK_ELVES_CITADEL_JOURNAL_ON",
       storage: "mow_dark_elves_citadel_journal_cursed_naggaroth_enabled",
-      pl: "Citadel Journal — Dark Elves",
-      en: "Citadel Journal — Dark Elves",
+      pl: "Dark Elves — zasady rozszerzone",
+      en: "Dark Elves — expanded rules",
       optionIds: [
         "de_beast_lord","de_witch_elf_coven",
         "de_stone_ikonarashk","de_stone_wild_mind",
@@ -18661,8 +18742,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     "Elves": {
       flag: "MOW_HIGH_ELVES_CITADEL_JOURNAL_ON",
       storage: "mow_high_elves_citadel_journal_wind_wave_enabled",
-      pl: "Citadel Journal — High Elves",
-      en: "Citadel Journal — High Elves",
+      pl: "High Elves — zasady rozszerzone",
+      en: "High Elves — expanded rules",
       optionIds: [
         "elf_mage",
         "he_crystal_anurell","he_crystal_paerennir","he_crystal_caltahari",
@@ -18672,8 +18753,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     "Orcs": {
       flag: "MOW_ORCS_CITADEL_JOURNAL_ON",
       storage: "mow_orcs_citadel_journal_we_are_sailin_enabled",
-      pl: "Citadel Journal — Orcs",
-      en: "Citadel Journal — Orcs",
+      pl: "Orcs — zasady rozszerzone",
+      en: "Orcs — expanded rules",
       zeroOnEnableIds: ["wizard"],
       optionIds: [
         "orc_flagship_shaman",
@@ -18688,8 +18769,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
   const SHORE_FORTS_CONFIG = {
     flag: "MOW_EXPANDED_SHOREFORTS_ON",
     storage: "mow_citadel_journal_expanded_shoreforts_enabled",
-    pl: "Citadel Journal — Expanded Shoreforts",
-    en: "Citadel Journal — Expanded Shoreforts",
+    pl: "Expanded Shoreforts",
+    en: "Expanded Shoreforts",
     optionIds: [
       "shorefort_defence_tower",
       "shorefort_coastal_bastion",
@@ -18701,8 +18782,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
   const SHIPS_BOATS_CONFIG = {
     flag: "MOW_SHIPS_BOATS_ON",
     storage: "mow_citadel_journal_ships_boats_enabled",
-    pl: "Citadel Journal — łodzie okrętowe",
-    en: "Citadel Journal — Ships’ Boats",
+    pl: "Ships’ Boats — zasady opcjonalne",
+    en: "Ships’ Boats — optional rules",
     optionIds: [
       "boat_bomb",
       "boat_raiding",
@@ -18714,8 +18795,8 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     flag: "MOW_ANNUAL_EXPANDED_WIZARDS_ON",
     storage: "mow_community_annual_expanded_wizards_enabled",
     moduleId: "annual_expanded_wizards",
-    pl: "Community Annual — rozszerzone poziomy Wizarda",
-    en: "Community Annual — Expanded Wizard Levels"
+    pl: "Expanded Wizard Levels",
+    en: "Expanded Wizard Levels"
   };
 
   function $(sel, root=document){ try { return root.querySelector(sel); } catch(e){ return null; } }
@@ -18894,7 +18975,12 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     }
   }
 
+  const CENTRAL_STARTUP = !!window.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION;
+  let mountCount = 0, syncCount = 0, postReleaseMountCount = 0, postReleaseSyncCount = 0;
+
   function mount(){
+    mountCount += 1;
+    try{ if(window.MowBootGate?.status?.().released) postReleaseMountCount += 1; }catch(e){}
     const host = document.getElementById("mowUpToggleHost") || $(".right") || document.body;
     const col = ensureToggleColumn(host);
     mountFleetToggle(col);
@@ -18969,10 +19055,26 @@ window.MOW_FLEET_STEP85 = Object.freeze({
   }
 
   function sync(){
+    syncCount += 1;
+    try{ if(window.MowBootGate?.status?.().released) postReleaseSyncCount += 1; }catch(e){}
     syncFleetToggle();
     syncWizardMasteryToggle();
     syncShorefortToggle();
     syncShipsBoatsToggle();
+  }
+
+  function bootReleased(){
+    try{return !!window.MowBootGate?.status?.().released;}catch(e){return false;}
+  }
+  let synchronousBootEventSyncs = 0, deferredUserEventSyncs = 0;
+  function scheduleEventSync(){
+    if(CENTRAL_STARTUP && !bootReleased()){
+      synchronousBootEventSyncs += 1;
+      sync();
+      return;
+    }
+    deferredUserEventSyncs += 1;
+    setTimeout(sync, 0);
   }
 
   function boot(){
@@ -18980,25 +19082,28 @@ window.MOW_FLEET_STEP85 = Object.freeze({
 
     const fleetSel = document.getElementById("fleetSelect");
     if(fleetSel && !fleetSel.__mowCJAllVisibilityBound){
-      fleetSel.addEventListener("change", function(){ setTimeout(sync, 0); });
+      fleetSel.addEventListener("change", scheduleEventSync);
       fleetSel.__mowCJAllVisibilityBound = true;
     }
 
     ["langPL","langEN"].forEach(id => {
       const el = document.getElementById(id);
       if(el && !el.__mowCJAllLangBound){
-        el.addEventListener("click", () => setTimeout(sync, 0));
+        el.addEventListener("click", scheduleEventSync);
         el.__mowCJAllLangBound = true;
       }
     });
 
-    setTimeout(mount, 200);
-    setTimeout(mount, 800);
-    setTimeout(mount, 1600);
+    if(!CENTRAL_STARTUP){
+      setTimeout(mount, 200);
+      setTimeout(mount, 800);
+      setTimeout(mount, 1600);
+    }
   }
 
   window.MOW_CITADEL_JOURNAL_TOGGLES_SYNC = sync;
   window.MOW_CITADEL_JOURNAL_TOGGLES_MOUNT = mount;
+  window.MOW_CITADEL_JOURNAL_TOGGLES_STATUS = ()=>Object.freeze({central_startup:CENTRAL_STARTUP,mount_count:mountCount,sync_count:syncCount,post_release_mount_count:postReleaseMountCount,post_release_sync_count:postReleaseSyncCount,synchronous_boot_event_syncs:synchronousBootEventSyncs,deferred_user_event_syncs:deferredUserEventSyncs,delayed_startup_retries:CENTRAL_STARTUP?0:3});
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
@@ -19107,6 +19212,39 @@ window.MOW_FLEET_STEP85 = Object.freeze({
     toggle.__mowSetupGroupBound = true;
   }
 
+  const CENTRAL_STARTUP = !!window.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION;
+  let updateCount = 0, postReleaseUpdateCount = 0, synchronousBootEventUpdates = 0, deferredUserEventUpdates = 0;
+  let mutationObserverInstallCount = 0, mutationObserverCallbackCount = 0, postReleaseMutationObserverCallbacks = 0;
+  const rawUpdateLabelsAndCounts = updateLabelsAndCounts;
+  updateLabelsAndCounts = function(){
+    updateCount += 1;
+    try{if(window.MowBootGate?.status?.().released) postReleaseUpdateCount += 1;}catch(e){}
+    return rawUpdateLabelsAndCounts();
+  };
+  function bootReleased(){try{return !!window.MowBootGate?.status?.().released;}catch(e){return false;}}
+  function scheduleEventUpdate(){
+    if(CENTRAL_STARTUP && !bootReleased()){
+      synchronousBootEventUpdates += 1;
+      updateLabelsAndCounts();
+      return;
+    }
+    deferredUserEventUpdates += 1;
+    setTimeout(updateLabelsAndCounts, 0);
+  }
+  function installRowsObservers(){
+    if(!window.MutationObserver || installRowsObservers.done) return;
+    installRowsObservers.done = true; mutationObserverInstallCount += 1;
+    [byId("mowOptionalRulesRows"), byId("mowBuilderToolsRows")].forEach(function(root){
+      if(!root) return;
+      const observer = new MutationObserver(function(){
+        mutationObserverCallbackCount += 1;
+        try{if(window.MowBootGate?.status?.().released) postReleaseMutationObserverCallbacks += 1;}catch(e){}
+        updateLabelsAndCounts();
+      });
+      observer.observe(root, { childList:true, subtree:true, attributes:true, attributeFilter:["style", "hidden", "checked"] });
+    });
+  }
+
   function boot(){
     bindToggle("optional", "mowOptionalRulesToggle");
     bindToggle("tools", "mowBuilderToolsToggle");
@@ -19116,14 +19254,14 @@ window.MOW_FLEET_STEP85 = Object.freeze({
       const target = ev.target;
       if(!target) return;
       if(target.closest && (target.closest("#mowOptionalRulesRows") || target.closest("#mowBuilderToolsRows") || target.id === "fleetSelect")){
-        setTimeout(updateLabelsAndCounts, 0);
+        scheduleEventUpdate();
       }
     }, true);
 
     ["langPL", "langEN"].forEach(function(id){
       const el = byId(id);
       if(el && !el.__mowSetupLangBound){
-        el.addEventListener("click", function(){ setTimeout(updateLabelsAndCounts, 0); });
+        el.addEventListener("click", scheduleEventUpdate);
         el.__mowSetupLangBound = true;
       }
     });
@@ -19136,18 +19274,16 @@ window.MOW_FLEET_STEP85 = Object.freeze({
       window.addEventListener("resize", updateLabelsAndCounts);
     }
 
-    const optionalRows = byId("mowOptionalRulesRows");
-    const toolsRows = byId("mowBuilderToolsRows");
-    if(window.MutationObserver){
-      [optionalRows, toolsRows].forEach(function(root){
-        if(!root) return;
-        const observer = new MutationObserver(function(){ updateLabelsAndCounts(); });
-        observer.observe(root, { childList:true, subtree:true, attributes:true, attributeFilter:["style", "hidden", "checked"] });
-      });
+    if(CENTRAL_STARTUP){
+      if(bootReleased()) installRowsObservers();
+      else document.addEventListener("mow:fbarchbootreleased", installRowsObservers, {once:true});
+    }else{
+      installRowsObservers();
+      [100, 300, 900, 1700].forEach(function(delay){ setTimeout(updateLabelsAndCounts, delay); });
     }
-
-    [100, 300, 900, 1700].forEach(function(delay){ setTimeout(updateLabelsAndCounts, delay); });
   }
+
+  window.MOW_MOBILE_SETUP_LAYOUT = Object.freeze({updateLabelsAndCounts,central_startup:CENTRAL_STARTUP,delayed_startup_retries:CENTRAL_STARTUP?0:4,status:()=>Object.freeze({central_startup:CENTRAL_STARTUP,update_count:updateCount,post_release_update_count:postReleaseUpdateCount,synchronous_boot_event_updates:synchronousBootEventUpdates,deferred_user_event_updates:deferredUserEventUpdates,mutation_observer_install_count:mutationObserverInstallCount,mutation_observer_callback_count:mutationObserverCallbackCount,post_release_mutation_observer_callbacks:postReleaseMutationObserverCallbacks,delayed_startup_retries:CENTRAL_STARTUP?0:4})});
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
@@ -19425,6 +19561,24 @@ window.MOW_FLEET_STEP85 = Object.freeze({
       return String(s).replace(/[&<>"']/g, (c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     }
 
+    const MOW_MAINT03_RULES_RESOURCE_URL = "https://krakenswake.wordpress.com/2024/03/03/print-and-play/";
+    const MOW_MAINT03_SOURCE_REFS = Object.freeze({
+      cj_blood_iron_note: Object.freeze({original:"Citadel Journal #1"}),
+      cj_he_wind_wave_note: Object.freeze({original:"Citadel Journal #2"}),
+      cj_de_cursed_naggaroth_note: Object.freeze({original:"Citadel Journal #3"}),
+      cj_ships_boats_note: Object.freeze({original:"Citadel Journal #3"}),
+      cj_orc_we_are_sailin_note: Object.freeze({original:"Citadel Journal #5"}),
+      cj_expanded_shoreforts_note: Object.freeze({original:"White Dwarf #167"}),
+      wizard: Object.freeze({original:"White Dwarf #164",module:"Expanded Wizard Levels"})
+    });
+    function sourceReferenceHtml(unitId,options){
+      const ref=MOW_MAINT03_SOURCE_REFS[String(unitId||"")];
+      if(!ref)return "";
+      const opts=options||{};
+      const moduleTitle=opts.showModuleTitle&&ref.module?`<div class="mow-source-module-title" data-i18n="expanded_wizard_levels_label">${esc(ref.module)}</div>`:"";
+      return `<div class="mow-source-reference" data-mow-source-reference="${esc(String(unitId||""))}">${moduleTitle}<div><strong data-i18n="original_publication_label">Oryginalna publikacja</strong>: ${esc(ref.original)}.</div><div><strong data-i18n="reference_compilation_label">Kompilacja referencyjna</strong>: MOW Community Annual v0.1.</div><div><a href="${esc(MOW_MAINT03_RULES_RESOURCE_URL)}" target="_blank" rel="noopener noreferrer external"><span data-i18n="rules_game_resources_label">Zasady i materiały do gry</span>: Kraken’s Wake ↗</a></div></div>`;
+    }
+
     function unitRow(u){
       const mode = u.mode || "";
       const cost = (typeof u.cost === "number") ? u.cost : 0;
@@ -19452,6 +19606,7 @@ window.MOW_FLEET_STEP85 = Object.freeze({
           }else rawDesc=api.emptyDescription(language);
         }
         const desc=esc(rawDesc);
+        const wizardSourceHtml=(String(u.id||"")==="wizard" && !!window.MOW_ANNUAL_EXPANDED_WIZARDS_ON) ? sourceReferenceHtml("wizard",{showModuleTitle:true}) : "";
         const opts = (Array.isArray(u.options) && u.options.length)
           ? u.options
           : [
@@ -19479,6 +19634,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
               <div>
                 <div class="title">${esc(u.label || u.id)}</div>
                 <div class="desc">${desc}</div>
+                ${wizardSourceHtml}
               </div>
               <div class="qty" style="justify-content:flex-end;">
                 <select id="${esc(u.id)}">
@@ -19491,6 +19647,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
 
       if(mode === "info"){
         const desc = (typeof u.desc === "string" && u.desc.trim()) ? esc(u.desc) : "";
+        const sourceRefHtml = sourceReferenceHtml(u.id);
         const infoType = String((u && u.type) || "");
         const isCitadelJournalSummary = infoType.startsWith("CJ_") && infoType.endsWith("NOTE");
 
@@ -19502,6 +19659,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
                 <div>
                   <div class="title">${esc(u.label || u.id)}</div>
                   ${desc ? `<div class="desc">${desc}</div>` : ``}
+                  ${sourceRefHtml}
                 </div>
                 <div class="qty"></div>
                 <div class="pts" id="pts_${esc(u.id)}">0 pkt</div>
@@ -19515,6 +19673,7 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
                 <div>
                   <div class="title">${esc(u.label || u.id)}</div>
                   ${desc ? `<div class="desc">${desc}</div>` : ``}
+                  ${sourceRefHtml}
                 </div>
                 <div class="qty"></div>
                 <div class="pts"></div>
@@ -19686,25 +19845,25 @@ const optHtml = ['<option value="0" selected data-i18n="pick_option">— wybierz
         INDEP: { title: "Independents", items: [] },
         OTHER: { title: "Wsparcie i dowodzenie", items: [] },
         SHOREFORT: { title: "Shoreforts", items: [] },
-        CJ_SHOREFORTS: { title: "Citadel Journal — Expanded Shoreforts", items: [] },
-        CJ_BOATS: { title: "Citadel Journal — Row, Row, Row Yer Boat!", items: [] },
-        CJ_NOTE: { title: "Citadel Journal — zasady opcjonalne", items: [] },
-        CJ_COMMAND: { title: "Citadel Journal — dowodzenie i załoga", items: [] },
-        CJ_RUNIC_SHOT: { title: "Citadel Journal — Runic Shot", items: [] },
-        CJ_CANNON_RUNES: { title: "Citadel Journal — Cannon Runes", items: [] },
-        CJ_HULL_RUNES: { title: "Citadel Journal — Hull Runes", items: [] },
-        CJ_ENGINEER_CARDS: { title: "Citadel Journal — Master Engineer Cards", items: [] },
-        CJ_DE_NOTE: { title: "Citadel Journal — zasady opcjonalne", items: [] },
-        CJ_DE_COMMAND: { title: "Citadel Journal — Beast-Lords i Coven", items: [] },
-        CJ_DE_STONES_BEASTLORD: { title: "Citadel Journal — Tainted Stones: Beast-Lord only", items: [] },
-        CJ_DE_STONES_BLACKARK: { title: "Citadel Journal — Tainted Stones: Black Ark only", items: [] },
-        CJ_HE_NOTE: { title: "Citadel Journal — zasady opcjonalne", items: [] },
-        CJ_HE_MAGIC: { title: "Citadel Journal — Elven Mage i High Magic", items: [] },
-        CJ_HE_CRYSTALS: { title: "Citadel Journal — Crystals of Power", items: [] },
-        CJ_ORC_NOTE: { title: "Citadel Journal — zasady opcjonalne", items: [] },
-        CJ_ORC_MAGIC: { title: "Citadel Journal — Shamans i Waaagh Magic", items: [] },
-        CJ_ORC_KUSTOM_SHIP: { title: "Citadel Journal — Kustom Kroozers: modyfikacje statku", items: [] },
-        CJ_ORC_KUSTOM_BOARDING: { title: "Citadel Journal — Kustom Kroozers: załoga i abordaż", items: [] },
+        CJ_SHOREFORTS: { title: "Expanded Shoreforts", items: [] },
+        CJ_BOATS: { title: "Ships’ Boats — zasady opcjonalne", items: [] },
+        CJ_NOTE: { title: "Dwarfs — zasady rozszerzone", items: [] },
+        CJ_COMMAND: { title: "Dowodzenie i załoga", items: [] },
+        CJ_RUNIC_SHOT: { title: "Runic Shot", items: [] },
+        CJ_CANNON_RUNES: { title: "Cannon Runes", items: [] },
+        CJ_HULL_RUNES: { title: "Hull Runes", items: [] },
+        CJ_ENGINEER_CARDS: { title: "Master Engineer Cards", items: [] },
+        CJ_DE_NOTE: { title: "Dark Elves — zasady rozszerzone", items: [] },
+        CJ_DE_COMMAND: { title: "Beast-Lords i Coven", items: [] },
+        CJ_DE_STONES_BEASTLORD: { title: "Tainted Stones: Beast-Lord only", items: [] },
+        CJ_DE_STONES_BLACKARK: { title: "Tainted Stones: Black Ark only", items: [] },
+        CJ_HE_NOTE: { title: "High Elves — zasady rozszerzone", items: [] },
+        CJ_HE_MAGIC: { title: "Elven Mage i High Magic", items: [] },
+        CJ_HE_CRYSTALS: { title: "Crystals of Power", items: [] },
+        CJ_ORC_NOTE: { title: "Orcs — zasady rozszerzone", items: [] },
+        CJ_ORC_MAGIC: { title: "Shamans i Waaagh Magic", items: [] },
+        CJ_ORC_KUSTOM_SHIP: { title: "Kustom Kroozers: modyfikacje statku", items: [] },
+        CJ_ORC_KUSTOM_BOARDING: { title: "Kustom Kroozers: załoga i abordaż", items: [] },
         FLY: { title: "Flyers", items: [] }
       };
 
@@ -20061,6 +20220,11 @@ function bindRealtimeNavStats(){
 </script>
 <script>
 (function(){
+  const CENTRALIZED = !!window.MOW_FB_ARCH_01A_CENTRAL_VALIDATION_PRESENTATION;
+  if(CENTRALIZED){
+    window.MOW_LEGACY_CHECK_FILTER = Object.freeze({autonomous:false,storage_key:"mow_checks_filter"});
+    return;
+  }
   const checksEl = document.getElementById("checks");
   const ctlHost = document.getElementById("checksCtl");
   if(!checksEl || !ctlHost) return;
@@ -20070,7 +20234,7 @@ function bindRealtimeNavStats(){
   let mode = (localStorage.getItem(LS_KEY) || "fail"); // "all" | "fail"
 
   function getChecksLabelAll(){
-    return (window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang()==="en") ? "All" : "Wszystkie";
+    return (window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang()==="en") ? "All" : "OK";
   }
   function getChecksLabelFail(){
     return (window.MOW_I18N && window.MOW_I18N.getLang && window.MOW_I18N.getLang()==="en") ? "Only FAIL" : "Tylko FAIL";
@@ -20155,6 +20319,7 @@ function bindRealtimeNavStats(){
 
   // First run
   apply();
+  window.MOW_LEGACY_CHECK_FILTER = Object.freeze({autonomous:true,storage_key:LS_KEY});
 })();
 </script>
 
@@ -20443,7 +20608,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.8.1",
+    version: "1.8.2",
     build: "step89-2026-07-17",
     contract_schema: "mow.fleet",
     contract_version: "0.1.1",
@@ -20682,7 +20847,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.8.1",
+    version: "1.8.2",
     build: "step89-2026-07-17",
     private_state_schema: "mow.builder.fleet-state",
     private_state_version: 2,
@@ -21576,7 +21741,7 @@ function bindRealtimeNavStats(){
   "use strict";
 
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.8.1",build:"step89-2026-07-17",
+    app:"Man O' War Fleet Builder",version:"1.8.2",build:"step89-2026-07-17",
     schema:"mow.target_eligibility_report",schema_version:"0.1.0"
   });
   const NS="mow.builder";
@@ -21879,7 +22044,7 @@ function bindRealtimeNavStats(){
   "use strict";
 
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.8.1",build:"step87-2026-07-17",
+    app:"Man O' War Fleet Builder",version:"1.8.2",build:"step87-2026-07-17",
     schema:"mow.assignment_rebase_report",schema_version:"0.1.0"
   });
   const NS="mow.builder";
@@ -22047,7 +22212,7 @@ function bindRealtimeNavStats(){
 (function(root){
   "use strict";
 
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"step89-2026-07-17",schema:"mow.purchase_legality_report",schema_version:"0.1.0"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.2",build:"step89-2026-07-17",schema:"mow.purchase_legality_report",schema_version:"0.1.0"});
   const IMPLICIT_MODULES=new Set(["core","allies_catalog","sea_monsters"]);
   const PROVISIONAL_DEFINITION_STATUSES=new Set(["proposed_definition","draft_requires_definition"]);
   const PROVISIONAL_AVAILABILITY_STATUSES=new Set(["draft_requires_definition","draft_unresolved"]);
@@ -22218,7 +22383,7 @@ function bindRealtimeNavStats(){
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.8.1",
+    version:"1.8.2",
     build:"step89-2026-07-17",
     contract_schema:"mow.fleet",
     contract_version:"0.1.1"
@@ -22531,7 +22696,7 @@ function bindRealtimeNavStats(){
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.8.1",
+    version:"1.8.2",
     build:"step89-2026-07-17",
     contract_version:"0.1.1",
     integration_expectations_version:"0.1.1"
@@ -22778,7 +22943,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.8.1",
+    version:"1.8.2",
     build:"step83.2-2026-07-17",
     repair:"legacy_ship_names_to_native_units"
   });
@@ -22999,6 +23164,8 @@ function bindRealtimeNavStats(){
   const SHARE_URL_MAX_CHARS = 240000;
   const CANONICAL_SHARE_URL = "https://mowfleetbuilder.com/";
   const AUTOSAVE_DELAY = 550;
+  const STORAGE_CENTRALIZED = !!window.MOW_FB_ARCH_01A_CENTRAL_STORAGE;
+  const IO_SHARE_CENTRALIZED = !!window.MOW_FB_ARCH_01A_CENTRAL_IMPORT_EXPORT_SHARE;
 
   const FLEET_MODULES = {
     Dwarfs: {
@@ -23201,6 +23368,12 @@ function bindRealtimeNavStats(){
   let sharedPreviewMode = false;
   let autosaveTimer = null;
   let toolbarRefreshTimer = null;
+  let autosaveBound = false;
+  let compatibilityInitialized = false;
+  let centralRestoreStarted = false;
+  let centralRestoreCompleted = false;
+  let centralRestoreError = null;
+  let centralRestorePromise = null;
   let activeSavedId = null;
   let nameDialogResolver = null;
   let matchingDialogResolver = null;
@@ -23225,8 +23398,8 @@ function bindRealtimeNavStats(){
       <details open>
         <summary>Walidacja i dodatkowe moduły</summary>
         <div class="mow-help-detail">
-          <p>Przełącznik <b>Wszystkie / Tylko FAIL</b> pozwala pokazać wszystkie kontrole albo wyłącznie problemy wymagające uwagi.</p>
-          <p>W sekcji <b>Zasady opcjonalne</b> można włączyć uzgodnione dodatki, takie jak frakcyjne materiały z <i>Citadel Journal</i>, <b>Community Annual — rozszerzone poziomy Wizarda</b>, <b>Citadel Journal — Expanded Shoreforts</b> i <b>Citadel Journal — łodzie okrętowe</b>.</p>
+          <p>Przycisk <b>OK</b> pokazuje pełną listę kontroli (OK i FAIL), a <b>Tylko FAIL</b> — wyłącznie problemy wymagające uwagi.</p>
+          <p>W sekcji <b>Zasady opcjonalne</b> można włączyć uzgodnione rozszerzenia frakcyjne, <b>Expanded Wizard Levels</b>, <b>Expanded Shoreforts</b> i <b>Ships’ Boats</b>. Szczegóły oryginalnej publikacji są podane przy każdym module.</p>
           <p>Brak komunikatów FAIL potwierdza zgodność z kontrolami zapisanymi w builderze. Nadal uwzględnij szczególne zasady scenariusza i ustalenia z przeciwnikiem.</p>
         </div>
       </details>
@@ -23236,7 +23409,7 @@ function bindRealtimeNavStats(){
         <summary>Core i Community Annual — poziomy Wizarda</summary>
         <div class="mow-help-detail">
           <p>Bez dodatkowego modułu zwykły Wizard korzysta z trzech poziomów core: <b>Wizard Champion</b>, <b>Master Wizard</b> i <b>Wizard Lord</b>.</p>
-          <p>Przełącznik <b>Community Annual — rozszerzone poziomy Wizarda</b> udostępnia pełną drabinkę siedmiu poziomów. Opis pod selektorem pokazuje liczbę kart Magii, modyfikator kości, Battle Honours i zakres przerzutu.</p>
+          <p>Przełącznik <b>Expanded Wizard Levels</b> udostępnia pełną drabinkę siedmiu poziomów. Opis pod selektorem pokazuje liczbę kart Magii, modyfikator kości, Battle Honours i zakres przerzutu.</p>
           <p>Wyłączenie modułu przy wybranym poziomie dostępnym tylko w Community Annual nie zmienia go automatycznie. Builder zachowuje wybór, pokazuje konflikt i wymaga jawnej korekty albo ponownego włączenia modułu.</p>
           <p>Obowiązuje nadal maksymalnie <b>1 Wizard we flocie</b> i <b>1 czar rzucany na turę</b>. Systemy specjalistyczne, takie jak Elven Mage, Orc Shaman, Grey Seer, Runesmith, Liche i Necromancer, nie korzystają z tej drabinki.</p>
         </div>
@@ -23348,7 +23521,7 @@ function bindRealtimeNavStats(){
         <summary>Validation and additional modules</summary>
         <div class="mow-help-detail">
           <p>The <b>All / FAIL only</b> control shows every check or only problems that need attention.</p>
-          <p>Under <b>Optional rules</b> you can enable agreed additions such as faction material from <i>Citadel Journal</i>, <b>Community Annual — Expanded Wizard Levels</b>, <b>Citadel Journal — Expanded Shoreforts</b> and <b>Citadel Journal — Ships’ Boats</b>.</p>
+          <p>Under <b>Optional rules</b> you can enable agreed faction expansions, <b>Expanded Wizard Levels</b>, <b>Expanded Shoreforts</b> and <b>Ships’ Boats</b>. Original publication details are shown with each module.</p>
           <p>No FAIL messages means the roster passes the checks implemented in the builder. You should still apply scenario-specific rules and any agreements made with your opponent.</p>
         </div>
       </details>
@@ -23358,7 +23531,7 @@ function bindRealtimeNavStats(){
         <summary>Core and Community Annual Wizard levels</summary>
         <div class="mow-help-detail">
           <p>Without the additional module, an ordinary Wizard uses the three core levels: <b>Wizard Champion</b>, <b>Master Wizard</b> and <b>Wizard Lord</b>.</p>
-          <p><b>Community Annual — Expanded Wizard Levels</b> enables the complete seven-level ladder. The selector description shows Magic Cards, Dice Modifier, Battle Honours and reroll scope.</p>
+          <p><b>Expanded Wizard Levels</b> enables the complete seven-level ladder. The selector description shows Magic Cards, Dice Modifier, Battle Honours and reroll scope.</p>
           <p>Disabling the module while an Annual-only level is selected does not convert it automatically. The builder preserves the choice, shows a conflict and requires an explicit correction or re-enabling the module.</p>
           <p>The global limits remain <b>1 Wizard per fleet</b> and <b>1 spell cast per turn</b>. Specialist systems such as Elven Mage, Orc Shaman, Grey Seer, Runesmith, Liche and Necromancer do not use this ladder.</p>
         </div>
@@ -24529,7 +24702,7 @@ function bindRealtimeNavStats(){
       version:SHARE_VERSION,
       profile:SHARE_PROFILE,
       shared_at:nowIso(),
-      producer:{ app:"mow-fleet-builder", version:"1.8.1", build:"fbmaint02-release-r1-2026-07-30" },
+      producer:{ app:"mow-fleet-builder", version:"1.8.2", build:"fbrel01-release-r1-2026-08-18" },
       label:getActiveFleetName() || null,
       state:deepClone(current)
     };
@@ -24953,29 +25126,27 @@ function bindRealtimeNavStats(){
     refreshToolbar();
   }
 
+  async function copyCentralShareLink(){const field=$("mowShareFleetLink"),button=$("mowCopyFleetLink");if(!field||!button)return false;const ok=await copyText(field.value);const localOnly=button.dataset.localOnly==="true";button.textContent=ok?tr(localOnly?"copiedLocalButton":"copiedButton"):tr("copyFailed");button.classList.toggle("is-success",ok);button.classList.toggle("is-error",!ok);if(!ok){try{field.focus();field.select();}catch(e){}}return ok;}
+  function selectCentralShareLink(){const field=$("mowShareFleetLink");try{field?.select();return true;}catch(e){return false;}}
+  function exportLibraryBackup(){exportLibrary();return true;}
+  function chooseLibraryImportFile(){$("mowFleetLibraryFile")?.click();return true;}
+  async function handleLibraryImportFile(file){if(!file)return null;try{const raw=await file.text();const parsed=parseBackupObject(JSON.parse(raw));showImportChoice(parsed);return {ok:true,fleets:parsed.fleets.length,autosave:!!parsed.autosave};}catch(error){console.error(error);toast(tr("invalidBackup"));return {ok:false,error:String(error&&error.message||error)};}}
+  async function applyLibraryImportCandidate(mode){if(!importCandidate)return false;const replace=mode==="replace";if(replace&&!window.confirm(tr("replaceAllConfirm")))return false;closeModal("mowFleetImportModal");try{await mergeImported(importCandidate,replace);importCandidate=null;return true;}catch(error){console.error(error);toast(tr("importFailed"));return false;}}
+  function prepareCentralImportExportShare(){buildUi();updateUiLanguage();refreshToolbar();return centralImportExportShareStatus();}
+  function refreshCentralImportExportShare(){updateUiLanguage();refreshToolbar();return centralImportExportShareStatus();}
+  function centralImportExportShareStatus(){return {centralized:IO_SHARE_CENTRALIZED,autonomous:!IO_SHARE_CENTRALIZED,share_button_count:document.querySelectorAll("#mowShareFleet").length,share_modal_count:document.querySelectorAll("#mowShareFleetModal").length,library_import_control_count:document.querySelectorAll("#mowImportFleetLibrary").length,library_export_control_count:document.querySelectorAll("#mowExportFleetLibrary").length,import_candidate:!!importCandidate};}
+
   function wireUi(){
     $("mowSaveFleet")?.addEventListener("click", saveCurrentNamed);
     $("mowSaveFleetAs")?.addEventListener("click", () => saveAsFlow());
     $("mowOpenFleetLibrary")?.addEventListener("click", () => { renderLibrary(); openModal("mowFleetLibraryModal"); });
-    $("mowShareFleet")?.addEventListener("click", shareCurrentFleet);
+    if(!IO_SHARE_CENTRALIZED) $("mowShareFleet")?.addEventListener("click", shareCurrentFleet);
     $("mowOpenHelp")?.addEventListener("click", () => openModal("mowHelpModal"));
-    $("mowCopyFleetLink")?.addEventListener("click", async () => {
-      const field = $("mowShareFleetLink");
-      const button = $("mowCopyFleetLink");
-      if(!field || !button) return;
-      const ok = await copyText(field.value);
-      const localOnly = button.dataset.localOnly === "true";
-      button.textContent = ok ? tr(localOnly ? "copiedLocalButton" : "copiedButton") : tr("copyFailed");
-      button.classList.toggle("is-success", ok);
-      button.classList.toggle("is-error", !ok);
-      if(!ok){
-        try{ field.focus(); field.select(); }catch(e){}
-      }
-    });
-    $("mowShareFleetLink")?.addEventListener("click", e => {
-      try{ e.currentTarget.select(); }catch(err){}
-    });
-    $("mowExportFleetLibrary")?.addEventListener("click", exportLibrary);
+    if(!IO_SHARE_CENTRALIZED){
+      $("mowCopyFleetLink")?.addEventListener("click", async () => { await copyCentralShareLink(); });
+      $("mowShareFleetLink")?.addEventListener("click", () => selectCentralShareLink());
+      $("mowExportFleetLibrary")?.addEventListener("click", exportLibrary);
+    }
     $("mowDeleteAllFleets")?.addEventListener("click", () => {
       const lib = loadLibrary();
       const count = lib.fleets.length;
@@ -24989,34 +25160,12 @@ function bindRealtimeNavStats(){
       refreshToolbar();
       toast(tr("deletedAll"));
     });
-    $("mowImportFleetLibrary")?.addEventListener("click", () => $("mowFleetLibraryFile")?.click());
-    $("mowFleetLibraryFile")?.addEventListener("change", async e => {
-      const file = e.target.files && e.target.files[0];
-      e.target.value = "";
-      if(!file) return;
-      try{
-        const text = await file.text();
-        const parsed = parseBackupObject(JSON.parse(text));
-        showImportChoice(parsed);
-      }catch(err){
-        console.error(err);
-        toast(tr("invalidBackup"));
-      }
-    });
-    $("mowFleetImportMerge")?.addEventListener("click", async () => {
-      if(!importCandidate) return;
-      closeModal("mowFleetImportModal");
-      try{ await mergeImported(importCandidate, false); }
-      catch(e){ console.error(e); toast(tr("importFailed")); }
-      importCandidate = null;
-    });
-    $("mowFleetImportReplace")?.addEventListener("click", async () => {
-      if(!importCandidate || !window.confirm(tr("replaceAllConfirm"))) return;
-      closeModal("mowFleetImportModal");
-      try{ await mergeImported(importCandidate, true); }
-      catch(e){ console.error(e); toast(tr("importFailed")); }
-      importCandidate = null;
-    });
+    if(!IO_SHARE_CENTRALIZED){
+      $("mowImportFleetLibrary")?.addEventListener("click", () => $("mowFleetLibraryFile")?.click());
+      $("mowFleetLibraryFile")?.addEventListener("change", async e => {const file=e.target.files&&e.target.files[0];e.target.value="";if(file)await handleLibraryImportFile(file);});
+      $("mowFleetImportMerge")?.addEventListener("click", async () => { await applyLibraryImportCandidate("merge"); });
+      $("mowFleetImportReplace")?.addEventListener("click", async () => { await applyLibraryImportCandidate("replace"); });
+    }
     $("mowFleetNameCancel")?.addEventListener("click", () => closeNameDialog(null));
     $("mowFleetNameConfirm")?.addEventListener("click", () => {
       const value = String($("mowFleetNameInput")?.value || "").trim();
@@ -25077,6 +25226,7 @@ function bindRealtimeNavStats(){
   }
 
   function wireAutosave(){
+    if(autosaveBound) return false;
     document.addEventListener("mow:shipnameschange", () => {
       if(applyingState || sharedPreviewMode) return;
       scheduleAutosave();
@@ -25101,6 +25251,8 @@ function bindRealtimeNavStats(){
     };
     document.addEventListener("input", relevantEvent, true);
     document.addEventListener("change", relevantEvent, true);
+    autosaveBound = true;
+    return true;
   }
 
   async function ensureV2Persistence(){
@@ -25169,12 +25321,40 @@ function bindRealtimeNavStats(){
     if(migration&&!migration.skipped) setTimeout(()=>toast(migration.ok?tr("migrationDone"):tr("migrationPartial")),100);
   }
 
+  async function startCentralStorageLifecycle(){
+    if(!STORAGE_CENTRALIZED) return {centralized:false,restore_completed:false,autosave_bound:autosaveBound};
+    if(centralRestorePromise) return centralRestorePromise;
+    centralRestoreStarted = true;
+    centralRestorePromise = (async()=>{
+      try{
+        const release90=window.MOW_FLEET_RELEASE90_PERSISTENCE;
+        if(release90&&typeof release90.prepareCentralStorage==="function") release90.prepareCentralStorage();
+        await restoreInitialState();
+        renderLibrary();
+        refreshToolbar();
+        wireAutosave();
+        centralRestoreCompleted = true;
+        centralRestoreError = null;
+        return centralStorageStatus();
+      }catch(error){centralRestoreError=String(error&&error.message||error);throw error;}
+    })();
+    return centralRestorePromise;
+  }
+  function centralStorageStatus(){
+    let libraryFleets=0,recoveryEvents=0;
+    try{libraryFleets=loadLibrary().fleets.length;}catch(e){}
+    try{recoveryEvents=(readStorage(PERSISTENCE_RECOVERY_KEY,{events:[]}).events||[]).length;}catch(e){}
+    return {centralized:STORAGE_CENTRALIZED,autonomous:!STORAGE_CENTRALIZED,compatibility_initialized:compatibilityInitialized,restore_started:centralRestoreStarted,restore_completed:centralRestoreCompleted,restore_error:centralRestoreError,autosave_bound:autosaveBound,active_saved_id:activeSavedId,library_fleets:libraryFleets,recovery_events:recoveryEvents};
+  }
+
   async function init(){
     buildUi();
     wireUi();
-    wireAutosave();
     updateUiLanguage();
     refreshToolbar();
+    compatibilityInitialized = true;
+    if(STORAGE_CENTRALIZED){setStatus("ready");return;}
+    wireAutosave();
     await delay(180);
     await restoreInitialState();
     renderLibrary();
@@ -25185,9 +25365,10 @@ function bindRealtimeNavStats(){
     captureState,captureLegacyState,applyState,loadLibrary,saveNamedFleet,importPortableFleetModel,
     exportLibraryObject:function(){return {format:"mow-fleet-builder-backup",version:2,exportedAt:nowIso(),fleets:loadLibrary().fleets,autosave:readStorage(AUTOSAVE_KEY,null),quarantine:loadLibrary().quarantine||[]};},
     importLibraryObject:async function(obj,mode){const parsed=parseBackupObject(obj);return mergeImported(parsed,mode==="replace");},
-    buildSharePayload,encodeSharePayload,decodeShareToken,buildShareUrl,parseSharedState,applySharedDescriptor,getShareDiagnostics,getShareBaseUrl:shareBaseUrl,getLastShareImport:()=>deepClone(lastShareImport),
+    buildSharePayload,encodeSharePayload,decodeShareToken,buildShareUrl,parseSharedState,applySharedDescriptor,getShareDiagnostics,getShareBaseUrl:shareBaseUrl,getLastShareImport:()=>deepClone(lastShareImport),shareCurrentFleet,copyCentralShareLink,selectCentralShareLink,exportLibraryBackup,chooseLibraryImportFile,handleLibraryImportFile,applyLibraryImportCandidate,prepareCentralImportExportShare,refreshCentralImportExportShare,centralImportExportShareStatus,
     stateSignature,findMatchingSavedFleets,
     ensureV2Persistence,ensureContract011Persistence,ensureLegacyShipNamesRepair,rollbackToV1,recoverInterruptedPersistence,getMigrationReport:()=>readStorage(MIGRATION_REPORT_KEY,null),getMigrationBackup:()=>readStorage(MIGRATION_BACKUP_KEY,null),getShipNamesRepairReport:()=>readStorage(SHIP_NAMES_REPAIR_KEY,null),getContract011MigrationReport:()=>readStorage(CONTRACT_011_MIGRATION_KEY,null),
+    startCentralStorageLifecycle,centralStorageStatus,
     getStorageDiagnostics,getPersistenceRecovery:()=>readStorage(PERSISTENCE_RECOVERY_KEY,null),auditLibrary:()=>normalizeLibraryObject(loadLibrary(),"api_audit"),validateNativeModelFully,normalizeNativeStateContract,
     keys:{AUTOSAVE_KEY,LIBRARY_KEY,ACTIVE_ID_KEY,LEGACY_AUTOSAVE_KEY,LEGACY_LIBRARY_KEY,LEGACY_ACTIVE_ID_KEY,MIGRATION_BACKUP_KEY,MIGRATION_REPORT_KEY,LIBRARY_STAGE_KEY,AUTOSAVE_STAGE_KEY,PERSISTENCE_JOURNAL_KEY,PERSISTENCE_RECOVERY_KEY,SHIP_NAMES_REPAIR_KEY,CONTRACT_011_MIGRATION_KEY},
     share:{format:SHARE_FORMAT,version:SHARE_VERSION,profile:SHARE_PROFILE,codecs:{gzip:SHARE_CODEC_GZIP,json:SHARE_CODEC_JSON},canonical_url:CANONICAL_SHARE_URL}
@@ -25207,7 +25388,7 @@ function bindRealtimeNavStats(){
 
   const BUILD = Object.freeze({
     app: "Man O' War Fleet Builder",
-    version: "1.8.1",
+    version: "1.8.2",
     build: "step89-2026-07-17",
     source_ui: "1.7-step81",
     bridge_schema: "mow.builder.ui-snapshot",
@@ -26310,7 +26491,7 @@ function bindRealtimeNavStats(){
 (function(root){
   "use strict";
   const BUILD=Object.freeze({
-    app:"Man O' War Fleet Builder",version:"1.8.1",build:"release90-2026-07-19",
+    app:"Man O' War Fleet Builder",version:"1.8.2",build:"release90-2026-07-19",
     contract_schema:"mow.fleet",contract_version:"0.1.2",schema_id:"urn:mow:schema:fleet:0.1.2"
   });
   const SCHEMA={"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"urn:mow:schema:fleet:0.1.2","title":"Man O' War Fleet Contract 0.1.2","description":"Portable fleet-construction and prepared-roster contract with named role/resource instances and durable pre-game setup tasks. It excludes battle, card-zone, table and simulation state.","type":"object","additionalProperties":false,"required":["schema","schema_version","document_profile","fleet_id","revision","created_at","updated_at","producer","ruleset_ref","identity","planning","points","selections","squadrons","units","roles","resources","assignments","setups","extensions"],"properties":{"schema":{"const":"mow.fleet"},"schema_version":{"const":"0.1.2"},"document_profile":{"type":"string","enum":["builder_export","prepared_fleet"],"description":"builder_export may contain only policy-valid pending assignments. prepared_fleet requires every mandatory assignment to be resolved; optional assignments may remain pending."},"fleet_id":{"$ref":"#/$defs/instanceId"},"revision":{"type":"integer","minimum":1},"created_at":{"type":"string","format":"date-time"},"updated_at":{"type":"string","format":"date-time"},"producer":{"$ref":"#/$defs/producer"},"ruleset_ref":{"$ref":"#/$defs/rulesetRef"},"identity":{"$ref":"#/$defs/fleetIdentity"},"planning":{"$ref":"#/$defs/planning"},"points":{"$ref":"#/$defs/pointsSummary"},"selections":{"type":"array","items":{"$ref":"#/$defs/selectionInstance"}},"squadrons":{"type":"array","items":{"$ref":"#/$defs/squadronInstance"}},"units":{"type":"array","items":{"$ref":"#/$defs/unitInstance"}},"roles":{"type":"array","items":{"$ref":"#/$defs/roleInstance"}},"resources":{"type":"array","items":{"$ref":"#/$defs/resourceInstance"}},"assignments":{"type":"array","items":{"$ref":"#/$defs/assignment"}},"validation":{"$ref":"#/$defs/validationCache"},"extensions":{"$ref":"#/$defs/extensions"},"setups":{"type":"array","items":{"$ref":"#/$defs/setupInstance"}}},"allOf":[{"if":{"properties":{"document_profile":{"const":"prepared_fleet"}},"required":["document_profile"]},"then":{"properties":{"assignments":{"items":{"oneOf":[{"allOf":[{"$ref":"#/$defs/assignment"},{"properties":{"status":{"const":"resolved"},"target_ref":{"$ref":"#/$defs/unitTargetRef"}}}]},{"allOf":[{"$ref":"#/$defs/assignment"},{"properties":{"status":{"const":"pending"},"requirement":{"const":"optional_assignment"},"target_ref":{"type":"null"}}}]}]}},"setups":{"items":{"allOf":[{"$ref":"#/$defs/setupInstance"},{"properties":{"status":{"const":"resolved"}}}]}}}}}],"$defs":{"extensions":{"type":"object","description":"Only sanctioned forward-compatibility escape hatch. Unknown extension members must survive round-trip unchanged.","additionalProperties":true},"instanceId":{"type":"string","oneOf":[{"pattern":"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"},{"pattern":"^[0-9A-HJKMNP-TV-Z]{26}$"}],"description":"UUID v1-v5 or canonical uppercase ULID."},"canonicalId":{"type":"string","minLength":1,"maxLength":160,"pattern":"^[A-Za-z0-9][A-Za-z0-9._:-]*$"},"nullableCanonicalId":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}]},"factionId":{"type":"string","enum":["Bretonnia","Chaos","ChaosDwarfs","DarkElves","Dwarfs","Elves","Empire","Norse","Orcs","Skaven","Undead","global"]},"channel":{"type":"string","enum":["primary","ally","sea_monster","optional_module","shorefort","boat"]},"classification":{"type":"string","enum":["man_o_war","ship_of_the_line","independent","flyer","sea_monster","shorefort","boat","other"]},"definitionStatus":{"type":"string","enum":["available","source_resolved","missing_in_data_core"]},"producer":{"type":"object","additionalProperties":false,"required":["app","version"],"properties":{"app":{"type":"string","minLength":1},"version":{"type":"string","minLength":1},"build":{"type":["string","null"]}}},"rulesetRef":{"type":"object","additionalProperties":false,"required":["data_core_release","schema_version","content_version","ruleset_version","rules_mode_key","modules"],"properties":{"data_core_release":{"type":"string","minLength":1},"base_release":{"type":["string","null"]},"schema_version":{"oneOf":[{"type":"integer","minimum":1},{"type":"string","minLength":1}]},"content_version":{"type":"string","minLength":1},"ruleset_version":{"type":"string","minLength":1},"rules_mode_key":{"$ref":"#/$defs/canonicalId"},"modules":{"type":"array","items":{"$ref":"#/$defs/canonicalId"},"uniqueItems":true}}},"fleetVariant":{"oneOf":[{"type":"null"},{"type":"object","minProperties":1,"additionalProperties":{"type":["string","integer","number","boolean","null"]}}]},"fleetIdentity":{"type":"object","additionalProperties":false,"required":["name","primary_faction_id","fleet_variant","language"],"properties":{"name":{"type":"string","minLength":1,"maxLength":200},"primary_faction_id":{"$ref":"#/$defs/factionId"},"fleet_variant":{"$ref":"#/$defs/fleetVariant"},"language":{"type":"string","pattern":"^[a-z]{2,3}(?:-[A-Z]{2})?$"}}},"alliance":{"type":"object","additionalProperties":false,"required":["ally_faction_id","relation","points_limit","points_used"],"properties":{"ally_faction_id":{"$ref":"#/$defs/factionId"},"relation":{"type":"string","minLength":1},"points_limit":{"type":"integer","minimum":0},"points_used":{"type":"integer","minimum":0}}},"planning":{"type":"object","additionalProperties":false,"required":["points_limit","alliance"],"properties":{"points_limit":{"type":"integer","minimum":0},"alliance":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/alliance"}]}}},"pointsByChannel":{"type":"object","additionalProperties":false,"required":["primary","ally","sea_monster","optional_module","shorefort","boat"],"properties":{"primary":{"type":"integer","minimum":0},"ally":{"type":"integer","minimum":0},"sea_monster":{"type":"integer","minimum":0},"optional_module":{"type":"integer","minimum":0},"shorefort":{"type":"integer","minimum":0},"boat":{"type":"integer","minimum":0}}},"pointsSummary":{"type":"object","additionalProperties":false,"required":["selected_total","remaining","by_channel","primary_and_modules","allies","sea_monsters"],"properties":{"selected_total":{"type":"integer","minimum":0},"remaining":{"type":"integer"},"by_channel":{"$ref":"#/$defs/pointsByChannel"},"primary_and_modules":{"type":"integer","minimum":0},"allies":{"type":"integer","minimum":0},"sea_monsters":{"type":"integer","minimum":0}}},"selectionContext":{"type":"object","additionalProperties":false,"required":["primary_faction_id","selection_fleet_context_id","rules_module_id"],"properties":{"primary_faction_id":{"$ref":"#/$defs/factionId"},"selection_fleet_context_id":{"$ref":"#/$defs/factionId"},"ally_faction_id":{"$ref":"#/$defs/factionId"},"rules_module_id":{"$ref":"#/$defs/canonicalId"}}},"selectionPoints":{"type":"object","additionalProperties":false,"required":["mode","per_selection","total"],"properties":{"mode":{"type":"string","enum":["fixed","tiered","variant","calculated"]},"per_selection":{"oneOf":[{"type":"integer","minimum":0},{"type":"null"}]},"total":{"type":"integer","minimum":0}}},"sourceRef":{"type":"object","additionalProperties":false,"required":["external_system","external_id"],"properties":{"external_system":{"type":"string","minLength":1},"external_version":{"type":["string","null"]},"alias_id":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}]},"external_context_key":{"type":["string","null"]},"external_id":{"type":"string","minLength":1},"raw_external_key":{"type":["string","null"]}}},"resultRefs":{"type":"object","additionalProperties":false,"required":["squadron_instance_ids","unit_instance_ids","role_instance_ids","resource_instance_ids"],"properties":{"squadron_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"unit_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"role_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"resource_instance_ids":{"type":"array","items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true}}},"selectionInstance":{"type":"object","additionalProperties":false,"required":["selection_instance_id","selection_id","availability_id","variant_id","channel","context","quantity","points","source_ref","result_refs","extensions"],"properties":{"selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_id":{"$ref":"#/$defs/canonicalId"},"availability_id":{"$ref":"#/$defs/nullableCanonicalId"},"variant_id":{"$ref":"#/$defs/nullableCanonicalId"},"channel":{"$ref":"#/$defs/channel"},"context":{"$ref":"#/$defs/selectionContext"},"quantity":{"type":"integer","minimum":1},"points":{"$ref":"#/$defs/selectionPoints"},"source_ref":{"$ref":"#/$defs/sourceRef"},"result_refs":{"$ref":"#/$defs/resultRefs"},"extensions":{"$ref":"#/$defs/extensions"}}},"squadronInstance":{"type":"object","additionalProperties":false,"required":["squadron_instance_id","origin_selection_instance_id","selection_occurrence","unit_id","channel","roster_category","unit_instance_ids","extensions"],"properties":{"squadron_instance_id":{"$ref":"#/$defs/instanceId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_occurrence":{"type":"integer","minimum":1},"unit_id":{"$ref":"#/$defs/canonicalId"},"channel":{"$ref":"#/$defs/channel"},"roster_category":{"type":"string","minLength":1},"unit_instance_ids":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/instanceId"},"uniqueItems":true},"extensions":{"$ref":"#/$defs/extensions"}}},"unitInstance":{"type":"object","additionalProperties":false,"required":["unit_instance_id","unit_id","origin_selection_instance_id","selection_occurrence","faction_id","channel","roster_category","classification","squadron_instance_id","ordinal_in_squadron","custom_name","definition_status","extensions"],"properties":{"unit_instance_id":{"$ref":"#/$defs/instanceId"},"unit_id":{"$ref":"#/$defs/canonicalId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"selection_occurrence":{"type":"integer","minimum":1},"faction_id":{"$ref":"#/$defs/factionId"},"channel":{"$ref":"#/$defs/channel"},"roster_category":{"type":"string","minLength":1},"classification":{"$ref":"#/$defs/classification"},"squadron_instance_id":{"oneOf":[{"$ref":"#/$defs/instanceId"},{"type":"null"}]},"ordinal_in_squadron":{"oneOf":[{"type":"integer","minimum":1},{"type":"null"}]},"custom_name":{"type":["string","null"],"maxLength":200},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"}},"allOf":[{"if":{"properties":{"squadron_instance_id":{"type":"null"}},"required":["squadron_instance_id"]},"then":{"properties":{"ordinal_in_squadron":{"type":"null"}}},"else":{"properties":{"ordinal_in_squadron":{"type":"integer","minimum":1}}}}]},"roleInstance":{"type":"object","additionalProperties":false,"required":["role_instance_id","role_id","origin_selection_instance_id","variant_id","definition_status","custom_name","extensions"],"properties":{"role_instance_id":{"$ref":"#/$defs/instanceId"},"role_id":{"$ref":"#/$defs/canonicalId"},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"variant_id":{"$ref":"#/$defs/nullableCanonicalId"},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"},"custom_name":{"oneOf":[{"type":"string","minLength":1,"maxLength":200},{"type":"null"}]}}},"resourceInstance":{"type":"object","additionalProperties":false,"required":["resource_instance_id","resource_kind","definition_type","definition_id","quantity","origin_selection_instance_id","definition_status","custom_name","extensions"],"properties":{"resource_instance_id":{"$ref":"#/$defs/instanceId"},"resource_kind":{"type":"string","enum":["card_entitlement","card_pool_entitlement","starting_card","upgrade","counter","other"]},"definition_type":{"$ref":"#/$defs/canonicalId"},"definition_id":{"$ref":"#/$defs/canonicalId"},"quantity":{"type":"integer","minimum":1},"origin_selection_instance_id":{"$ref":"#/$defs/instanceId"},"definition_status":{"$ref":"#/$defs/definitionStatus"},"extensions":{"$ref":"#/$defs/extensions"},"custom_name":{"oneOf":[{"type":"string","minLength":1,"maxLength":200},{"type":"null"}]}}},"subjectRef":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"type":"string","enum":["fleet_designation","squadron_instance","role_instance","resource_instance"]},"id":{"type":"string","minLength":1}}},"unitTargetRef":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"unit_instance"},"id":{"$ref":"#/$defs/instanceId"}}},"stringOrArray":{"oneOf":[{"type":"string","minLength":1},{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}}]},"allowedTargetQuery":{"oneOf":[{"type":"null"},{"type":"object","additionalProperties":false,"properties":{"channel":{"$ref":"#/$defs/stringOrArray"},"classification":{"$ref":"#/$defs/stringOrArray"},"faction_id":{"$ref":"#/$defs/stringOrArray"},"roster_category":{"$ref":"#/$defs/stringOrArray"},"extensions":{"$ref":"#/$defs/extensions"},"unit_id":{"$ref":"#/$defs/stringOrArray"},"exclude_unit_id":{"$ref":"#/$defs/stringOrArray"},"required_designation":{"$ref":"#/$defs/stringOrArray"},"subject_squadron_instance_id":{"oneOf":[{"$ref":"#/$defs/instanceId"},{"type":"null"}]}},"minProperties":1}]},"assignment":{"type":"object","additionalProperties":false,"required":["assignment_id","assignment_type","subject_ref","status","target_ref","resolution_stage","requirement","applicability_ref","pending_reason_code","expected_target_type","allowed_target_query","notes","extensions"],"properties":{"assignment_id":{"$ref":"#/$defs/instanceId"},"assignment_type":{"type":"string","enum":["fleet_designation_to_unit","squadron_designation_to_unit","role_to_unit","resource_to_unit"]},"subject_ref":{"$ref":"#/$defs/subjectRef"},"status":{"type":"string","enum":["pending","resolved"]},"target_ref":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/unitTargetRef"}]},"resolution_stage":{"$ref":"#/$defs/resolutionStage"},"allowed_target_query":{"$ref":"#/$defs/allowedTargetQuery"},"notes":{"type":["string","null"]},"extensions":{"$ref":"#/$defs/extensions"},"requirement":{"$ref":"#/$defs/assignmentRequirement"},"applicability_ref":{"$ref":"#/$defs/canonicalId","description":"Stable reference to the rule or resolver definition that determines legal targets."},"pending_reason_code":{"oneOf":[{"$ref":"#/$defs/canonicalId"},{"type":"null"}],"description":"Machine-readable reason for a pending assignment; null when resolved."},"expected_target_type":{"$ref":"#/$defs/expectedTargetType"}},"allOf":[{"if":{"properties":{"status":{"const":"pending"}},"required":["status"]},"then":{"properties":{"target_ref":{"type":"null"},"pending_reason_code":{"$ref":"#/$defs/canonicalId"}}}},{"if":{"properties":{"status":{"const":"resolved"}},"required":["status"]},"then":{"properties":{"target_ref":{"$ref":"#/$defs/unitTargetRef"},"pending_reason_code":{"type":"null"}}}},{"if":{"properties":{"requirement":{"const":"required_at_roster_build"}},"required":["requirement"]},"then":{"properties":{"resolution_stage":{"const":"roster_build"}}}},{"if":{"properties":{"requirement":{"const":"required_before_game"}},"required":["requirement"]},"then":{"properties":{"resolution_stage":{"const":"pre_game_setup"}}}},{"if":{"properties":{"assignment_type":{"const":"fleet_designation_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"fleet_designation"},"id":{"type":"string","minLength":1}}}}}},{"if":{"properties":{"assignment_type":{"const":"squadron_designation_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"squadron_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}},{"if":{"properties":{"assignment_type":{"const":"role_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"role_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}},{"if":{"properties":{"assignment_type":{"const":"resource_to_unit"}},"required":["assignment_type"]},"then":{"properties":{"subject_ref":{"type":"object","additionalProperties":false,"required":["type","id"],"properties":{"type":{"const":"resource_instance"},"id":{"$ref":"#/$defs/instanceId"}}}}}}]},"validationIssue":{"type":"object","additionalProperties":false,"required":["code","severity","path","message","details"],"properties":{"code":{"$ref":"#/$defs/canonicalId"},"severity":{"type":"string","enum":["info","warning","error"]},"path":{"type":"string"},"message":{"type":"string","minLength":1},"details":{"type":"object","additionalProperties":true}}},"validationCache":{"type":"object","additionalProperties":false,"required":["validated_revision","validated_at","validator","structural_status","rules_legality_status","data_core_resolution_status","issues"],"properties":{"validated_revision":{"type":"integer","minimum":1},"validated_at":{"type":"string","format":"date-time"},"validator":{"$ref":"#/$defs/producer"},"structural_status":{"type":"string","enum":["pass","fail","not_checked"]},"rules_legality_status":{"type":"string","enum":["pass","fail","not_checked","representative_not_certified"]},"data_core_resolution_status":{"type":"string","enum":["full","partial","failed","not_checked"]},"issues":{"type":"array","items":{"$ref":"#/$defs/validationIssue"}}}},"assignmentRequirement":{"type":"string","enum":["required_at_roster_build","required_before_game","optional_assignment"],"description":"Explicit policy controlling whether an assignment must be resolved while building the roster, before the game, or may remain unassigned."},"resolutionStage":{"type":"string","enum":["roster_build","pre_game_setup"],"description":"Latest normal stage at which the assignment is expected to be resolved."},"expectedTargetType":{"type":"string","enum":["unit_instance"],"description":"Typed target expected by this contract version."},"setupResultEntry":{"type":"object","additionalProperties":false,"required":["definition_id","quantity"],"properties":{"definition_id":{"type":"string","enum":["norse.warrior.ulfwerener","norse.warrior.berserker","norse.warrior.bondsman","norse.warrior.huscarl"]},"quantity":{"type":"integer","minimum":1,"maximum":5}}},"setupResult":{"type":"object","additionalProperties":false,"required":["entries","resolved_at"],"properties":{"entries":{"type":"array","minItems":1,"maxItems":4,"items":{"$ref":"#/$defs/setupResultEntry"}},"resolved_at":{"type":"string","format":"date-time"}}},"setupInstance":{"type":"object","additionalProperties":false,"required":["setup_instance_id","setup_definition_id","subject_ref","requirement","resolution_stage","status","expected_count","result","source_ref","notes","extensions"],"properties":{"setup_instance_id":{"$ref":"#/$defs/instanceId"},"setup_definition_id":{"const":"setup.norse.kingship_warrior_draw"},"subject_ref":{"$ref":"#/$defs/unitTargetRef"},"requirement":{"const":"required_before_game"},"resolution_stage":{"const":"pre_game_setup"},"status":{"type":"string","enum":["pending","resolved","needs_review"]},"expected_count":{"type":"integer","enum":[4,5]},"result":{"oneOf":[{"type":"null"},{"$ref":"#/$defs/setupResult"}]},"source_ref":{"const":"rule.norse_special_crew"},"notes":{"type":["string","null"]},"extensions":{"$ref":"#/$defs/extensions"}},"allOf":[{"if":{"properties":{"status":{"const":"pending"}},"required":["status"]},"then":{"properties":{"result":{"type":"null"}}}},{"if":{"properties":{"status":{"const":"resolved"}},"required":["status"]},"then":{"properties":{"result":{"$ref":"#/$defs/setupResult"}}}}]}}};
@@ -26547,7 +26728,7 @@ function bindRealtimeNavStats(){
   if(!previousDomain||!previousIdentity||!previousReconciler||!previousCatalog) throw new Error("RELEASE90_BASE_DOMAIN_MISSING");
   const NS="mow.builder";
   const SETUP_DEF="setup.norse.kingship_warrior_draw";
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",target_contract_schema:"mow.fleet",target_contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.2",build:"1.8.1-dev.13+fb-maint-04-maint04b-r1",target_contract_schema:"mow.fleet",target_contract_version:"0.1.2"});
   function clone(v){return v==null?v:JSON.parse(JSON.stringify(v));}
   function nowIso(){return new Date().toISOString();}
   function cleanName(v){const s=String(v==null?"":v).trim();return s?s.slice(0,200):null;}
@@ -26561,25 +26742,38 @@ function bindRealtimeNavStats(){
   function fleetFlagshipId(model){const a=(model.assignments||[]).find(x=>x&&x.assignment_type==="fleet_designation_to_unit"&&x.subject_ref&&x.subject_ref.type==="fleet_designation"&&x.subject_ref.id==="fleet.flagship"&&x.status==="resolved"&&x.target_ref&&x.target_ref.type==="unit_instance");return a&&a.target_ref.id||null;}
   function resultTotal(result){return result&&Array.isArray(result.entries)?result.entries.reduce((n,x)=>n+Math.max(0,Number(x&&x.quantity)||0),0):0;}
   function auditSetupEvent(model,event){model.extensions=model.extensions||{};model.extensions[NS]=model.extensions[NS]||{};const box=model.extensions[NS].setup_rebase||{schema:"mow.builder.setup_rebase",schema_version:"0.1.0",events:[]};box.events=Array.isArray(box.events)?box.events:[];box.events.push(Object.assign({at:nowIso()},event||{}));if(box.events.length>100)box.events=box.events.slice(-100);model.extensions[NS].setup_rebase=box;}
+  function isLegacyNorseSetup(setup){return !!setup&&setup.setup_definition_id===SETUP_DEF;}
   function materializeNorseSetups(model){
-    const copy=model;copy.setups=Array.isArray(copy.setups)?copy.setups:[];
-    const kingships=(copy.units||[]).filter(u=>u&&u.unit_id==="norse.kingship");
-    const valid=new Set(kingships.map(u=>u.unit_instance_id));
-    const flagship=fleetFlagshipId(copy);const bySubject=new Map();
-    copy.setups.forEach(s=>{if(s&&s.setup_definition_id===SETUP_DEF&&s.subject_ref)bySubject.set(s.subject_ref.id,s);});
-    const kept=[];
-    kingships.forEach(unit=>{
-      let setup=bySubject.get(unit.unit_instance_id)||null;const expected=unit.unit_instance_id===flagship?5:4;
-      if(!setup){setup={setup_instance_id:deterministicUuid(`${copy.fleet_id}|${SETUP_DEF}|${unit.unit_instance_id}`),setup_definition_id:SETUP_DEF,subject_ref:{type:"unit_instance",id:unit.unit_instance_id},requirement:"required_before_game",resolution_stage:"pre_game_setup",status:"pending",expected_count:expected,result:null,source_ref:"rule.norse_special_crew",notes:null,extensions:{[NS]:{materialized_by:"release90"}}};}
-      setup.setup_definition_id=SETUP_DEF;setup.subject_ref={type:"unit_instance",id:unit.unit_instance_id};setup.requirement="required_before_game";setup.resolution_stage="pre_game_setup";setup.source_ref="rule.norse_special_crew";setup.notes=setup.notes==null?null:String(setup.notes);setup.extensions=setup.extensions&&typeof setup.extensions==="object"?setup.extensions:{};
-      const oldExpected=Number(setup.expected_count)||expected;setup.expected_count=expected;
-      if(setup.status==="resolved"&&resultTotal(setup.result)!==expected){setup.status="needs_review";setup.extensions[NS]=Object.assign({},setup.extensions[NS]||{},{review_reason:"flagship_expected_count_changed",previous_expected_count:oldExpected});}
-      if(!["pending","resolved","needs_review"].includes(setup.status))setup.status="pending";
-      if(setup.status==="pending")setup.result=null;
-      kept.push(setup);
+    const copy=model;
+    /* FB-MAINT-04: the historical function name remains for private API compatibility,
+       but Builder ownership is removed. Normalization only guarantees the required
+       top-level array and never creates, rewrites, clears, deduplicates or removes
+       legacy Kingship warrior-draw payloads. */
+    copy.setups=Array.isArray(copy.setups)?copy.setups:[];
+    return copy;
+  }
+  function analyzeLegacyNorseSetups(model){
+    const setups=Array.isArray(model&&model.setups)?model.setups:[];
+    const unitMap=new Map((model&&model.units||[]).map(u=>[u&&u.unit_instance_id,u]));
+    const flagship=fleetFlagshipId(model||{}),subjectCounts=new Map();
+    setups.forEach(s=>{if(isLegacyNorseSetup(s)){const id=String(s&&s.subject_ref&&s.subject_ref.id||"");subjectCounts.set(id,(subjectCounts.get(id)||0)+1);}});
+    return setups.map((setup,index)=>{
+      if(!isLegacyNorseSetup(setup))return {index,legacy:false,valid_for_prepared:false,reasons:[]};
+      const subjectId=String(setup&&setup.subject_ref&&setup.subject_ref.id||""),unit=unitMap.get(subjectId)||null,expected=subjectId===flagship?5:4,total=resultTotal(setup&&setup.result),reasons=[];
+      if(!unit)reasons.push("subject_missing");
+      else if(unit.unit_id!=="norse.kingship")reasons.push("subject_not_kingship");
+      if(Number(setup.expected_count)!==expected)reasons.push("expected_count_mismatch");
+      if(setup.status!=="resolved")reasons.push(setup.status==="pending"?"pending":setup.status==="needs_review"?"needs_review":"status_invalid");
+      else if(total!==expected)reasons.push("result_count_mismatch");
+      if((subjectCounts.get(subjectId)||0)>1)reasons.push("duplicate_subject");
+      return {index,legacy:true,setup_instance_id:setup.setup_instance_id||null,subject_id:subjectId,status:setup.status||null,expected_count:expected,stored_expected_count:setup.expected_count,result_total:total,duplicate_count:subjectCounts.get(subjectId)||0,reasons,valid_for_prepared:reasons.length===0};
     });
-    copy.setups.forEach(s=>{if(s&&s.setup_definition_id!==SETUP_DEF)kept.push(s);else if(s&&s.subject_ref&&!valid.has(s.subject_ref.id))auditSetupEvent(copy,{event:"setup_removed_with_subject",setup_instance_id:s.setup_instance_id,subject_ref:clone(s.subject_ref)});});
-    copy.setups=kept;return copy;
+  }
+  function derivePreparedLegacySetups(model){
+    const copy=normalizeContractModel(model),analysis=analyzeLegacyNorseSetups(copy),omitIndexes=new Set(analysis.filter(x=>x.legacy&&!x.valid_for_prepared).map(x=>x.index));
+    const omitted=analysis.filter(x=>x.legacy&&!x.valid_for_prepared).map(x=>clone(x));
+    copy.setups=(copy.setups||[]).filter((setup,index)=>!isLegacyNorseSetup(setup)||!omitIndexes.has(index));
+    return {model:copy,omitted};
   }
   function normalizeContractModel(model){
     let copy=previousDomain.normalizeContractModel(model);if(!copy||typeof copy!=="object")return copy;
@@ -26593,7 +26787,7 @@ function bindRealtimeNavStats(){
   function setResourceName(model,id,name,options){const copy=normalizeContractModel(model),item=copy.resources.find(x=>x.resource_instance_id===id);if(!item)throw new Error(`Unknown resource_instance_id: ${id}`);item.custom_name=cleanName(name);item.extensions=item.extensions||{};copy.revision=Math.max(1,Number(copy.revision)||1)+1;copy.updated_at=options&&options.now||nowIso();return copy;}
   const WARRIORS=new Set(["norse.warrior.ulfwerener","norse.warrior.berserker","norse.warrior.bondsman","norse.warrior.huscarl"]);
   function normalizeSetupEntries(entries){const map=new Map();(entries||[]).forEach(x=>{const id=String(x&&x.definition_id||"");const q=Math.max(0,Math.trunc(Number(x&&x.quantity)||0));if(WARRIORS.has(id)&&q)map.set(id,(map.get(id)||0)+q);});return Array.from(map.entries()).map(([definition_id,quantity])=>({definition_id,quantity}));}
-  function setSetupResult(model,setupId,entries,options){const copy=normalizeContractModel(model),setup=copy.setups.find(x=>x.setup_instance_id===setupId);if(!setup)throw new Error(`Unknown setup_instance_id: ${setupId}`);if(!entries){setup.result=null;setup.status="pending";}else{const normalized=normalizeSetupEntries(entries),total=normalized.reduce((n,x)=>n+x.quantity,0);setup.result={entries:normalized,resolved_at:options&&options.now||nowIso()};setup.status=total===setup.expected_count?"resolved":"needs_review";setup.extensions=setup.extensions||{};setup.extensions[NS]=Object.assign({},setup.extensions[NS]||{},total===setup.expected_count?{review_reason:null}:{review_reason:"result_count_mismatch"});}copy.revision=Math.max(1,Number(copy.revision)||1)+1;copy.updated_at=options&&options.now||nowIso();return copy;}
+  function setSetupResult(model,setupId,entries,options){const copy=normalizeContractModel(model),setup=copy.setups.find(x=>x.setup_instance_id===setupId);if(!setup)throw new Error(`Unknown setup_instance_id: ${setupId}`);if(isLegacyNorseSetup(setup))throw new Error("LEGACY_NORSE_SETUP_READ_ONLY_IN_BUILDER");if(!entries){setup.result=null;setup.status="pending";}else{const normalized=normalizeSetupEntries(entries),total=normalized.reduce((n,x)=>n+x.quantity,0);setup.result={entries:normalized,resolved_at:options&&options.now||nowIso()};setup.status=total===setup.expected_count?"resolved":"needs_review";setup.extensions=setup.extensions||{};setup.extensions[NS]=Object.assign({},setup.extensions[NS]||{},total===setup.expected_count?{review_reason:null}:{review_reason:"result_count_mismatch"});}copy.revision=Math.max(1,Number(copy.revision)||1)+1;copy.updated_at=options&&options.now||nowIso();return copy;}
   function runtimeIdEntries(model){const out=previousIdentity.runtimeIdEntries(model).slice();(model&&Array.isArray(model.setups)?model.setups:[]).forEach(x=>out.push(["setup",x.setup_instance_id]));return out;}
   function validateGlobalIds(model){const seen=new Map(),duplicates=[],invalid=[];runtimeIdEntries(model).forEach(([kind,id])=>{if(!previousIdentity.UUID_RE.test(String(id||"")))invalid.push({kind,id});if(seen.has(id))duplicates.push({id,first_kind:seen.get(id),duplicate_kind:kind});else seen.set(id,kind);});return {ok:!duplicates.length&&!invalid.length,duplicates,invalid,count:seen.size};}
   function cloneFleetAsNew(model,options){const opts=options||{},factory=opts.idFactory||previousIdentity.createIdFactory();const base=previousIdentity.cloneFleetAsNew(normalizeContractModel(model),Object.assign({},opts,{idFactory:factory}));base.model.setups=(base.model.setups||[]).map(s=>{const x=clone(s);x.setup_instance_id=factory.next();if(x.subject_ref&&base.id_map.has(x.subject_ref.id))x.subject_ref.id=base.id_map.get(x.subject_ref.id);return x;});base.model=normalizeContractModel(base.model);base.validation=validateGlobalIds(base.model);if(!base.validation.ok)throw new Error("Cloned fleet has invalid or duplicate runtime IDs");return base;}
@@ -26630,7 +26824,7 @@ function bindRealtimeNavStats(){
     getComponents(selectionId,variantId){const existing=previousCatalog.getComponents(selectionId,variantId);if(existing&&existing.length)return existing;const generated=wizardComponent(selectionId,variantId);return generated?[generated]:[];},
     stats(){const base=previousCatalog.stats();const annualOnly=Object.values(STANDARD_WIZARD_VARIANTS).filter(v=>!v.availability.includes("core")).length;return Object.assign({},base,{variants:Number(base.variants||0)+annualOnly*6,components:Number(base.components||0)+annualOnly*6});}
   }));
-  const MowFleetDomain=Object.freeze(Object.assign({},previousDomain,{BUILD,createFleetModel,normalizeContractModel,materializeNorseSetups,setRoleName,setResourceName,setSetupResult,normalizeSetupEntries,cloneFleetAsNew}));
+  const MowFleetDomain=Object.freeze(Object.assign({},previousDomain,{BUILD,SETUP_DEF,isLegacyNorseSetup,analyzeLegacyNorseSetups,derivePreparedLegacySetups,createFleetModel,normalizeContractModel,materializeNorseSetups,setRoleName,setResourceName,setSetupResult,normalizeSetupEntries,cloneFleetAsNew}));
   const MowFleetReconciler=Object.freeze(Object.assign({},previousReconciler,{applySelection(model,request,options){const result=previousReconciler.applySelection(normalizeContractModel(model),request,Object.assign({},options||{},{catalog:MowContractCatalog}));result.model=normalizeContractModel(result.model);return result;}}));
   root.MowFleetIdentity=MowFleetIdentity;root.MowContractCatalog=MowContractCatalog;root.MowFleetDomain=MowFleetDomain;root.MowFleetReconciler=MowFleetReconciler;
   root.MOW_FLEET_RELEASE90_DOMAIN=Object.freeze({build:BUILD,identity:MowFleetIdentity,catalog:MowContractCatalog,domain:MowFleetDomain,reconciler:MowFleetReconciler});
@@ -27156,7 +27350,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 
   const BUILD=Object.freeze({
     app:"Man O' War Fleet Builder",
-    version:"1.8.1",
+    version:"1.8.2",
     build:"release90-2026-07-19",
     contract_version:"0.1.1",
     integration_expectations_version:"0.1.1"
@@ -27404,7 +27598,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
   const previous=root.MowFleetSemantic;if(!previous)throw new Error("RELEASE90_BASE_SEMANTIC_MISSING");
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",contract_schema:"mow.fleet",contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.2",build:"1.8.1-dev.13+fb-maint-04-maint04b-r1",contract_schema:"mow.fleet",contract_version:"0.1.2"});
   function clone(v){return v==null?v:JSON.parse(JSON.stringify(v));}
   function issue(code,message,path,severity,details){return {code,severity:severity||"error",path:path||"$",message,details:details||{}};}
   function sourceKey(s){return String(s&&s.source_ref&&s.source_ref.raw_external_key||"");}
@@ -27419,29 +27613,19 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const requiresStandardAdmiral=standardAdmiralFactions.has(String(model.identity&&model.identity.primary_faction_id||""));
     const admirals=(model.selections||[]).filter(s=>sourceKey(s).toLowerCase().endsWith(".admiral"));const admiralQty=admirals.reduce((n,s)=>n+Math.max(0,Number(s.quantity)||0),0);
     if(requiresStandardAdmiral&&admiralQty!==1)errors.push(issue("ADMIRAL_EXACTLY_ONE_REQUIRED","A standard fleet must contain exactly one Admiral.","$.selections","error",{actual:admiralQty,expected:1}));
-    const unitMap=new Map((model.units||[]).map(u=>[u.unit_instance_id,u]));const flagship=fleetFlagshipId(model);const setupSubjects=new Set();
-    (model.setups||[]).forEach((s,index)=>{
-      const path=`$.setups[${index}]`;const id=s&&s.subject_ref&&s.subject_ref.id;setupSubjects.add(id);const unit=unitMap.get(id);
-      if(!unit)errors.push(issue("SETUP_SUBJECT_MISSING","Setup refers to a missing unit.",`${path}.subject_ref.id`,"error",{unit_instance_id:id}));
-      else if(unit.unit_id!=="norse.kingship")errors.push(issue("SETUP_SUBJECT_NOT_KINGSHIP","Norse warrior draw may only target a Kingship.",`${path}.subject_ref.id`,"error",{unit_id:unit.unit_id}));
-      const expected=id===flagship?5:4;if(Number(s.expected_count)!==expected)errors.push(issue("SETUP_EXPECTED_COUNT_MISMATCH","Norse warrior draw count does not match flagship status.",`${path}.expected_count`,"error",{expected,actual:s.expected_count}));
-      const total=totalResult(s);
-      if(s.status==="resolved"&&total!==expected)errors.push(issue("SETUP_RESULT_COUNT_MISMATCH","Resolved Norse setup has an invalid number of warrior counters.",`${path}.result`,"error",{expected,actual:total}));
-      if(s.status==="pending"){
-        const e=issue("PRE_GAME_SETUP_PENDING","Norse Kingship warrior draw is still pending.",path,model.document_profile==="prepared_fleet"?"error":"warning",{setup_instance_id:s.setup_instance_id,expected_count:expected});(model.document_profile==="prepared_fleet"?errors:warnings).push(e);
-      }else if(s.status==="needs_review"){
-        const e=issue("PRE_GAME_SETUP_NEEDS_REVIEW","Norse Kingship warrior draw must be reviewed after a fleet change.",path,model.document_profile==="prepared_fleet"?"error":"warning",{setup_instance_id:s.setup_instance_id,expected_count:expected,actual:total});(model.document_profile==="prepared_fleet"?errors:warnings).push(e);
-      }
+    const legacySetupAnalysis=root.MowFleetDomain&&typeof root.MowFleetDomain.analyzeLegacyNorseSetups==="function"?root.MowFleetDomain.analyzeLegacyNorseSetups(model):[];
+    legacySetupAnalysis.filter(x=>x.legacy&&x.reasons&&x.reasons.length).forEach(entry=>{
+      warnings.push(issue("LEGACY_NORSE_SETUP_COMPATIBILITY","Legacy Norse Kingship warrior-draw metadata is preserved as inert compatibility data and is not a Fleet Builder task.",`$.setups[${entry.index}]`,"warning",{setup_instance_id:entry.setup_instance_id,subject_id:entry.subject_id,status:entry.status,reasons:entry.reasons,expected_count:entry.expected_count,stored_expected_count:entry.stored_expected_count,result_total:entry.result_total,duplicate_count:entry.duplicate_count}));
     });
-    (model.units||[]).filter(u=>u.unit_id==="norse.kingship").forEach(u=>{if(!setupSubjects.has(u.unit_instance_id))errors.push(issue("KINGSHIP_SETUP_MISSING","Kingship has no warrior draw setup.","$.setups","error",{unit_instance_id:u.unit_instance_id}));});
     const deathgalleySelection=(model.selections||[]).find(s=>sourceKey(s)==="Chaos.death_galleys"&&s.variant_id==="plaguefleet"),deathgalleyPowerIds=new Set(["khorne.deathgalley","nurgle.deathgalley","slaanesh.deathgalley","tzeentch.deathgalley"]),deathgalleyPending=[];
     if(deathgalleySelection)(model.squadrons||[]).filter(s=>s.origin_selection_instance_id===deathgalleySelection.selection_instance_id).forEach((squadron,index)=>{const path=`$.squadrons[${(model.squadrons||[]).indexOf(squadron)}]`,members=(model.units||[]).filter(unit=>unit.squadron_instance_id===squadron.squadron_instance_id);if(squadron.unit_id==="chaos_undivided.deathgalley"||!deathgalleyPowerIds.has(squadron.unit_id)){deathgalleyPending.push(squadron.squadron_instance_id);const entry=issue("DEATHGALLEY_CHAOS_POWER_REQUIRED","Each Plaguefleet Deathgalley squadron must choose one Chaos Power.",path,model.document_profile==="prepared_fleet"?"error":"warning",{squadron_instance_id:squadron.squadron_instance_id,selection_occurrence:squadron.selection_occurrence});(model.document_profile==="prepared_fleet"?errors:warnings).push(entry);}else if(members.some(unit=>unit.unit_id!==squadron.unit_id))errors.push(issue("DEATHGALLEY_SQUADRON_POWER_MISMATCH","All Deathgalleys in a squadron must use the same Chaos Power.",path,"error",{squadron_instance_id:squadron.squadron_instance_id,unit_ids:members.map(unit=>unit.unit_id)}));});
     const dedupe=list=>{const seen=new Set();return list.filter(x=>{const k=x.code+"|"+x.path+"|"+JSON.stringify(x.details||{});if(seen.has(k))return false;seen.add(k);return true;});};
-    const e=dedupe(errors),w=dedupe(warnings);const metrics=Object.assign({},base.metrics||{},{setups:(model.setups||[]).length,setups_pending:(model.setups||[]).filter(s=>s.status!=="resolved").length,deathgalley_power_pending:deathgalleyPending.length,admiral_quantity:admiralQty,requires_standard_admiral:requiresStandardAdmiral,annual_wizard_module_conflicts:annualWizardConflicts});
+    const legacySetupCount=legacySetupAnalysis.filter(x=>x.legacy).length,legacySetupAttention=legacySetupAnalysis.filter(x=>x.legacy&&x.reasons&&x.reasons.length).length;
+    const e=dedupe(errors),w=dedupe(warnings);const metrics=Object.assign({},base.metrics||{},{setups:(model.setups||[]).length,setups_pending:(model.setups||[]).filter(s=>!(root.MowFleetDomain&&root.MowFleetDomain.isLegacyNorseSetup&&root.MowFleetDomain.isLegacyNorseSetup(s))&&s.status!=="resolved").length,legacy_norse_setups:legacySetupCount,legacy_norse_setups_attention:legacySetupAttention,deathgalley_power_pending:deathgalleyPending.length,admiral_quantity:admiralQty,requires_standard_admiral:requiresStandardAdmiral,annual_wizard_module_conflicts:annualWizardConflicts});
     return Object.freeze(Object.assign({},base,{ok:e.length===0,status:e.length?"fail":"pass",errors:e,warnings:w,metrics,document:model}));
   }
   function assertValid(document,options){const report=validate(document,options);if(!report.ok){const first=report.errors[0],error=new Error(`mow.fleet semantic validation failed at ${first.path}: ${first.message}`);error.name="MowFleetSemanticValidationError";error.validation=report;throw error;}return report.document;}
-  function canExportPrepared(document){const copy=root.MowFleetDomain.normalizeContractModel(document);copy.document_profile="prepared_fleet";const report=validate(copy,{purchaseLegality:true,targetEligibility:true});return {ok:report.ok,report,document:copy};}
+  function canExportPrepared(document){let copy=root.MowFleetDomain.normalizeContractModel(document),compatibility={omitted_legacy_norse_setups:[]};if(root.MowFleetDomain&&typeof root.MowFleetDomain.derivePreparedLegacySetups==="function"){const derived=root.MowFleetDomain.derivePreparedLegacySetups(copy);copy=derived.model;compatibility.omitted_legacy_norse_setups=derived.omitted||[];}copy.document_profile="prepared_fleet";const report=validate(copy,{purchaseLegality:true,targetEligibility:true});return {ok:report.ok,report,document:copy,compatibility};}
   const api=Object.freeze(Object.assign({},previous,{BUILD,validate,assertValid,canExportPrepared}));root.MowFleetSemantic=api;root.MOW_FLEET_RELEASE90_SEMANTIC=api;
 })(typeof window!=="undefined"?window:globalThis);
 
@@ -27478,6 +27662,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 /* === RELEASE-90: transactional persistence migration to mow.fleet 0.1.2 === */
 (function(root){
   "use strict";
+  const CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_STORAGE;
   const LIBRARY_KEY="mow_fleet_library_v2",AUTOSAVE_KEY="mow_fleet_autosave_v2",MIGRATION_KEY="mow_fleet_contract_0_1_2_migration_v1",BACKUP_KEY="mow_fleet_contract_0_1_2_backup_v1",STAGE_LIB="mow_fleet_library_v2_release90_stage",STAGE_AUTO="mow_fleet_autosave_v2_release90_stage";
   function clone(v){return v==null?v:JSON.parse(JSON.stringify(v));}
   function read(key){try{const v=localStorage.getItem(key);return v==null?null:JSON.parse(v);}catch(e){return null;}}
@@ -27501,24 +27686,30 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     return report;
   }
   function attachApi(){const api=root.MOW_FLEET_LIBRARY;if(!api)return false;api.ensureContract012Persistence=runMigration;api.getContract012MigrationReport=()=>read(MIGRATION_KEY);api.keys=Object.assign({},api.keys||{},{CONTRACT_012_MIGRATION_KEY:MIGRATION_KEY,CONTRACT_012_BACKUP_KEY:BACKUP_KEY});return true;}
-  // Run the contract migration immediately while the original 0.1.0/0.1.1
-  // storage bytes are still untouched by older compatibility modules. This keeps
-  // the rollback backup byte-for-byte faithful to the user's incoming library.
-  const bootReport=runMigration();
-  function init(){setTimeout(()=>{attachApi();try{const current=root.MOW_FLEET_INT1C_STEP83&&root.MOW_FLEET_INT1C_STEP83.getCurrentModel&&root.MOW_FLEET_INT1C_STEP83.getCurrentModel();if(current&&current.schema_version!=="0.1.2")root.MOW_FLEET_INT1C_STEP83.importNativeModel(root.MowFleetDomain.normalizeContractModel(current),{render:true,ensure_structure:false,command:"contract_0_1_2_live_migration"});}catch(e){}},780);}
-  root.MOW_FLEET_RELEASE90_PERSISTENCE=Object.freeze({runMigration,bootReport,keys:{MIGRATION_KEY,BACKUP_KEY}});if(root.document){if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",init,{once:true});else init();}
+  // In central-storage mode B7 owns when migration/attachment is started. This
+  // module remains the accepted transaction/migration service and must not own
+  // an autonomous delayed lifecycle.
+  let bootReport=CENTRALIZED?null:runMigration();
+  function migrateLiveModel(){
+    try{const current=root.MOW_FLEET_INT1C_STEP83&&root.MOW_FLEET_INT1C_STEP83.getCurrentModel&&root.MOW_FLEET_INT1C_STEP83.getCurrentModel();if(current&&current.schema_version!=="0.1.2")root.MOW_FLEET_INT1C_STEP83.importNativeModel(root.MowFleetDomain.normalizeContractModel(current),{render:true,ensure_structure:false,command:"contract_0_1_2_live_migration"});}catch(e){}
+  }
+  function prepareCentralStorage(){bootReport=runMigration();attachApi();migrateLiveModel();return bootReport;}
+  function init(){if(CENTRALIZED)return;setTimeout(()=>{attachApi();migrateLiveModel();},780);}
+  const api={runMigration,prepareCentralStorage,attachApi,autonomous:!CENTRALIZED,get bootReport(){return bootReport;},keys:{MIGRATION_KEY,BACKUP_KEY}};
+  root.MOW_FLEET_RELEASE90_PERSISTENCE=Object.freeze(api);if(root.document){if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",init,{once:true});else init();}
 })(typeof window!=="undefined"?window:globalThis);
 
 
 /* === RELEASE-90: scalable Fleet Setup workspace + character/resource names === */
 (function(root){
   "use strict";
+  const CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_FLEET_SETUP;
   const NS="mow.builder",ASSIGNMENT_TYPES=new Set(["fleet_designation_to_unit","squadron_designation_to_unit","role_to_unit","resource_to_unit"]);
   const RESOURCE_NAME_PROFILE=Object.freeze({"upgrade.skaven.eshin_assassin":"skaven.eshin_assassin","upgrade.skaven.rat_ogres":"skaven.rat_ogre"});
   const DEATHGALLEY_POWER_UNIT_IDS=Object.freeze({khorne:"khorne.deathgalley",nurgle:"nurgle.deathgalley",slaanesh:"slaanesh.deathgalley",tzeentch:"tzeentch.deathgalley"});
   const ROLE_LABELS=Object.freeze({"role.chaos.pf_lord_khorne":"Chaos Lord of Khorne","role.chaos.pf_lord_nurgle":"Chaos Lord of Nurgle","role.chaos.pf_lord_slaanesh":"Chaos Lord of Slaanesh","role.chaos.pf_lord_tzeentch":"Chaos Lord of Tzeentch","role.chaos.sorcerer":"Chaos Sorcerer"});
   const UNIT_LABELS=Object.freeze({"khorne.bloodship":"Khorne Bloodship","nurgle.plagueship":"Nurgle Plagueship","slaanesh.hellship":"Slaanesh Hellship","tzeentch.great_winged_terror":"Tzeentch Great Winged Terror","tzeentch.bane_tower":"Bane Tower of Tzeentch"});
-  const TEXT={pl:{button:"Przygotowanie floty",title:"PRZYGOTOWANIE FLOTY",hint:"Flagshipy, postacie, specjalna załoga i zadania przed grą.",close:"Zamknij",fleet:"Flagship floty",squadrons:"Flagshipy squadronów",deathgalleys:"Moce Chaosu — Deathgalleys",chaosPower:"Moc Chaosu",choosePower:"— wybierz Moc Chaosu —",command:"Postacie i dowództwo",resources:"Specjalna załoga i ulepszenia",setups:"Zadania przed grą",choose:"— wybierz legalny okręt —",later:"— ustal przed grą —",none:"Brak elementów w tej sekcji.",pending:"wymaga decyzji",ready:"gotowe",name:"Imię",generate:"Losuj",reroll:"Losuj ponownie",manual:"Wpisz ręcznie lub wylosuj",noTargets:"Brak legalnych celów",assigned:"Przypisano",fixedTarget:"Przypisany okręt",draw:"Losuj teraz",save:"Zapisz wynik",clear:"Wyczyść wynik",expected:"Liczba żetonów",ulf:"Ulfwerener",bers:"Berserkers",bond:"Bondsmen",husc:"Huscarls",sum:"Razem",invalid:"Wymaga sprawdzenia"},en:{button:"Fleet setup",title:"FLEET SETUP",hint:"Flagships, characters, special crew and pre-game tasks.",close:"Close",fleet:"Fleet flagship",squadrons:"Squadron flagships",deathgalleys:"Chaos Powers — Deathgalleys",chaosPower:"Chaos Power",choosePower:"— choose Chaos Power —",command:"Characters and command",resources:"Special crew and upgrades",setups:"Pre-game tasks",choose:"— choose a legal vessel —",later:"— decide before game —",none:"No items in this section.",pending:"needs attention",ready:"ready",name:"Name",generate:"Generate",reroll:"Reroll",manual:"Type manually or generate",noTargets:"No legal targets",assigned:"Assigned",fixedTarget:"Assigned vessel",draw:"Draw now",save:"Save result",clear:"Clear result",expected:"Counters required",ulf:"Ulfwerener",bers:"Berserkers",bond:"Bondsmen",husc:"Huscarls",sum:"Total",invalid:"Needs review"}};
+  const TEXT={pl:{button:"Przygotowanie floty",title:"PRZYGOTOWANIE FLOTY",hint:"Flagshipy, postacie, specjalna załoga i zadania przed grą.",close:"Zamknij",fleet:"Flagship floty",squadrons:"Flagshipy squadronów",deathgalleys:"Moce Chaosu — Deathgalleys",chaosPower:"Moc Chaosu",choosePower:"— wybierz Moc Chaosu —",command:"Postacie i dowództwo",resources:"Specjalna załoga i ulepszenia",setups:"Zadania przed grą",choose:"— wybierz legalny okręt —",later:"— ustal przed grą —",none:"Brak elementów w tej sekcji.",pending:"wymaga decyzji",ready:"gotowe",name:"Imię",generate:"Losuj",reroll:"Losuj ponownie",manual:"Wpisz ręcznie lub wylosuj",noTargets:"Brak legalnych celów",assigned:"Przypisano",fixedTarget:"Przypisany okręt",invalid:"Wymaga sprawdzenia"},en:{button:"Fleet setup",title:"FLEET SETUP",hint:"Flagships, characters, special crew and pre-game tasks.",close:"Close",fleet:"Fleet flagship",squadrons:"Squadron flagships",deathgalleys:"Chaos Powers — Deathgalleys",chaosPower:"Chaos Power",choosePower:"— choose Chaos Power —",command:"Characters and command",resources:"Special crew and upgrades",setups:"Pre-game tasks",choose:"— choose a legal vessel —",later:"— decide before game —",none:"No items in this section.",pending:"needs attention",ready:"ready",name:"Name",generate:"Generate",reroll:"Reroll",manual:"Type manually or generate",noTargets:"No legal targets",assigned:"Assigned",fixedTarget:"Assigned vessel",invalid:"Needs review"}};
   let initialized=false,renderTimer=null,focusRequest=null,resourceGenerator=null;
   function lang(){return root.MOW_I18N&&root.MOW_I18N.getLang&&root.MOW_I18N.getLang()==="en"?"en":"pl";}
   function tr(k){return (TEXT[lang()]||TEXT.pl)[k]||k;}
@@ -27578,25 +27769,27 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function assignmentRow(m,a,label,nameEditor,fixedTarget,detail){const o=targetOptions(m,a),state=a.status==="resolved"?tr("assigned"):a.extensions&&a.extensions[NS]&&a.extensions[NS].state==="needs_review"?tr("invalid"):tr("pending"),dependencyHint=o.result.dependency_unresolved&&a.applicability_ref==="assignment_rule.orcs.squadron_shaman.squadron_flagship"?(lang()==="en"?"Choose this squadron flagship above first.":"Najpierw wybierz wyżej okręt flagowy tego squadronu."):tr("noTargets"),fixed=fixedTarget&&o.result.candidates.length===1?`<div class="mow-r90-fixed-target"><small>${esc(tr("fixedTarget"))}</small><strong>${esc(unitLabel(m,o.result.candidates[0]))}</strong></div>`:`<select data-r90-assignment-select="${esc(a.assignment_id)}" ${!o.result.candidates.length?"disabled":""}>${o.html}</select>${!o.result.candidates.length?`<small>${esc(dependencyHint)}</small>`:""}`;return `<div class="mow-r90-row" data-r90-assignment="${esc(a.assignment_id)}"><div class="mow-r90-rowhead"><strong>${esc(label)}</strong><span class="mow-r90-state ${a.status==="resolved"?"ok":"warn"}">${esc(state)}</span></div>${detail?`<small class="mow-r90-role-detail">${esc(detail)}</small>`:""}${nameEditor||""}${fixed}</div>`;}
   function nameEditor(kind,id,value,nameable,generatorAvailable){if(!nameable)return "";const generate=generatorAvailable?`<button type="button" data-r90-generate-kind="${kind}" data-r90-generate-id="${esc(id)}">${esc(value?tr("reroll"):tr("generate"))}</button>`:"";return `<div class="mow-r90-name ${generatorAvailable?"":"manual-only"}"><label>${esc(tr("name"))}<input type="text" maxlength="200" value="${esc(value||"")}" placeholder="${esc(tr("manual"))}" data-r90-name-kind="${kind}" data-r90-name-id="${esc(id)}"></label>${generate}</div>`;}
   function group(title,rows,key,pending){if(!rows.length)return "";return `<details class="mow-r90-group" data-r90-group="${key}" ${pending?"open":""}><summary><span>${esc(title)}</span><b>${rows.length}</b></summary><div class="mow-r90-groupbody">${rows.join("")}</div></details>`;}
-  function setupRow(m,s){const u=byId(m.units,"unit_instance_id",s.subject_ref.id),counts={};(s.result&&s.result.entries||[]).forEach(x=>counts[x.definition_id]=x.quantity);const total=Object.values(counts).reduce((n,x)=>n+Number(x||0),0);return `<div class="mow-r90-row" data-r90-setup="${esc(s.setup_instance_id)}"><div class="mow-r90-rowhead"><strong>${esc(unitLabel(m,u))}</strong><span class="mow-r90-state ${s.status==="resolved"?"ok":"warn"}">${esc(s.status==="resolved"?tr("ready"):s.status==="needs_review"?tr("invalid"):tr("pending"))}</span></div><p>${esc(tr("expected"))}: <b>${s.expected_count}</b></p><small>${esc(lang()==="en"?"Draw physical counters from the shared cup according to the rules, then record the result here.":"Wylosuj fizyczne żetony ze wspólnej puli zgodnie z zasadami, a następnie wpisz tutaj wynik.")}</small><div class="mow-r90-counters">${[["norse.warrior.ulfwerener","ulf"],["norse.warrior.berserker","bers"],["norse.warrior.bondsman","bond"],["norse.warrior.huscarl","husc"]].map(([id,k])=>`<label>${esc(tr(k))}<input type="number" min="0" max="5" value="${counts[id]||0}" data-r90-counter="${id}" data-r90-setup-id="${esc(s.setup_instance_id)}"></label>`).join("")}</div><p>${esc(tr("sum"))}: <b data-r90-total="${esc(s.setup_instance_id)}">${total}/${s.expected_count}</b></p><div class="mow-r90-actions"><button type="button" data-r90-save="${esc(s.setup_instance_id)}">${esc(tr("save"))}</button>${s.result?`<button type="button" data-r90-clear="${esc(s.setup_instance_id)}">${esc(tr("clear"))}</button>`:""}</div></div>`;}
   function render(){const modal=root.document&&root.document.getElementById("mowFleetSetupModal");if(!modal)return;const m=model();if(!m){modal.querySelector(".mow-r90-content").innerHTML="";return;}const relevant=(m.assignments||[]).filter(a=>ASSIGNMENT_TYPES.has(a.assignment_type)),deathgalleys=chaosVariant(m)==="plaguefleet"?deathgalleySquadrons(m):[];const fleet=[],squads=[],roles=[],resources=[];
     relevant.forEach(a=>{if(a.assignment_type==="fleet_designation_to_unit")fleet.push(assignmentRow(m,a,tr("fleet"),""));else if(a.assignment_type==="squadron_designation_to_unit"){const s=byId(m.squadrons,"squadron_instance_id",a.subject_ref.id);squads.push(assignmentRow(m,a,`${human(s&&s.unit_id)} #${s&&s.selection_occurrence||1}`,""));}else if(a.assignment_type==="role_to_unit"){const r=byId(m.roles,"role_instance_id",a.subject_ref.id);if(r){const cap=roleNameCapability(m,r);roles.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable),r.role_id==="role.chaos.sorcerer",roleRulesSummary(m,r)));}}else if(a.assignment_type==="resource_to_unit"){const r=byId(m.resources,"resource_instance_id",a.subject_ref.id);if(r){const cap=resourceNameCapability(m,r);resources.push(assignmentRow(m,a,labelFromSource(m,r),nameEditor("resource",r.resource_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)));}}});
     (m.roles||[]).filter(r=>!assignmentFor(m,"role_instance",r.role_instance_id)&&roleNameCapability(m,r).nameable).forEach(r=>{const cap=roleNameCapability(m,r);roles.push(`<div class="mow-r90-row"><div class="mow-r90-rowhead"><strong>${esc(labelFromSource(m,r))}</strong></div>${roleRulesSummary(m,r)?`<small class="mow-r90-role-detail">${esc(roleRulesSummary(m,r))}</small>`:""}${nameEditor("role",r.role_instance_id,r.custom_name,cap.nameable,cap.generatorAvailable)}</div>`);});
-    const deathgalleyRows=deathgalleys.map(deathgalleyRow),setups=(m.setups||[]).map(s=>setupRow(m,s));const pending=relevant.filter(a=>a.status!=="resolved").length+(m.setups||[]).filter(s=>s.status!=="resolved").length+deathgalleys.filter(s=>!deathgalleyPower(s)).length,total=relevant.length+(m.setups||[]).length+deathgalleys.length;
+    const deathgalleyRows=deathgalleys.map(deathgalleyRow);const pending=relevant.filter(a=>a.status!=="resolved").length+deathgalleys.filter(s=>!deathgalleyPower(s)).length,total=relevant.length+deathgalleys.length;
     modal.querySelector(".mow-r90-title").textContent=tr("title");modal.querySelector(".mow-r90-hint").textContent=tr("hint");modal.querySelector(".mow-r90-close").textContent=tr("close");
-    modal.querySelector(".mow-r90-content").innerHTML=group(tr("fleet"),fleet,"fleet",fleet.some(x=>true)&&relevant.some(a=>a.assignment_type==="fleet_designation_to_unit"&&a.status!=="resolved"))+group(tr("deathgalleys"),deathgalleyRows,"deathgalleys",deathgalleys.some(s=>!deathgalleyPower(s)))+group(tr("squadrons"),squads,"squadrons",relevant.some(a=>a.assignment_type==="squadron_designation_to_unit"&&a.status!=="resolved"))+group(tr("command"),roles,"roles",relevant.some(a=>a.assignment_type==="role_to_unit"&&a.status!=="resolved"))+group(tr("resources"),resources,"resources",relevant.some(a=>a.assignment_type==="resource_to_unit"&&a.status!=="resolved"))+group(tr("setups"),setups,"setups",(m.setups||[]).some(s=>s.status!=="resolved"));
+    modal.querySelector(".mow-r90-content").innerHTML=group(tr("fleet"),fleet,"fleet",fleet.some(x=>true)&&relevant.some(a=>a.assignment_type==="fleet_designation_to_unit"&&a.status!=="resolved"))+group(tr("deathgalleys"),deathgalleyRows,"deathgalleys",deathgalleys.some(s=>!deathgalleyPower(s)))+group(tr("squadrons"),squads,"squadrons",relevant.some(a=>a.assignment_type==="squadron_designation_to_unit"&&a.status!=="resolved"))+group(tr("command"),roles,"roles",relevant.some(a=>a.assignment_type==="role_to_unit"&&a.status!=="resolved"))+group(tr("resources"),resources,"resources",relevant.some(a=>a.assignment_type==="resource_to_unit"&&a.status!=="resolved"));
     const btn=root.document.getElementById("mowFleetSetupButton");if(btn){btn.querySelector(".mow-r90-btnlabel").textContent=tr("button");btn.querySelector(".mow-r90-badge").textContent=total?`${total-pending}/${total}`:"—";btn.title=pending?`${pending} ${tr("pending")}`:tr("ready");btn.classList.toggle("has-pending",pending>0);}
-    wireRows();if(focusRequest){const el=modal.querySelector(focusRequest.assignmentId?`[data-r90-assignment="${CSS.escape(focusRequest.assignmentId)}"]`:focusRequest.setupId?`[data-r90-setup="${CSS.escape(focusRequest.setupId)}"]`:null);if(el){el.closest("details")?.setAttribute("open","");setTimeout(()=>el.scrollIntoView({block:"center"}),20);}focusRequest=null;}
+    wireRows();if(focusRequest){const el=modal.querySelector(focusRequest.assignmentId?`[data-r90-assignment="${CSS.escape(focusRequest.assignmentId)}"]`:null);if(el){el.closest("details")?.setAttribute("open","");setTimeout(()=>el.scrollIntoView({block:"center"}),20);}focusRequest=null;}
   }
-  function wireRows(){const modal=root.document.getElementById("mowFleetSetupModal");modal.querySelectorAll("[data-r90-assignment-select]").forEach(el=>el.onchange=()=>updateAssignment(el.dataset.r90AssignmentSelect,el.value));modal.querySelectorAll("[data-r90-deathgalley-power]").forEach(el=>el.onchange=()=>setDeathgalleyPower(el.dataset.r90DeathgalleyPower,el.value));modal.querySelectorAll("[data-r90-name-id]").forEach(el=>el.onchange=()=>setName(el.dataset.r90NameKind,el.dataset.r90NameId,el.value));modal.querySelectorAll("[data-r90-generate-id]").forEach(el=>el.onclick=()=>generateName(el.dataset.r90GenerateKind,el.dataset.r90GenerateId));modal.querySelectorAll("[data-r90-clear]").forEach(el=>el.onclick=()=>{const m=model();commit(root.MowFleetDomain.setSetupResult(m,el.dataset.r90Clear,null),"release90_setup_clear");});modal.querySelectorAll("[data-r90-counter]").forEach(el=>el.oninput=()=>{const id=el.dataset.r90SetupId,inputs=modal.querySelectorAll(`[data-r90-setup-id="${CSS.escape(id)}"]`),total=Array.from(inputs).reduce((n,x)=>n+Math.max(0,Number(x.value)||0),0),target=modal.querySelector(`[data-r90-total="${CSS.escape(id)}"]`),setup=(model().setups||[]).find(x=>x.setup_instance_id===id);if(target&&setup)target.textContent=`${total}/${setup.expected_count}`;});modal.querySelectorAll("[data-r90-save]").forEach(el=>el.onclick=()=>{const m=model(),id=el.dataset.r90Save,inputs=modal.querySelectorAll(`[data-r90-setup-id="${CSS.escape(id)}"]`),entries=Array.from(inputs).map(x=>({definition_id:x.dataset.r90Counter,quantity:Math.max(0,Number(x.value)||0)})).filter(x=>x.quantity);commit(root.MowFleetDomain.setSetupResult(m,id,entries),"release90_setup_manual");});}
-  function installCss(){const style=root.document.createElement("style");style.textContent=`body.mow-r90-open{overflow:hidden}.mow-r90-button{display:inline-flex!important;align-items:center;gap:8px}.mow-r90-badge{min-width:38px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;font-weight:800}.mow-r90-button.has-pending .mow-r90-badge{background:#7d4d12;color:#ffe4b5}.mow-r90-modal{position:fixed;inset:0;z-index:10050;display:none}.mow-r90-modal.is-open{display:block}.mow-r90-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.68)}.mow-r90-panel{position:absolute;top:4vh;bottom:4vh;left:50%;transform:translateX(-50%);width:min(82vw,1200px);background:#15181e;border:1px solid rgba(255,255,255,.2);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 24px 80px #000}.mow-r90-head{display:flex;gap:20px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.12)}.mow-r90-head h2{margin:0}.mow-r90-hint{margin:5px 0 0;color:#b8c0cd}.mow-r90-close{margin-left:auto}.mow-r90-content{padding:18px 22px;overflow:auto}.mow-r90-group{border:1px solid rgba(255,255,255,.13);border-radius:12px;margin-bottom:14px;background:rgba(255,255,255,.025)}.mow-r90-group summary{cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;font-weight:800}.mow-r90-groupbody{padding:0 14px 14px}.mow-r90-row{border-top:1px solid rgba(255,255,255,.1);padding:14px 2px}.mow-r90-row:first-child{border-top:0}.mow-r90-rowhead{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:9px}.mow-r90-state{font-size:12px;padding:3px 8px;border-radius:999px;background:#684414}.mow-r90-state.ok{background:#225837}.mow-r90-row select,.mow-r90-row input{width:100%;box-sizing:border-box}.mow-r90-power-label{display:grid;gap:5px}.mow-r90-fixed-target{display:grid;gap:4px;padding:10px 12px;border:1px solid rgba(255,255,255,.13);border-radius:9px;background:rgba(255,255,255,.035)}.mow-r90-fixed-target small{margin:0;color:#aeb7c5}.mow-r90-name{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end;margin-bottom:10px}.mow-r90-name label{display:grid;gap:5px}.mow-r90-counters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.mow-r90-counters label{display:grid;gap:5px}.mow-r90-actions{display:flex;gap:8px}.mow-r90-row small{display:block;margin-top:5px;color:#f0b873}@media(max-width:760px){.mow-r90-panel{inset:0;width:100%;transform:none;border-radius:0}.mow-r90-head{padding:14px}.mow-r90-content{padding:12px}.mow-r90-counters{grid-template-columns:1fr 1fr}.mow-r90-name{grid-template-columns:1fr}.mow-r90-name button{width:100%}}`;root.document.head.appendChild(style);}
+  function wireRows(){const modal=root.document.getElementById("mowFleetSetupModal");modal.querySelectorAll("[data-r90-assignment-select]").forEach(el=>el.onchange=()=>updateAssignment(el.dataset.r90AssignmentSelect,el.value));modal.querySelectorAll("[data-r90-deathgalley-power]").forEach(el=>el.onchange=()=>setDeathgalleyPower(el.dataset.r90DeathgalleyPower,el.value));modal.querySelectorAll("[data-r90-name-id]").forEach(el=>el.onchange=()=>setName(el.dataset.r90NameKind,el.dataset.r90NameId,el.value));modal.querySelectorAll("[data-r90-generate-id]").forEach(el=>el.onclick=()=>generateName(el.dataset.r90GenerateKind,el.dataset.r90GenerateId));}
+  function installCss(){const style=root.document.createElement("style");style.textContent=`body.mow-r90-open{overflow:hidden}.mow-r90-button{display:inline-flex!important;align-items:center;gap:8px}.mow-r90-badge{min-width:38px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;font-weight:800}.mow-r90-button.has-pending .mow-r90-badge{background:#7d4d12;color:#ffe4b5}.mow-r90-modal{position:fixed;inset:0;z-index:10050;display:none}.mow-r90-modal.is-open{display:block}.mow-r90-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.68)}.mow-r90-panel{position:absolute;top:4vh;bottom:4vh;left:50%;transform:translateX(-50%);width:min(82vw,1200px);background:#15181e;border:1px solid rgba(255,255,255,.2);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 24px 80px #000}.mow-r90-head{display:flex;gap:20px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.12)}.mow-r90-head h2{margin:0}.mow-r90-hint{margin:5px 0 0;color:#b8c0cd}.mow-r90-close{margin-left:auto}.mow-r90-content{padding:18px 22px;overflow:auto}.mow-r90-group{border:1px solid rgba(255,255,255,.13);border-radius:12px;margin-bottom:14px;background:rgba(255,255,255,.025)}.mow-r90-group summary{cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;font-weight:800}.mow-r90-groupbody{padding:0 14px 14px}.mow-r90-row{border-top:1px solid rgba(255,255,255,.1);padding:14px 2px}.mow-r90-row:first-child{border-top:0}.mow-r90-rowhead{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:9px}.mow-r90-state{font-size:12px;padding:3px 8px;border-radius:999px;background:#684414}.mow-r90-state.ok{background:#225837}.mow-r90-row select,.mow-r90-row input{width:100%;box-sizing:border-box}.mow-r90-power-label{display:grid;gap:5px}.mow-r90-fixed-target{display:grid;gap:4px;padding:10px 12px;border:1px solid rgba(255,255,255,.13);border-radius:9px;background:rgba(255,255,255,.035)}.mow-r90-fixed-target small{margin:0;color:#aeb7c5}.mow-r90-name{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end;margin-bottom:10px}.mow-r90-name label{display:grid;gap:5px}.mow-r90-row small{display:block;margin-top:5px;color:#f0b873}@media(max-width:760px){.mow-r90-panel{inset:0;width:100%;transform:none;border-radius:0}.mow-r90-head{padding:14px}.mow-r90-content{padding:12px}.mow-r90-name{grid-template-columns:1fr}.mow-r90-name button{width:100%}}`;root.document.head.appendChild(style);}
   function buildUi(){const host=root.document.createElement("div");host.innerHTML=`<div class="mow-r90-modal" id="mowFleetSetupModal" aria-hidden="true" role="dialog" aria-modal="true"><div class="mow-r90-backdrop" data-r90-close></div><div class="mow-r90-panel"><div class="mow-r90-head"><div><h2 class="mow-r90-title"></h2><p class="mow-r90-hint"></p></div><button type="button" class="mow-r90-close" data-r90-close></button></div><div class="mow-r90-content"></div></div></div>`;root.document.body.appendChild(host.firstElementChild);installButton();root.document.querySelectorAll("[data-r90-close]").forEach(el=>el.onclick=close);}
   function installButton(){const bar=root.document.querySelector("#mowFleetActionsBar .mow-fleet-actions-main");if(!bar||root.document.getElementById("mowFleetSetupButton"))return false;const btn=root.document.createElement("button");btn.type="button";btn.id="mowFleetSetupButton";btn.className="mow-r90-button";btn.innerHTML=`<span class="mow-r90-btnlabel"></span><span class="mow-r90-badge">—</span>`;const help=root.document.getElementById("mowOpenHelp");bar.insertBefore(btn,help||null);btn.onclick=()=>open();return true;}
   function open(options){focusRequest=options||null;prepare();const modal=root.document.getElementById("mowFleetSetupModal");if(!modal)return;modal.classList.add("is-open");modal.setAttribute("aria-hidden","false");root.document.body.classList.add("mow-r90-open");render();}
   function close(){const modal=root.document.getElementById("mowFleetSetupModal");if(modal){modal.classList.remove("is-open");modal.setAttribute("aria-hidden","true");}root.document.body.classList.remove("mow-r90-open");}
   function schedule(){clearTimeout(renderTimer);renderTimer=setTimeout(()=>{installButton();render();},30);}
   function init(){if(initialized||!root.document)return;initialized=true;installCss();buildUi();let tries=0;const timer=setInterval(()=>{if(installButton()||++tries>30)clearInterval(timer);},100);root.document.addEventListener("mow:nativefleetmodelchange",schedule);["langPL","langEN"].forEach(id=>root.document.getElementById(id)?.addEventListener("click",()=>setTimeout(render,30)));setTimeout(()=>{prepare();render();},650);}
-  const api=Object.freeze({build:"release90-2026-07-19",open,close,render,RESOURCE_NAME_PROFILE});root.MowFleetSetup=api;root.MOW_FLEET_RELEASE90_SETUP=api;if(root.document){if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",init,{once:true});else init();}
+  const commands=Object.freeze({build:"release90-2026-07-19",currentModel:model,prepare,updateAssignment,setDeathgalleyPower,generateName,setName,roleNameCapability,resourceNameCapability,deathgalleySquadrons,deathgalleyPower,targetOptions,unitLabel,labelFromSource,RESOURCE_NAME_PROFILE});
+  const api=Object.freeze({build:"release90-2026-07-19",open,close,render,prepare,commands,RESOURCE_NAME_PROFILE});
+  root.MowFleetSetupCommands=commands;root.MOW_FLEET_RELEASE90_SETUP_COMMANDS=commands;root.MowFleetSetup=api;root.MOW_FLEET_RELEASE90_SETUP=api;
+  if(root.document&&!CENTRALIZED){if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",init,{once:true});else init();}
 })(typeof window!=="undefined"?window:globalThis);
 
 
@@ -27604,12 +27797,13 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
 
-  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.1",build:"fbmaint02-release-r1-2026-07-30",contract_version:"0.1.2"});
+  const BUILD=Object.freeze({app:"Man O' War Fleet Builder",version:"1.8.2",build:"1.8.1-dev.13+fb-maint-04-maint04b-r1",contract_version:"0.1.2"});
   const MAX_IMPORT_BYTES=5*1024*1024;
   const LEGACY_PREFIX="MOWFLEET1:";
   const PORTABLE_MIME="application/vnd.mow.fleet+json";
   const PORTABLE_EXTENSION=".mowfleet.json";
   const BUILDER_NS="mow.builder";
+  const CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_IMPORT_EXPORT_SHARE;
   let lastImportDescriptor=null;
   let lastExportDescriptor=null;
   let initialized=false;
@@ -27628,7 +27822,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       sourceNative:"Natywny mow.fleet",sourceLegacy:"Legacy mow-fleet-export v2",sourceUnknown:"Nieznany format",fileTooLarge:"Plik jest zbyt duży.",
       invalidInput:"Nie udało się odczytać danych wejściowych.",downloaded:"Pobrano plik floty",profileDowngraded:"Przygotowana flota została otwarta jako edytowalna kopia builder_export.",
       metrics:"Zawartość",points:"punktów",reidentified:"Wygenerowano nowych ID",migration:"Migracja wersji",
-      setupActionTitle:"Do uzupełnienia w Przygotowaniu floty",setupActionText:"Uzupełnij flagshipy i przypisania postaci w sekcji Przygotowanie floty. Lista robocza nadal może zostać wyeksportowana.",openFleetSetup:"Przejdź do Przygotowania floty",technicalWarnings:"Szczegóły techniczne",otherWarnings:"Pozostałe ostrzeżenia"
+      setupActionTitle:"Do uzupełnienia w Przygotowaniu floty",setupActionText:"Uzupełnij flagshipy i przypisania postaci w sekcji Przygotowanie floty. Lista robocza nadal może zostać wyeksportowana.",openFleetSetup:"Przejdź do Przygotowania floty",technicalWarnings:"Szczegóły techniczne",otherWarnings:"Pozostałe ostrzeżenia",legacyNorseSetupOmitted:"Pominięto legacy dane losowej załogi Norse Kingship wyłącznie w pochodnym prepared_fleet; źródłowa flota Buildera nie została zmieniona."
     },
     en:{
       exportButton:"Export fleet",importButton:"Import fleet",
@@ -27643,7 +27837,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       sourceNative:"Native mow.fleet",sourceLegacy:"Legacy mow-fleet-export v2",sourceUnknown:"Unknown format",fileTooLarge:"The file is too large.",
       invalidInput:"The input could not be read.",downloaded:"Fleet file downloaded",profileDowngraded:"The prepared fleet was opened as an editable builder_export copy.",
       metrics:"Contents",points:"points",reidentified:"New IDs generated",migration:"Version migration",
-      setupActionTitle:"Complete in Fleet Setup",setupActionText:"Choose flagships and character hosts in the Fleet Setup section. The editable builder roster can still be exported.",openFleetSetup:"Open Fleet Setup",technicalWarnings:"Technical details",otherWarnings:"Other warnings"
+      setupActionTitle:"Complete in Fleet Setup",setupActionText:"Choose flagships and character hosts in the Fleet Setup section. The editable builder roster can still be exported.",openFleetSetup:"Open Fleet Setup",technicalWarnings:"Technical details",otherWarnings:"Other warnings",legacyNorseSetupOmitted:"Legacy Norse Kingship random-crew metadata was omitted only from the derived prepared_fleet; the source Builder fleet was not modified."
     }
   };
 
@@ -27809,8 +28003,18 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   }
 
   function buildExportDocument(model,profile){
-    const document=domain().bindCurrentRulesetRef(enrichTargets(domain().normalizeContractModel(model)));
-    document.document_profile=profile==="prepared_fleet"?"prepared_fleet":"builder_export";
+    const desiredProfile=profile==="prepared_fleet"?"prepared_fleet":"builder_export";
+    const sourceDocument=domain().bindCurrentRulesetRef(enrichTargets(domain().normalizeContractModel(model)));
+    sourceDocument.document_profile="builder_export";
+    sourceDocument.producer={app:BUILD.app,version:BUILD.version,build:BUILD.build};
+    delete sourceDocument.validation;
+    const sourceStructural=contract().validate(sourceDocument,{maxErrors:300});
+    let document=clone(sourceDocument),compatibilityWarnings=[],omittedLegacy=[];
+    if(desiredProfile==="prepared_fleet"&&sourceStructural.ok&&typeof domain().derivePreparedLegacySetups==="function"){
+      const derived=domain().derivePreparedLegacySetups(document);document=derived.model;omittedLegacy=derived.omitted||[];
+      if(omittedLegacy.length)compatibilityWarnings.push(issue("LEGACY_NORSE_SETUP_OMITTED_FROM_PREPARED",tr("legacyNorseSetupOmitted"),"$.setups","warning",{omitted_count:omittedLegacy.length,omitted:omittedLegacy.map(x=>({setup_instance_id:x.setup_instance_id,subject_id:x.subject_id,reasons:x.reasons}))}));
+    }
+    document.document_profile=desiredProfile;
     document.producer={app:BUILD.app,version:BUILD.version,build:BUILD.build};
     delete document.validation;
     const structural=contract().validate(document,{maxErrors:300});
@@ -27818,8 +28022,9 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const content=JSON.stringify(document,null,2);
     const descriptor={
       ok:structural.ok&&semanticReport.ok,document,profile:document.document_profile,structural,semantic:semanticReport,
-      errors:semanticReport.errors.slice(),warnings:appendRoundTripWarnings(document,semanticReport.warnings),created_at:nowIso(),
-      filename:portableFilename(document),mime_type:PORTABLE_MIME,byte_length:utf8Bytes(content),content
+      errors:semanticReport.errors.slice(),warnings:appendRoundTripWarnings(document,compatibilityWarnings.concat(semanticReport.warnings)),created_at:nowIso(),
+      filename:portableFilename(document),mime_type:PORTABLE_MIME,byte_length:utf8Bytes(content),content,
+      compatibility:{source_structural_ok:sourceStructural.ok,omitted_legacy_norse_setups:clone(omittedLegacy)}
     };
     lastExportDescriptor=clone(descriptor);
     return descriptor;
@@ -27886,7 +28091,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   }
   function openModal(id){const el=root.document.getElementById(id);if(!el)return;el.classList.add("is-open");el.setAttribute("aria-hidden","false");root.document.body.classList.add("mow-modal-open");}
   function closeModal(id){const el=root.document.getElementById(id);if(!el)return;el.classList.remove("is-open");el.setAttribute("aria-hidden","true");if(!root.document.querySelector(".mow-modal.is-open"))root.document.body.classList.remove("mow-modal-open");}
-  const SETUP_ACTION_CODES=new Set(["PRE_GAME_ASSIGNMENT_PENDING","ROSTER_BUILD_ASSIGNMENT_PENDING","ASSIGNMENT_TARGET_DEPENDENCY_UNRESOLVED","ROSTER_ASSIGNMENT_TARGET_REQUIRED","PREPARED_ASSIGNMENT_TARGET_REQUIRED","INVALID_ROSTER_ASSIGNMENT","ASSIGNMENT_NO_LEGAL_TARGET","PRE_GAME_SETUP_PENDING","PRE_GAME_SETUP_NEEDS_REVIEW"]);
+  const SETUP_ACTION_CODES=new Set(["PRE_GAME_ASSIGNMENT_PENDING","ROSTER_BUILD_ASSIGNMENT_PENDING","ASSIGNMENT_TARGET_DEPENDENCY_UNRESOLVED","ROSTER_ASSIGNMENT_TARGET_REQUIRED","PREPARED_ASSIGNMENT_TARGET_REQUIRED","INVALID_ROSTER_ASSIGNMENT","ASSIGNMENT_NO_LEGAL_TARGET"]);
   const TECHNICAL_WARNING_CODES=new Set(["DATA_CORE_RESOLUTION_PARTIAL","PURCHASE_AVAILABILITY_PROVISIONAL","PURCHASE_DEFINITION_PROVISIONAL","TARGET_RULE_UNCERTIFIED","PREPARED_TARGET_RULE_UNCERTIFIED","ASSIGNMENT_APPLICABILITY_STALE","ASSIGNMENT_TARGET_QUERY_STALE"]);
   function issueList(items){return `<ul>${items.slice(0,20).map(x=>`<li><code>${escapeHtml(x.code)}</code> ${escapeHtml(x.path||"$")} — ${escapeHtml(x.message||"")}</li>`).join("")}</ul>`;}
   function renderIssues(host,descriptor){
@@ -27909,7 +28114,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     if(regularWarnings.length)lines.push(`<div class="mow-portable-group is-warning"><b>${tr("otherWarnings")} (${regularWarnings.length})</b>${issueList(regularWarnings)}</div>`);
     if(technical.length)lines.push(`<details class="mow-portable-technical"><summary>${tr("technicalWarnings")} (${technical.length})</summary>${issueList(technical)}</details>`);
     host.innerHTML=lines.join("");
-    host.querySelector("[data-open-fleet-setup]")?.addEventListener("click",()=>{closeModal("mowPortableExportModal");const first=setupItems[0]||{};const details=first.details||{};if(root.MowFleetSetup&&typeof root.MowFleetSetup.open==="function")root.MowFleetSetup.open({assignmentId:details.assignment_id||null,setupId:details.setup_instance_id||null});});
+    if(!CENTRALIZED)host.querySelector("[data-open-fleet-setup]")?.addEventListener("click",()=>{closeModal("mowPortableExportModal");const first=setupItems[0]||{};const details=first.details||{};if(root.MowFleetSetup&&typeof root.MowFleetSetup.open==="function")root.MowFleetSetup.open({assignmentId:details.assignment_id||null,setupId:details.setup_instance_id||null});});
   }
   function escapeHtml(value){return String(value==null?"":value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));}
   function updateLanguage(){
@@ -27968,7 +28173,24 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       const help=root.document.getElementById("mowOpenHelp");bar.insertBefore(exportButton,help||null);bar.insertBefore(importButton,help||null);
     }
   }
+  function prepareCentralSurface(){
+    if(!root.document)return false;
+    if(!initialized)initialized=true;
+    installCss();buildUi();updateLanguage();return true;
+  }
+  function resetCentralImportUi(){const status=root.document.getElementById("mowPortableImportStatus");if(status)status.hidden=true;const report=root.document.getElementById("mowPortableImportReport");if(report)report.innerHTML="";}
+  function openCentralExport(){prepareCentralSurface();refreshExport();openModal("mowPortableExportModal");return lastExportDescriptor?clone(lastExportDescriptor):null;}
+  function openCentralImport(){prepareCentralSurface();resetCentralImportUi();openModal("mowPortableImportModal");return true;}
+  function downloadCentralExport(){if(!lastExportDescriptor||!lastExportDescriptor.ok)return false;const doc=lastExportDescriptor.document;const date=new Date().toISOString().slice(0,10);downloadFile(lastExportDescriptor.filename||portableFilename(doc,date),lastExportDescriptor.content||JSON.stringify(doc,null,2),lastExportDescriptor.mime_type||PORTABLE_MIME);toast(tr("downloaded"));return true;}
+  function checkCentralImport(){const status=root.document.getElementById("mowPortableImportStatus");if(status)status.hidden=false;refreshImport();return lastImportDescriptor?clone(lastImportDescriptor):null;}
+  function chooseCentralImportFile(){root.document.getElementById("mowPortableFleetFile")?.click();return true;}
+  async function handleCentralImportFile(file){if(!file)return null;if(file.size>MAX_IMPORT_BYTES){toast(tr("fileTooLarge"));return null;}const text=await file.text();const input=root.document.getElementById("mowPortableImportText");if(input)input.value=text;const status=root.document.getElementById("mowPortableImportStatus");if(status)status.hidden=false;refreshImport();return lastImportDescriptor?clone(lastImportDescriptor):null;}
+  async function applyCentralImport(){if(!lastImportDescriptor||!lastImportDescriptor.ok||!lastImportDescriptor.model)return false;const current=authority().getCurrentModel();if(current&&current.selections&&current.selections.length&&!root.confirm(tr("replaceConfirm")))return false;try{const library=root.MOW_FLEET_LIBRARY;if(!library||typeof library.importPortableFleetModel!=="function")throw new Error("Portable import persistence bridge is unavailable");await library.importPortableFleetModel(lastImportDescriptor.model,{source_format:lastImportDescriptor.source_format,source_version:lastImportDescriptor.source_version,migrations:lastImportDescriptor.migrations,warnings:lastImportDescriptor.warnings});closeModal("mowPortableImportModal");toast(tr("importApplied"));return true;}catch(error){console.error(error);toast(tr("invalidInput"));return false;}}
+  function openCentralFleetSetup(){const descriptor=lastExportDescriptor||{};const setupRaw=[...(descriptor.errors||[]),...(descriptor.warnings||[])].filter(x=>SETUP_ACTION_CODES.has(x.code));const first=setupRaw[0]||{};const details=first.details||{};closeModal("mowPortableExportModal");if(root.MowFleetSetup&&typeof root.MowFleetSetup.open==="function"){root.MowFleetSetup.open({assignmentId:details.assignment_id||null,setupId:details.setup_instance_id||null});return true;}return false;}
+  function refreshCentralSurface(){prepareCentralSurface();updateLanguage();return centralStatus();}
+  function centralStatus(){const d=root.document;return {centralized:CENTRALIZED,autonomous:!CENTRALIZED,initialized,export_button_count:d?.querySelectorAll?.("#mowPortableExportButton")?.length||0,import_button_count:d?.querySelectorAll?.("#mowPortableImportButton")?.length||0,export_modal_count:d?.querySelectorAll?.("#mowPortableExportModal")?.length||0,import_modal_count:d?.querySelectorAll?.("#mowPortableImportModal")?.length||0,last_export_ok:!!lastExportDescriptor?.ok,last_import_ok:!!lastImportDescriptor?.ok};}
   function wireUi(){
+    if(CENTRALIZED)return false;
     root.document.getElementById("mowPortableExportButton")?.addEventListener("click",()=>{refreshExport();openModal("mowPortableExportModal");});
     root.document.getElementById("mowPortableImportButton")?.addEventListener("click",()=>{const status=root.document.getElementById("mowPortableImportStatus");if(status)status.hidden=true;root.document.getElementById("mowPortableImportReport").innerHTML="";openModal("mowPortableImportModal");});
     root.document.getElementById("mowPortableProfile")?.addEventListener("change",refreshExport);
@@ -27996,10 +28218,10 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     ["langPL","langEN"].forEach(id=>root.document.getElementById(id)?.addEventListener("click",()=>setTimeout(updateLanguage,30)));
   }
   function init(){
-    if(initialized||!root.document||root.MOW_PUBLIC_PORTABLE_IO===false)return;initialized=true;installCss();buildUi();updateLanguage();wireUi();
+    if(initialized||!root.document)return;initialized=true;installCss();buildUi();updateLanguage();if(!CENTRALIZED)wireUi();
   }
 
-  const api=Object.freeze({BUILD,MAX_IMPORT_BYTES,LEGACY_PREFIX,PORTABLE_MIME,PORTABLE_EXTENSION,publicUiEnabled:()=>root.MOW_PUBLIC_PORTABLE_IO!==false,portableFilename,parsePortableInput,migrateNativeDocument,legacyToSnapshot,legacyToNative,buildExportDocument,prepareImport,encodeLegacy(payload){return LEGACY_PREFIX+b64EncodeUtf8(JSON.stringify(payload));},getLastImport:()=>lastImportDescriptor?clone(lastImportDescriptor):null,getLastExport:()=>lastExportDescriptor?clone(lastExportDescriptor):null,init});
+  const api=Object.freeze({BUILD,MAX_IMPORT_BYTES,LEGACY_PREFIX,PORTABLE_MIME,PORTABLE_EXTENSION,portableFilename,parsePortableInput,migrateNativeDocument,legacyToSnapshot,legacyToNative,buildExportDocument,prepareImport,encodeLegacy(payload){return LEGACY_PREFIX+b64EncodeUtf8(JSON.stringify(payload));},getLastImport:()=>lastImportDescriptor?clone(lastImportDescriptor):null,getLastExport:()=>lastExportDescriptor?clone(lastExportDescriptor):null,prepareCentralSurface,refreshCentralSurface,openCentralExport,openCentralImport,downloadCentralExport,checkCentralImport,chooseCentralImportFile,handleCentralImportFile,applyCentralImport,openCentralFleetSetup,closeCentralModal:closeModal,refreshCentralExport:refreshExport,centralStatus,autonomous:!CENTRALIZED,init});
   root.MowFleetIO=api;
   root.MOW_FLEET_INT1C_STEP83_IO=api;
   root.MOW_FLEET_INT2C_STEP86_IO=api;
@@ -28016,11 +28238,12 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
 
-  const BUILD="release90-batch90b.2-2026-07-20";
+  const BUILD="release90-batch90b.2-2026-07-20",CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_FLEET_SETUP;
+  const CENTRAL_STARTUP=!!root.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION;
   const GROUP_SELECTOR="details.mow-r90-group[data-r90-group]";
   const RULE_TOGGLE_IDS=["mowCitadelJournalToggle","mowExpandedShorefortsToggle","mowShipsBoatsToggle"];
   const groupState=new Map();
-  let lastFocus=null,lastScrollTop=0,observer=null,rulesObserver=null,scheduled=false;
+  let lastFocus=null,lastScrollTop=0,observer=null,rulesObserver=null,scheduled=false,rulesetMountCount=0,rulesetPostReleaseMountCount=0;
 
   function doc(){return root.document;}
   function isEnglish(){try{return root.MOW_I18N&&root.MOW_I18N.getLang&&root.MOW_I18N.getLang()==="en";}catch(e){return false;}}
@@ -28042,14 +28265,12 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function focusDescriptor(el){
     if(!el||!el.closest||!el.closest("#mowFleetSetupModal .mow-r90-content"))return null;
     const attributes=[
-      "data-r90-assignment-select","data-r90-name-id","data-r90-generate-id",
-      "data-r90-counter","data-r90-save","data-r90-clear"
+      "data-r90-assignment-select","data-r90-name-id","data-r90-generate-id"
     ];
     for(const name of attributes){
       if(el.hasAttribute&&el.hasAttribute(name)){
         const extra=name==="data-r90-name-id"?`[data-r90-name-kind="${CSS.escape(el.dataset.r90NameKind||"")}"]`:
-          name==="data-r90-generate-id"?`[data-r90-generate-kind="${CSS.escape(el.dataset.r90GenerateKind||"")}"]`:
-          name==="data-r90-counter"?`[data-r90-setup-id="${CSS.escape(el.dataset.r90SetupId||"")}"]`:"";
+          name==="data-r90-generate-id"?`[data-r90-generate-kind="${CSS.escape(el.dataset.r90GenerateKind||"")}"]`:"";
         return `[${name}="${CSS.escape(el.getAttribute(name)||"")}"]${extra}`;
       }
     }
@@ -28103,11 +28324,11 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function availableToggles(){return RULE_TOGGLE_IDS.map(visibleToggle).filter(Boolean);}
   function text(){
     return isEnglish()?{
-      label:"Ruleset",core:"Core rules",journal:"Core + Citadel Journal",custom:"Core + selected modules",
-      note:"This choice changes the available units and options.",tip:"Missing Citadel Journal units? Change the ruleset here.",active:"Active ruleset"
+      label:"Ruleset",core:"Core rules",journal:"Core + Community Annual",custom:"Core + selected modules",
+      note:"Expanded rules use MOW Community Annual v0.1 as the reference compilation. Original publication details are shown with each module.",tip:"",active:"Active ruleset"
     }:{
-      label:"Ruleset",core:"Zasady podstawowe",journal:"Podstawowe + Citadel Journal",custom:"Podstawowe + wybrane moduły",
-      note:"Ten wybór zmienia dostępne jednostki i opcje.",tip:"Nie widzisz jednostek Citadel Journal? Zmień tutaj zestaw zasad.",active:"Aktywny zestaw"
+      label:"Ruleset",core:"Zasady podstawowe",journal:"Podstawowe + Community Annual",custom:"Podstawowe + wybrane moduły",
+      note:"Zasady rozszerzone korzystają z MOW Community Annual v0.1 jako kompilacji referencyjnej. Szczegóły oryginalnej publikacji są podane przy każdym module.",tip:"",active:"Aktywny zestaw"
     };
   }
   function rulesMode(inputs){
@@ -28144,6 +28365,8 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     setTimeout(updateRulesetCard,80);
   }
   function mountRulesetCard(){
+    rulesetMountCount+=1;
+    try{if(root.MowBootGate?.status?.().released)rulesetPostReleaseMountCount+=1;}catch(e){}
     const group=doc().getElementById("mowOptionalRulesGroup"),rows=doc().getElementById("mowOptionalRulesRows");
     if(!group||!rows)return;
     let card=doc().getElementById("mowBatch90bRuleset");
@@ -28154,12 +28377,20 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       card.querySelector("select").addEventListener("change",event=>chooseRuleset(event.target.value));
     }
     updateRulesetCard();
-    if(!rulesObserver){
+    if(!CENTRAL_STARTUP&&!rulesObserver){
       rulesObserver=new MutationObserver(scheduleRulesetUpdate);
       rulesObserver.observe(group,{childList:true,subtree:true,attributes:true,attributeFilter:["checked","hidden","style","class"]});
     }
   }
-  function scheduleRulesetUpdate(){if(scheduled)return;scheduled=true;setTimeout(()=>{scheduled=false;mountRulesetCard();updateRulesetCard();},25);}
+  let rulesetUpdateCount=0,rulesetPostReleaseUpdateCount=0,rulesetSynchronousBootUpdates=0,rulesetDeferredUserUpdates=0;
+  const rawUpdateRulesetCard=updateRulesetCard;
+  updateRulesetCard=function(){rulesetUpdateCount+=1;try{if(root.MowBootGate?.status?.().released)rulesetPostReleaseUpdateCount+=1;}catch(e){}return rawUpdateRulesetCard();};
+  function bootReleased(){try{return !!root.MowBootGate?.status?.().released;}catch(e){return false;}}
+  function applyRulesetEventUpdate(){if(doc().getElementById("mowBatch90bRuleset"))updateRulesetCard();else mountRulesetCard();}
+  function scheduleRulesetUpdate(){
+    if(CENTRAL_STARTUP&&!bootReleased()){rulesetSynchronousBootUpdates+=1;applyRulesetEventUpdate();return;}
+    if(scheduled)return;scheduled=true;rulesetDeferredUserUpdates+=1;setTimeout(()=>{scheduled=false;if(CENTRAL_STARTUP){applyRulesetEventUpdate();}else{mountRulesetCard();updateRulesetCard();}},25);
+  }
   function installCss(){
     if(doc().getElementById("mowBatch90bSetupCss"))return;
     const style=doc().createElement("style");style.id="mowBatch90bSetupCss";style.textContent=`
@@ -28173,9 +28404,9 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       @media(max-width:700px){.mow-b90-ruleset{margin:8px 10px 9px;width:calc(100% - 20px)}.mow-b90-ruleset label{grid-template-columns:1fr}.mow-r90-row select,.mow-r90-row input{min-height:48px;font-size:16px}}
     `;doc().head.appendChild(style);
   }
-  function boot(){installCss();installAccordionContinuity();mountRulesetCard();doc().addEventListener("change",event=>{if(event.target&&RULE_TOGGLE_IDS.includes(event.target.id))scheduleRulesetUpdate();},true);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",scheduleRulesetUpdate));doc().addEventListener("mow:nativefleetmodelchange",()=>{setTimeout(()=>{installAccordionContinuity();mountRulesetCard();},40);});[80,350,900,1700].forEach(delay=>setTimeout(()=>{installAccordionContinuity();mountRulesetCard();},delay));}
+  function boot(){installCss();if(!CENTRALIZED)installAccordionContinuity();mountRulesetCard();doc().addEventListener("change",event=>{if(event.target&&RULE_TOGGLE_IDS.includes(event.target.id))scheduleRulesetUpdate();},true);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",scheduleRulesetUpdate));doc().addEventListener("mow:nativefleetmodelchange",()=>{if(CENTRAL_STARTUP&&!bootReleased()){rulesetSynchronousBootUpdates+=1;if(!CENTRALIZED)installAccordionContinuity();applyRulesetEventUpdate();}else{rulesetDeferredUserUpdates+=1;setTimeout(()=>{if(!CENTRALIZED)installAccordionContinuity();if(CENTRAL_STARTUP)applyRulesetEventUpdate();else mountRulesetCard();},40);}});if(!CENTRAL_STARTUP)[80,350,900,1700].forEach(delay=>setTimeout(()=>{if(!CENTRALIZED)installAccordionContinuity();mountRulesetCard();},delay));}
 
-  root.MOW_BATCH90B_SETUP_UX=Object.freeze({build:BUILD,captureUi,restoreUi,updateRulesetCard,getGroupState:()=>new Map(groupState)});
+  root.MOW_BATCH90B_SETUP_UX=Object.freeze({build:BUILD,captureUi,restoreUi,updateRulesetCard,getGroupState:()=>new Map(groupState),central_startup:CENTRAL_STARTUP,delayed_startup_retries:CENTRAL_STARTUP?0:4,status:()=>Object.freeze({central_startup:CENTRAL_STARTUP,mount_count:rulesetMountCount,post_release_mount_count:rulesetPostReleaseMountCount,update_count:rulesetUpdateCount,post_release_update_count:rulesetPostReleaseUpdateCount,synchronous_boot_updates:rulesetSynchronousBootUpdates,deferred_user_updates:rulesetDeferredUserUpdates,delayed_startup_retries:CENTRAL_STARTUP?0:4})});
   if(doc().readyState==="loading")doc().addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })(typeof window!=="undefined"?window:globalThis);
 
@@ -28186,6 +28417,9 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   "use strict";
 
   const BUILD="release90-hotfix90g-2026-07-22";
+  const CENTRALIZED_CHARACTER_NAMES=!!root.MOW_FB_ARCH_01A_CENTRAL_CHARACTER_NAMES;
+  const CENTRALIZED_ROSTER=!!root.MOW_FB_ARCH_01A_CENTRAL_ROSTER;
+  const CENTRALIZED_PRINT=!!root.MOW_FB_ARCH_01A_CENTRAL_PRINT;
   let syncTimer=null,observedModelSignature="";
 
   function doc(){return root.document;}
@@ -28280,6 +28514,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     return wrapper;
   }
   function renderCharacterButtons(modelValue){
+    if(CENTRALIZED_CHARACTER_NAMES)return false;
     doc().querySelectorAll(".mow-character-names-button").forEach(button=>{button.hidden=true;});
     const bySection=new Map();
     nameableItems(modelValue).forEach(item=>{
@@ -28297,6 +28532,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     });
   }
   function renderBuilder(modelValue){
+    if(CENTRALIZED_CHARACTER_NAMES)return false;
     const grouped=new Map();entries(modelValue).forEach(entry=>{if(!entry.controlId)return;const list=grouped.get(entry.controlId)||[];list.push(entry);grouped.set(entry.controlId,list);});
     const active=new Set();
     grouped.forEach((items,controlId)=>{
@@ -28317,13 +28553,20 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     for(const stamp of variants){if(text.endsWith(stamp))return {body:text.slice(0,-stamp.length).replace(/\s+$/g,""),stamp};}
     return {body:text,stamp:""};
   }
-  function renderText(modelValue){
-    const out=doc().getElementById("out");if(!out)return;
+  function captureRosterBase(){
+    const out=doc().getElementById("out");if(!out)return "";
     const current=String(out.value||""),pendingBase=out.dataset.mowHotfix90gBase;
     let base=pendingBase!=null?pendingBase:current;
     if(pendingBase!=null)delete out.dataset.mowHotfix90gBase;
     else if(out.dataset.mowBatch90bRendered===current&&out.dataset.mowBatch90bBase!=null)base=out.dataset.mowBatch90bBase;
     else if(root.MOW_BATCH90C_ROSTER&&out.dataset.mowBatch90bBase!=null)base=out.dataset.mowBatch90bBase;
+    out.dataset.mowBatch90bBase=base;
+    return base;
+  }
+  function renderText(modelValue){
+    const out=doc().getElementById("out");if(!out)return;
+    const base=captureRosterBase();
+    if(CENTRALIZED_ROSTER){const controller=root.MOW_FB_ARCH_01A_B4||root.MowApplicationController,projection=controller&&typeof controller.currentProjection==="function"?controller.currentProjection():root.MOW_FB_ARCH_01A_CURRENT_PROJECTION||null,surface=root.MOW_FB_ARCH_01A_ROSTER_SURFACE||root.MowRosterSurface;if(surface&&projection&&typeof surface.render==="function")surface.render(projection,{reason:"roster_base_change",base_text:base});return;}
     const projected=entries(modelValue),parts=stampSplit(base),lines=[];
     if(projected.length){
       lines.push(isEnglish()?"Characters & special crew:":"Postacie i specjalna załoga:");
@@ -28333,14 +28576,10 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     if(lines.length)rendered+=(rendered?"\n\n":"")+lines.join("\n");
     if(parts.stamp)rendered+=(rendered?"\n\n":"")+parts.stamp;
     const finalValue=rendered+(rendered?"\n":"");
-    out.dataset.mowBatch90bBase=base;
     out.dataset.mowBatch90bRendered=finalValue;
-    if(root.MOW_BATCH90C_ROSTER&&typeof root.MOW_BATCH90C_ROSTER.render==="function"){
-      root.MOW_BATCH90C_ROSTER.render(modelValue,base);
-      return;
-    }
+    if(root.MOW_BATCH90C_ROSTER&&typeof root.MOW_BATCH90C_ROSTER.render==="function"){root.MOW_BATCH90C_ROSTER.render(modelValue,base);return;}
     writePreview(out,finalValue);
-    const print=ensurePrintProjection();if(print&&print.textContent!==out.value)print.textContent=out.value;
+    if(!CENTRALIZED_PRINT){const print=ensurePrintProjection();if(print&&print.textContent!==out.value)print.textContent=out.value;}
   }
   function ensurePrintProjection(){
     let pre=doc().getElementById("mowBatch90bPrintRoster");if(pre)return pre;
@@ -28350,11 +28589,11 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   function installCss(){
     if(doc().getElementById("mowBatch90bProjectionCss"))return;
     const style=doc().createElement("style");style.id="mowBatch90bProjectionCss";style.textContent=`
-      .mow-b90-character-summary{margin-top:3px;color:color-mix(in srgb,var(--accent,#5aa9ff) 68%,var(--text,#eef3f8));font-size:12px;font-style:italic;line-height:1.3;overflow-wrap:anywhere}
+      ${CENTRALIZED_CHARACTER_NAMES?"":`.mow-b90-character-summary{margin-top:3px;color:color-mix(in srgb,var(--accent,#5aa9ff) 68%,var(--text,#eef3f8));font-size:12px;font-style:italic;line-height:1.3;overflow-wrap:anywhere}
       .mow-character-names-button{flex:0 0 auto;min-height:30px;padding:5px 9px;border-radius:9px;font-size:12px;font-weight:800;background:rgba(255,255,255,.025)}
-      .mow-character-names-button[hidden]{display:none!important}
-      #mowBatch90bPrintRoster{display:none}
-      @media print{body *{visibility:hidden!important}#mowBatch90bPrintRoster,#mowBatch90bPrintRoster *{visibility:visible!important}#mowBatch90bPrintRoster{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;margin:0;padding:0;color:#000;background:#fff;white-space:pre-wrap;font:11pt/1.42 ui-monospace,SFMono-Regular,Consolas,monospace}}
+      .mow-character-names-button[hidden]{display:none!important}`}
+      ${CENTRALIZED_PRINT?"":`#mowBatch90bPrintRoster{display:none}
+      @media print{body *{visibility:hidden!important}#mowBatch90bPrintRoster,#mowBatch90bPrintRoster *{visibility:visible!important}#mowBatch90bPrintRoster{display:block!important;position:absolute;inset:0 auto auto 0;width:100%;margin:0;padding:0;color:#000;background:#fff;white-space:pre-wrap;font:11pt/1.42 ui-monospace,SFMono-Regular,Consolas,monospace}}`}
     `;doc().head.appendChild(style);
   }
   function projectionSignature(modelValue){
@@ -28362,12 +28601,13 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const named=(items,key)=>(items||[]).map(item=>[item&&item[key]||"",clean(item&&item.custom_name)]);
     return JSON.stringify({fleet:modelValue.fleet_id||"",roles:named(modelValue.roles,"role_instance_id"),resources:named(modelValue.resources,"resource_instance_id"),units:named(modelValue.units,"unit_instance_id")});
   }
+  function mirrorPrint(){if(CENTRALIZED_PRINT)return false;const out=doc().getElementById("out"),print=ensurePrintProjection();if(print&&out&&print.textContent!==out.value)print.textContent=out.value;return true;}
   function sync(){syncTimer=null;const current=model();observedModelSignature=projectionSignature(current);renderBuilder(current);renderText(current);}
-  function schedule(){if(syncTimer!==null)return;syncTimer=setTimeout(sync,55);}
-  function scheduleTrailing(){schedule();[180,520].forEach(delay=>setTimeout(schedule,delay));}
+  function schedule(){if(CENTRALIZED_ROSTER){const base=captureRosterBase(),controller=root.MOW_FB_ARCH_01A_B4||root.MowApplicationController,projection=controller&&typeof controller.currentProjection==="function"?controller.currentProjection():root.MOW_FB_ARCH_01A_CURRENT_PROJECTION||null,surface=root.MOW_FB_ARCH_01A_ROSTER_SURFACE||root.MowRosterSurface;if(surface&&projection&&typeof surface.render==="function")surface.render(projection,{reason:"roster_base_change",base_text:base});return;}if(syncTimer!==null)return;syncTimer=setTimeout(sync,55);}
+  function scheduleTrailing(){if(CENTRALIZED_ROSTER){schedule();return;}schedule();[180,520].forEach(delay=>setTimeout(schedule,delay));}
   function projectionsReady(modelValue){
     const projected=entries(modelValue);if(!projected.length)return true;
-    const rowsReady=projected.every(entry=>{
+    const rowsReady=CENTRALIZED_CHARACTER_NAMES||projected.every(entry=>{
       const row=rowForControl(entry.controlId),summary=row&&row.querySelector(".mow-b90-character-summary");
       return !!(summary&&clean(summary.textContent).includes(entry.name));
     });
@@ -28375,9 +28615,9 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     return rowsReady&&projected.every(entry=>text.includes(entry.name));
   }
   function watchStartupHydration(){const current=model(),signature=projectionSignature(current);if(signature&&(signature!==observedModelSignature||!projectionsReady(current)))schedule();}
-  function boot(){installCss();ensurePrintProjection();doc().addEventListener("mow:nativefleetmodelchange",scheduleTrailing);doc().addEventListener("mow:shipnameschange",scheduleTrailing);doc().addEventListener("click",event=>{if(event.target&&event.target.closest&&event.target.closest("[data-r90-close]"))setTimeout(schedule,0);},true);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",scheduleTrailing));const units=doc().getElementById("unitsRoot");if(units&&root.MutationObserver)new MutationObserver(schedule).observe(units,{childList:true,subtree:true});const hydrationTimer=setInterval(watchStartupHydration,250);setTimeout(()=>clearInterval(hydrationTimer),12000);[80,350,900,1700,2800,4500,7500].forEach(delay=>setTimeout(schedule,delay));}
+  function boot(){installCss();if(!CENTRALIZED_PRINT)ensurePrintProjection();if(CENTRALIZED_ROSTER){if(!CENTRALIZED_PRINT){doc().addEventListener("mow:centralrosterchange",mirrorPrint);mirrorPrint();}return;}doc().addEventListener("mow:nativefleetmodelchange",scheduleTrailing);doc().addEventListener("mow:shipnameschange",scheduleTrailing);doc().addEventListener("click",event=>{if(event.target&&event.target.closest&&event.target.closest("[data-r90-close]"))setTimeout(schedule,0);},true);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",scheduleTrailing));const units=doc().getElementById("unitsRoot");if(units&&root.MutationObserver)new MutationObserver(schedule).observe(units,{childList:true,subtree:true});const hydrationTimer=setInterval(watchStartupHydration,250);setTimeout(()=>clearInterval(hydrationTimer),12000);[80,350,900,1700,2800,4500,7500].forEach(delay=>setTimeout(schedule,delay));}
 
-  root.MOW_BATCH90B_PROJECTION=Object.freeze({build:BUILD,entries:()=>entries(model()),nameableItems:()=>nameableItems(model()),ensureCharacterButtons:()=>renderCharacterButtons(model()),sync,schedule,entryText});
+  root.MOW_BATCH90B_PROJECTION=Object.freeze({build:BUILD,entries:()=>entries(model()),nameableItems:()=>nameableItems(model()),ensureCharacterButtons:()=>renderCharacterButtons(model()),sync,schedule,entryText,character_names_autonomous:!CENTRALIZED_CHARACTER_NAMES,roster_autonomous:!CENTRALIZED_ROSTER,print_compatibility:!CENTRALIZED_PRINT});
   if(doc().readyState==="loading")doc().addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })(typeof window!=="undefined"?window:globalThis);
 
@@ -28388,7 +28628,8 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
 
-  const BUILD="release90-hotfix90g-2026-07-22";
+  const BUILD="fbarch01a-b4-roster-compat-2026-08-06";
+  const CENTRALIZED_ROSTER=!!root.MOW_FB_ARCH_01A_CENTRAL_ROSTER;
   const SUBJECT_KEYS=Object.freeze({role_instance:"role_instance_id",resource_instance:"resource_instance_id"});
   const ROLE_LABELS=Object.freeze({"role.chaos.pf_lord_khorne":"Chaos Lord of Khorne","role.chaos.pf_lord_nurgle":"Chaos Lord of Nurgle","role.chaos.pf_lord_slaanesh":"Chaos Lord of Slaanesh","role.chaos.pf_lord_tzeentch":"Chaos Lord of Tzeentch","role.chaos.sorcerer":"Chaos Sorcerer"});
   let timer=null,lastBase="";
@@ -28583,7 +28824,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       if(itemMap.has(key)){if(seen.has(key))decisions.push(decisionLine(modelValue,assignment,itemMap));}
       else decisions.push(decisionLine(modelValue,assignment,itemMap));
     });
-    (modelValue.setups||[]).filter(setup=>setup.status!=="resolved").forEach(setup=>{
+    (modelValue.setups||[]).filter(setup=>!(root.MowFleetDomain&&root.MowFleetDomain.isLegacyNorseSetup&&root.MowFleetDomain.isLegacyNorseSetup(setup))&&setup.status!=="resolved").forEach(setup=>{
       const unit=byId(modelValue.units,"unit_instance_id",setup.subject_ref?.id),target=unitTargetLabel(unit)||human(setup.setup_definition_id);
       decisions.push(`  • ${target}: ${tr("pre-game setup unresolved","nierozstrzygnięte przygotowanie przed grą")}`);
     });
@@ -28592,6 +28833,11 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     return lines.join("\n").replace(/\n{3,}/g,"\n\n")+"\n";
   }
   function render(modelValue,baseText){
+    if(CENTRALIZED_ROSTER&&root.MOW_FB_ARCH_01A_ROSTER_SURFACE&&typeof root.MOW_FB_ARCH_01A_ROSTER_SURFACE.render==="function"){
+      const projection=root.MOW_FB_ARCH_01A_B4?.currentProjection?.()||root.MOW_FB_ARCH_01A_CURRENT_PROJECTION||null;
+      if(projection)root.MOW_FB_ARCH_01A_ROSTER_SURFACE.render(projection,{reason:"legacy_render_bridge",base_text:baseText});
+      return String(doc().getElementById("out")?.value||"");
+    }
     const out=doc().getElementById("out");if(!out)return "";
     const base=String(baseText!=null?baseText:(out.dataset.mowBatch90bBase||lastBase||out.value||""));if(base)lastBase=base;
     const rendered=buildRoster(modelValue||currentModel(),base);
@@ -28599,10 +28845,17 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const print=doc().getElementById("mowBatch90bPrintRoster");if(print&&print.textContent!==rendered)print.textContent=rendered;
     return rendered;
   }
-  function schedule(){if(timer!==null)return;timer=setTimeout(()=>{timer=null;render(currentModel());},75);}
-  function boot(){doc().addEventListener("mow:nativefleetmodelchange",schedule);doc().addEventListener("mow:shipnameschange",schedule);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",schedule));[150,650,1500,3200].forEach(delay=>setTimeout(schedule,delay));}
+  function schedule(){
+    if(CENTRALIZED_ROSTER){
+      const controller=root.MOW_FB_ARCH_01A_B4||root.MowApplicationController,projection=controller&&typeof controller.currentProjection==="function"?controller.currentProjection():root.MOW_FB_ARCH_01A_CURRENT_PROJECTION||null,surface=root.MOW_FB_ARCH_01A_ROSTER_SURFACE||root.MowRosterSurface;
+      if(surface&&projection&&typeof surface.render==="function")surface.render(projection,{reason:"legacy_roster_schedule_bridge"});
+      return;
+    }
+    if(timer!==null)return;timer=setTimeout(()=>{timer=null;render(currentModel());},75);
+  }
+  function boot(){if(CENTRALIZED_ROSTER)return;doc().addEventListener("mow:nativefleetmodelchange",schedule);doc().addEventListener("mow:shipnameschange",schedule);["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",schedule));[150,650,1500,3200].forEach(delay=>setTimeout(schedule,delay));}
 
-  root.MOW_BATCH90C_ROSTER=Object.freeze({build:BUILD,buildRoster,render,schedule,stripAvailability,groupLooseUnitsByPurchase,makeBlocks});
+  root.MOW_BATCH90C_ROSTER=Object.freeze({build:BUILD,buildRoster,render,schedule,stripAvailability,groupLooseUnitsByPurchase,makeBlocks,roster_autonomous:!CENTRALIZED_ROSTER});
   if(doc().readyState==="loading")doc().addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })(typeof window!=="undefined"?window:globalThis);
 
@@ -28684,9 +28937,15 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
   }
 
   const initialized=applyFullRulesDefault();
-  function boot(){installCss();sync();[80,300,900].forEach(delay=>setTimeout(sync,delay));}
+  const CENTRAL_STARTUP=!!root.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION;
+  function boot(){
+    installCss();sync();
+    if(!CENTRAL_STARTUP){
+      [80,300,900].forEach(delay=>setTimeout(sync,delay));
+    }
+  }
 
-  root.MOW_BATCH90E_FINISH=Object.freeze({BUILD,initialized:initialized.slice(),applyFullRulesDefault,promoteFleetSelector,sync});
+  root.MOW_BATCH90E_FINISH=Object.freeze({BUILD,initialized:initialized.slice(),applyFullRulesDefault,promoteFleetSelector,sync,central_startup:CENTRAL_STARTUP,delayed_startup_retries:CENTRAL_STARTUP?0:3});
   if(root.document){
     if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",boot,{once:true});
     else boot();
@@ -28798,10 +29057,12 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
       if(media.addEventListener)media.addEventListener("change",applyFleetInset);
       else if(media.addListener)media.addListener(applyFleetInset);
     }catch(e){}
-    [80,350,900].forEach(delay=>setTimeout(applyFleetInset,delay));
+    if(!root.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION){
+      [80,350,900].forEach(delay=>setTimeout(applyFleetInset,delay));
+    }
   }
 
-  root.MOW_HOTFIX90F=Object.freeze({BUILD,QUERY,applyFleetInset});
+  root.MOW_HOTFIX90F=Object.freeze({BUILD,QUERY,applyFleetInset,central_startup:!!root.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION,delayed_startup_retries:root.MOW_FB_ARCH_01A_CENTRAL_STARTUP_STABILIZATION?0:3});
   if(root.document){
     if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",boot,{once:true});
     else boot();
@@ -28814,6 +29075,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
   const BUILD="fbmaint02-release-r1-2026-07-30";
+  const CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION;
   let scheduled=false;
   function doc(){return root.document;}
   function isEnglish(){try{return root.MOW_I18N?.getLang?.()==="en";}catch(e){return false;}}
@@ -28824,16 +29086,17 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     const locale=d.getElementById("mowLocaleSwitch");if(locale)locale.setAttribute("aria-label",en?"Language":"Język");
     const fleet=d.getElementById("fleetSelect");if(fleet)fleet.setAttribute("aria-label",en?"Fleet":"Flota");
     d.querySelectorAll(".mow-modal-x").forEach(button=>button.setAttribute("aria-label",en?"Close":"Zamknij"));
-    const stamp=d.getElementById("mowBuildStamp");if(stamp)stamp.setAttribute("aria-label",en?"Fleet Builder version 1.8.1, FB-MAINT-02, 2026-07-30":"Fleet Builder, wersja 1.8.1, FB-MAINT-02, 2026-07-30");
+    const stamp=d.getElementById("mowBuildStamp");if(stamp)stamp.setAttribute("aria-label",en?"Fleet Builder version 1.8.2, FB-REL-01, 2026-08-18":"Fleet Builder, wersja 1.8.2, FB-REL-01, 2026-08-18");
   }
   function schedule(){if(scheduled)return;scheduled=true;setTimeout(sync,0);}
   function boot(){
     sync();
+    if(CENTRALIZED)return;
     ["langPL","langEN"].forEach(id=>doc().getElementById(id)?.addEventListener("click",()=>setTimeout(sync,35)));
     if(root.MutationObserver)new MutationObserver(schedule).observe(doc().body,{childList:true,subtree:true});
     [100,400,1000,2200].forEach(delay=>setTimeout(sync,delay));
   }
-  root.MOW_MAINLINE_LOCALE_A11Y=Object.freeze({build:BUILD,sync});
+  root.MOW_MAINLINE_LOCALE_A11Y=Object.freeze({build:BUILD,sync,autonomous:!CENTRALIZED});
   if(doc().readyState==="loading")doc().addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })(typeof window!=="undefined"?window:globalThis);
 </script>
@@ -28842,6 +29105,7 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
 (function(root){
   "use strict";
   const BUILD="fbmaint02-release-r1-2026-07-30";
+  const CENTRALIZED=!!root.MOW_FB_ARCH_01A_CENTRAL_VALIDATION_PRESENTATION;
   function language(){return root.MOW_I18N&&root.MOW_I18N.getLang&&root.MOW_I18N.getLang()==="en"?"en":"pl";}
   function project(){
     const d=root.document,select=d&&d.getElementById("wizard"),api=root.MOW_WIZARD_MASTERY;if(!select||!api)return false;
@@ -28863,9 +29127,30 @@ if(typeof module!=="undefined"&&module.exports)module.exports=api;
     root.document.addEventListener("click",event=>{if(event?.target?.closest?.("#langPL,#langEN"))schedule();});
     root.document.addEventListener("mow:nativefleetmodelchange",schedule);schedule();
   }
-  root.MOW_FBMAINT02C_PROJECTION=Object.freeze({BUILD,project,schedule,wrapCompute});boot();
+  root.MOW_FBMAINT02C_PROJECTION=Object.freeze({BUILD,project,schedule,wrapCompute,autonomous:!CENTRALIZED});
+  if(!CENTRALIZED)boot();
 })(typeof window!=="undefined"?window:globalThis);
 </script>
+
+<!-- FB-ARCH-01A Phase C-CORR3: deterministic first-paint gate + pre-release event-drain cleanup; no fan fleet admission -->
+<script src="mow_extension_registry_fbarch01a.js"></script>
+<script src="mow_extension_catalog_fbarch01a.js"></script>
+<script src="mow_extension_state_fbarch01a.js"></script>
+<script src="mow_shared_projection_fbarch01a.js"></script>
+<script src="mow_theme_localization_surface_fbarch01a.js"></script>
+<script src="mow_storage_surface_fbarch01a.js"></script>
+<script src="mow_import_export_share_surface_fbarch01a.js"></script>
+<!-- FB-MAINT-03 / MAINT03B R1: presentation-only global rules/game-resources action. -->
+<script src="mow_source_resources_fbmaint03b.js"></script>
+<!-- GC-SSC-03 / SSC03D R5: delegated real Game Companion sender; central action registration only -->
+<script src="mow_game_companion_sender_ssc03d.js"></script>
+<script src="mow_validation_presentation_surface_fbarch01a.js"></script>
+<script src="mow_fleet_setup_surface_fbarch01a.js"></script>
+<script src="mow_character_names_surface_fbarch01a.js"></script>
+<script src="mow_roster_surface_fbarch01a.js"></script>
+<script src="mow_print_surface_fbarch01a.js"></script>
+<script src="mow_application_controller_fbarch01a.js"></script>
+<script src="mow_fbarch01a_phase_c_corr3_diagnostics.js"></script>
 
 </body>
 </html>

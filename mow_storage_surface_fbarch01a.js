@@ -1,0 +1,12 @@
+(function(root){
+  "use strict";
+  const BUILD=Object.freeze({work_package:"FB-ARCH-01A",increment:"B7",component:"storage_surface",version:"0.1.0-private",build:"1.8.1-dev.7+fb-arch-01a-b7"});
+  let mounted=false,bound=false,renderCount=0,bindCount=0,lastReason="",startPromise=null,startCount=0,lastError=null;
+  function library(){return root.MOW_FLEET_LIBRARY||null;}
+  function release90(){return root.MOW_FLEET_RELEASE90_PERSISTENCE||null;}
+  function render(_projection,options){mounted=true;renderCount+=1;lastReason=String(options&&options.reason||"");return status();}
+  function startStorage(){if(startPromise)return startPromise;const api=library();if(!api||typeof api.startCentralStorageLifecycle!=="function")throw new Error("Central storage service is unavailable.");startCount+=1;startPromise=Promise.resolve(api.startCentralStorageLifecycle()).then(result=>{try{root.document?.dispatchEvent(new CustomEvent("mow:fbarchstorageready",{detail:{ok:true}}));}catch(e){}return result;}).catch(error=>{lastError=String(error&&error.message||error);try{root.document?.dispatchEvent(new CustomEvent("mow:fbarchstorageready",{detail:{ok:false,error:lastError}}));}catch(e){}throw error;});return startPromise;}
+  function bind(){if(bound)return status();bound=true;bindCount+=1;startStorage();return status();}
+  function status(){const L=library(),R=release90(),ls=L&&typeof L.centralStorageStatus==="function"?L.centralStorageStatus():{};return Object.freeze({build:BUILD,mounted,bound,render_count:renderCount,bind_count:bindCount,last_reason:lastReason,start_count:startCount,start_pending:!!startPromise&&!ls.restore_completed,start_error:lastError,centralized:ls.centralized===true,compatibility_initialized:ls.compatibility_initialized===true,restore_started:ls.restore_started===true,restore_completed:ls.restore_completed===true,autosave_bound:ls.autosave_bound===true,active_saved_id:ls.active_saved_id||null,library_fleets:Number(ls.library_fleets||0),recovery_events:Number(ls.recovery_events||0),legacy_library_autonomous:ls.autonomous!==false,release90_autonomous:R?.autonomous!==false,contract012_report:R&&R.bootReport?{ok:R.bootReport.ok!==false,to_version:R.bootReport.to_version||null}:null});}
+  const api=Object.freeze({BUILD,render,bind,startStorage,status});root.MowStorageSurface=api;root.MOW_FB_ARCH_01A_STORAGE_SURFACE=api;if(typeof module!=="undefined"&&module.exports)module.exports=api;
+})(typeof window!=="undefined"?window:globalThis);

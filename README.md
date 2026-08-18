@@ -9,60 +9,48 @@ https://mowfleetbuilder.com/
 ## Main features
 
 - Polish and English interface
-- Fleet lists for all supported factions
+- Official fleet lists supported by the current mainline Builder
 - Automatic points calculation and live fleet validation
-- Fleet Setup workspace for flagships, characters, resources and pre-game decisions
+- Optional Community Annual rules modules, including expanded standard Wizard levels
+- Fleet Setup for Builder-owned flagships, character/resource assignments and pre-game configuration
 - Unit Preview, Fleet Analysis and Scenario Generator
-- Core and Citadel Journal rules support
-- Optional Community Annual expanded standard Wizard levels
-- Local autosave and named fleet library
-- Save, Save As, Load and Duplicate workflows
-- Optional custom names for ships and characters
-- Lore-based ship and character name generators
-- Hierarchical roster preview with assignment details
+- Local autosave and named fleet library with Save, Save As, Load and Duplicate
+- Ship and character naming tools
 - Light, Dark — Classic and System themes
-- Mobile-friendly layout and touch controls
+- Mobile-friendly layout and print output
 - Share Fleet and roster clipboard tools
 - Full local-library backup export/import using `.mowfleets`
+- Portable fleet export/import using the `mow.fleet 0.1.2` `.mowfleet.json` format
+- **Open in Game Companion** handoff, with normal file export available as the fallback
 
 ## Local data and privacy
 
-Saved fleets are stored only in the browser's local storage. No fleet data is uploaded to a server.
+Saved fleets are stored in the browser's local storage. Fleet data is not uploaded to a Builder server as part of saving or the local fleet library.
 
-Use **Export all** in **My fleets** to create a `.mowfleets` backup before clearing browser data or moving to another device. The backup can be imported on a phone, tablet or desktop browser.
+Use **Export all** in **My fleets** to create a `.mowfleets` backup before clearing browser data or moving to another device. Use **Export fleet** when you need a portable `mow.fleet 0.1.2` document for another tool or device.
 
 The published website uses Cloudflare Web Analytics for aggregate visits and page-view statistics.
 
 ## Current release
 
-**Fleet Builder 1.8.1 — FB-MAINT-02 — 2026-07-30**
+**Fleet Builder 1.8.2 — FB-REL-01 — 2026-08-18**
 
-This maintenance release adds the Community Annual seven-level ladder for ordinary standard Wizards. Core mode retains the original 50 / 100 / 150 point levels, and existing fleets remain compatible.
+This release publishes the centrally accepted official-mainline Builder after FB-MAINT-04. It is a release-engineering update: it does not add experimental fleets and does not change the `mow.fleet 0.1.2` contract or Data Core.
 
-## What's new in 1.8.1
+## What's new in 1.8.2
 
-- Optional seven-level standard Wizard ladder from the Community Annual
-- Stable Wizard level identity through save, duplicate and `.mowfleets` backup workflows
-- Detailed Wizard properties shown in the selector, Fleet Setup and bilingual Help
-- Compact Wizard lines in Roster Preview, copied roster text and print output
-- Explicit warning instead of silent conversion when an Annual-only level remains selected after the module is disabled
-- Polish and English help and validation wording
+- **Open in Game Companion** is now available for supported official fleets, while the normal file export remains available as a fallback.
+- Rules sources and Community Annual options are easier to identify, with Print & Play/resource links available where supported.
+- Men O' War Card entitlements are presented more clearly in the roster, including the distinction between free and purchased cards.
+- Norse players no longer have to resolve the Kingship's random special crew while building the fleet; that pre-game result can be handled in Game Companion or during physical play.
+- Fleet Setup, Character Names, saved fleets, import/export/share, validation, roster and print now use the current unified interface across the official fleets.
+- Existing local fleets remain supported, and the portable `mow.fleet 0.1.2` format is unchanged.
 
-Specialist magic systems are unchanged. This is not full digital Magic Phase support.
+## Runtime layout
 
-## Publication note
+The published Builder is now modular. `index.html` depends on the accompanying `mow_*.js` runtime modules plus `mow_visual.css`; these files are required and must be deployed together. The Game Companion sender is `mow_game_companion_sender_ssc03d.js`.
 
-The internal `mow.fleet 0.1.2` portable document implementation remains part of the engineering mainline, but its `.mowfleet.json` import/export controls are intentionally not exposed in this public release. This does not affect My Fleets backup/restore, Share Fleet or roster copying.
-
-## Repository files
-
-- `index.html` — published application
-- `mow_visual.css` — consolidated visual stylesheet
-- `mow_visual_ui.js` — theme, locale scaffold and accordion controller
-- `README.md` — public project description and release notes
-- `CNAME` — custom-domain declaration
-- `robots.txt` — crawler rules
-- `sitemap.xml` — public sitemap
+Site-level files `CNAME`, `robots.txt` and `sitemap.xml` support the custom domain and indexing.
 
 ## Rules sources
 
@@ -71,6 +59,8 @@ The builder is based on:
 - MOW Community Rulebook v0.1
 - MOW Community Annual v0.1
 - MOW Ship Cards v3.7
+
+The Builder also exposes source/resource references for supported optional rules where available.
 
 ## Disclaimer
 

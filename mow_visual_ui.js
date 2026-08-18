@@ -273,13 +273,15 @@
     updateLabelsAndCounts();
 
     doc.addEventListener("change", schedule, true);
-    ["langPL", "langEN"].forEach(function(id){
-      const el = byId(id);
-      if(el && !el.__mowVisualLangBound){
-        el.addEventListener("click", schedule);
-        el.__mowVisualLangBound = true;
-      }
-    });
+    if(!root.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION){
+      ["langPL", "langEN"].forEach(function(id){
+        const el = byId(id);
+        if(el && !el.__mowVisualLangBound){
+          el.addEventListener("click", schedule);
+          el.__mowVisualLangBound = true;
+        }
+      });
+    }
     root.addEventListener("resize", schedule, {passive:true});
 
     try{
@@ -309,6 +311,7 @@
 
   root.MOW_VISUAL1_ACCORDION = Object.freeze({
     build:"release90-visual3-merge-candidate-2026-07-27",
+    localization_autonomous: !root.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION,
     refresh:updateLabelsAndCounts,
     getState:function(){return {optional:!!state.optional, tools:!!state.tools};}
   });
@@ -335,6 +338,7 @@
   "use strict";
 
   const BUILD = "release90-visual3-merge-candidate-2026-07-27";
+  const CENTRALIZED = !!root.MOW_FB_ARCH_01A_CENTRAL_THEME_LOCALIZATION;
   const STORAGE_KEY = "mow_visual_theme_v1";
   const VALUES = Object.freeze(["light", "dark", "system"]);
   const VISUAL_CLASS = "mow-ecosystem-visual";
@@ -534,7 +538,7 @@
     if(!row) row = makeControl();
     if(row.parentElement !== host) host.appendChild(row);
     const select = root.document.getElementById("mowVisualThemeSelect");
-    if(select && !select.__mowThemeBound){
+    if(select && !CENTRALIZED && !select.__mowThemeBound){
       select.addEventListener("change", function(){ apply(select.value); });
       select.__mowThemeBound = true;
     }
@@ -547,13 +551,21 @@
     if(activated && preference === "system") apply("system", {persist:false});
   }
 
-  function activate(){
-    if(activated) return;
-    activated = true;
+  function prepare(){
     preference = safeGet();
     syncLocaleScaffold();
-    apply(preference, {persist:false});
+    if(!migrationFinished()) return false;
+    if(!activated){
+      activated = true;
+      apply(preference, {persist:false});
+    }
     mount();
+    return true;
+  }
+
+  function activate(){
+    if(!prepare()) return false;
+    if(CENTRALIZED) return true;
     [100, 350, 900, 1700].forEach(function(delay){ root.setTimeout(mount, delay); });
     LOCALES.filter(function(locale){ return locale.enabled; }).forEach(function(locale){
       const button = root.document.getElementById(locale.buttonId);
@@ -568,11 +580,13 @@
       if(typeof media.addEventListener === "function") media.addEventListener("change", onSystemChange);
       else if(typeof media.addListener === "function") media.addListener(onSystemChange);
     }
+    return true;
   }
 
   function boot(){
     preference = safeGet();
     syncLocaleScaffold();
+    if(CENTRALIZED) return;
     if(migrationFinished()){
       activate();
       return;
@@ -593,14 +607,19 @@
     STORAGE_KEY,
     values: VALUES,
     locales: LOCALES,
+    autonomous: !CENTRALIZED,
     getPreference: function(){ return preference; },
     getResolved: function(){ return resolved(preference); },
     isActivated: function(){ return activated; },
-    setPreference: function(value){
-      if(!activated) activate();
-      return apply(value);
+    migrationFinished,
+    prepare,
+    setPreference: function(value, options){
+      if(!activated && !prepare()) return null;
+      return apply(value, options);
     },
-    mount
+    refresh: function(){ syncLocaleScaffold(); syncLabels(); syncControl(); return mount(); },
+    mount,
+    mediaQuery: media
   });
 
   if(root.document){
