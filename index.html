@@ -130,6 +130,30 @@ html.fbarch01a-booting body{visibility:hidden!important;}
       color:var(--muted);
       font-weight:600;
     }
+    .mowFooterSupport{
+      margin-top:12px;
+    }
+    .mowFooterSupportLink{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      max-width:100%;
+      padding:7px 12px;
+      border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+      border-radius:999px;
+      color:var(--accent);
+      background:color-mix(in srgb, var(--accent) 10%, transparent);
+      font:600 11px/1.2 var(--font-main);
+      text-decoration:none;
+    }
+    .mowFooterSupportLink:hover{
+      border-color:var(--accent);
+      background:color-mix(in srgb, var(--accent) 16%, transparent);
+    }
+    .mowFooterSupportLink:focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:3px;
+    }
     @media (max-width:700px){
       .mowAppFooter{
         margin-top:8px;
@@ -2261,6 +2285,7 @@ button.danger:hover{ background:rgba(255,71,71,.12); }
 <footer class="mowAppFooter" role="contentinfo">
 <div aria-label="Fleet Builder version 1.8.2, FB-REL-01, 2026-08-18" class="mowBuildStamp" data-build-date="2026-08-18" data-build-step="FB-REL-01" data-version="1.8.2" id="mowBuildStamp" role="note">Fleet Builder 1.8.2 — FB-REL-01 — 2026-08-18</div>
 <div class="mowFooterSource"><span data-i18n="source">Źródła zasad</span>: <b data-i18n="source_body" data-i18n-html>MOW Community Rulebook v0.1; MOW Community Annual v0.1</b>.</div>
+<div class="mowFooterSupport"><a class="mowFooterSupportLink" href="https://buymeacoffee.com/droho" target="_blank" rel="noopener noreferrer">⚓ Buy the Shipwright a grog</a></div>
 </footer>
 <script>
     // Boot Dwarfs Base (must be set before core computes)
